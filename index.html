@@ -1167,28 +1167,31 @@
       <div style="font-size:1rem; font-weight:700; color:var(--cp-text); padding:10px 14px; background:var(--cp-surface-soft); border-left:4px solid var(--cp-accent); border-radius:6px 0 0 6px; margin-bottom:8px;">
         Stage 2 — Setup &amp; Policy Creation
       </div>
+      <div style="padding:10px 14px; background:var(--cp-accent-soft); border-radius:6px; font-size:0.9rem; margin-bottom:10px;">
+        ℹ️ <strong>MDA CSS advises only</strong> on Purview policy setup — we guide on what maps to what, but do not own Purview policy configuration. Once guidance is given, hand off to <strong>Purview CSS</strong> for hands-on setup support.
+      </div>
       <table class="simple-table">
         <thead><tr><th style="width:34%">Scenario</th><th style="width:22%">Owner</th><th>What to capture / do</th></tr></thead>
         <tbody>
           <tr>
             <td>How do I recreate my MDA condition/filter in Purview?</td>
-            <td><span style="font-weight:600; color:var(--cp-success)">MDA CSS handles</span></td>
-            <td>Use <a href="#" onclick="showSection('parity'); return false;" style="color:var(--cp-link)">Parity Depth Library</a> to find the Purview equivalent. Walk customer through condition mapping. No escalation needed.</td>
+            <td><span style="font-weight:600; color:var(--cp-success)">MDA CSS advises → Purview CSS</span></td>
+            <td>Use <a href="#" onclick="showSection('parity'); return false;" style="color:var(--cp-link)">Parity Depth Library</a> to identify the Purview equivalent and share mapping with customer. Hand off to Purview CSS for setup support.</td>
           </tr>
           <tr>
             <td>MDA action has no Purview equivalent (e.g. User Quarantine, Trash file)</td>
-            <td><span style="font-weight:600; color:var(--cp-success)">MDA CSS handles</span></td>
-            <td>Confirm gap using Parity Depth Library. Offer the documented workaround (Power Automate flow, Restrict Access). Set honest expectation — this is a known gap.</td>
+            <td><span style="font-weight:600; color:var(--cp-success)">MDA CSS advises → Purview CSS</span></td>
+            <td>Confirm gap using Parity Depth Library. Share documented workaround (Power Automate flow, Restrict Access). Set honest expectation — known gap. Hand off to Purview CSS for workaround implementation.</td>
           </tr>
           <tr>
             <td>Customer wants to migrate label-apply action — unsure where auto-labeling policy goes</td>
-            <td><span style="font-weight:600; color:var(--cp-success)">MDA CSS handles</span></td>
-            <td>Label apply/remove actions move to <strong>Purview Information Protection → Auto-labeling policy</strong>, not a DLP policy. Walk through: one auto-label policy per label, run in simulation first.</td>
+            <td><span style="font-weight:600; color:var(--cp-success)">MDA CSS advises → Purview CSS</span></td>
+            <td>Advise: label apply/remove actions move to <strong>Purview Information Protection → Auto-labeling policy</strong>, not a DLP policy. One auto-label policy per label, run in simulation first. Hand off to Purview CSS for configuration.</td>
           </tr>
           <tr>
             <td>Policy created in Purview but not matching expected content</td>
             <td><span style="font-weight:600; color:var(--cp-link)">Purview CSS</span></td>
-            <td>Hand off. Capture before routing: policy name, SIT or label condition used, workload scoped, test file details, simulation results from Activity Explorer.</td>
+            <td>Hand off immediately — this is a Purview-side issue. Capture before routing: policy name, SIT or label condition used, workload scoped, test file details, Activity Explorer output.</td>
           </tr>
         </tbody>
       </table>
