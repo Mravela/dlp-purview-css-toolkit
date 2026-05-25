@@ -399,8 +399,7 @@
       <a href="#faq-1p" style="padding:5px 12px; border-radius:20px; background:var(--cp-accent-soft); color:var(--cp-accent); font-size:0.85rem; font-weight:600; text-decoration:none;">2. 1P Policies</a>
       <a href="#faq-3p" style="padding:5px 12px; border-radius:20px; background:var(--cp-accent-soft); color:var(--cp-accent); font-size:0.85rem; font-weight:600; text-decoration:none;">3. 3P Policies</a>
       <a href="#faq-autolabel" style="padding:5px 12px; border-radius:20px; background:var(--cp-accent-soft); color:var(--cp-accent); font-size:0.85rem; font-weight:600; text-decoration:none;">4. Auto-labeling</a>
-      <a href="#faq-classify" style="padding:5px 12px; border-radius:20px; background:var(--cp-accent-soft); color:var(--cp-accent); font-size:0.85rem; font-weight:600; text-decoration:none;">5. Can/Partial/Cannot Migrate</a>
-      <a href="#faq-postmig" style="padding:5px 12px; border-radius:20px; background:var(--cp-accent-soft); color:var(--cp-accent); font-size:0.85rem; font-weight:600; text-decoration:none;">6. Already in Purview</a>
+      <a href="#faq-postmig" style="padding:5px 12px; border-radius:20px; background:var(--cp-accent-soft); color:var(--cp-accent); font-size:0.85rem; font-weight:600; text-decoration:none;">5. Already in Purview</a>
     </div>
 
     <!-- ── SECTION 1: PRE-REQS ── -->
@@ -666,67 +665,8 @@
     </div>
 
     <!-- ── SECTION 5: CLASSIFICATION ── -->
-    <div id="faq-classify" style="margin:20px 0 6px; padding:6px 0 4px; border-bottom:2px solid var(--cp-border); font-size:0.8rem; font-weight:700; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.06em;">5 · Policy Classification — Can / Partial / Cannot Migrate</div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span>What does Can Migrate / Partial Migrate / Cannot Migrate mean?</span>
-        <span class="faq-chevron">▶</span>
-      </div>
-      <div class="faq-a">
-        <table class="simple-table">
-          <thead><tr><th>Status</th><th>Meaning</th><th>Admin action</th></tr></thead>
-          <tbody>
-            <tr><td class="full" style="white-space:nowrap;">✅ Can Migrate</td><td>All conditions, filters, and actions have Purview equivalents</td><td>None — proceeds automatically</td></tr>
-            <tr><td class="partial" style="white-space:nowrap;">⚠️ Partial Migrate</td><td>Supported subset migrates; unsupported elements flagged with reason codes</td><td>Must explicitly acknowledge each gap before proceeding</td></tr>
-            <tr><td class="gap" style="white-space:nowrap;">❌ Cannot Migrate</td><td>No supported conditions or actions — policy not sent to Purview</td><td>Review reason code. Plan manual recreation or accept gap.</td></tr>
-          </tbody>
-        </table>
-        <p style="margin-top:8px; font-size:0.88rem; color:var(--cp-text-muted);">Classification is based purely on filter/condition/action Purview equivalence — <strong>not</strong> on licensing, PAYG status, or admin permissions.</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span>My policy shows Cannot Migrate — what are common reasons?</span>
-        <span class="faq-chevron">▶</span>
-      </div>
-      <div class="faq-a">
-        <table class="simple-table">
-          <thead><tr><th>Reason code / scenario</th><th>Why</th><th>What to do</th></tr></thead>
-          <tbody>
-            <tr><td>ContentIsNotLabeled condition</td><td>No Purview DLP equivalent for "file has no label" detection</td><td>Use auto-labeling to label files, then build DLP on labeled content</td></tr>
-            <tr><td>Target app = AWS / ServiceNow / Webex</td><td>Not supported in Purview DLP</td><td>Evaluate native DLP in those platforms. Confirmed gap.</td></tr>
-            <tr><td>No supported conditions or actions at all</td><td>Entire policy uses unsupported elements</td><td>Manual recreation needed or accept gap. Document for PG feedback.</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span>My policy is Partial Migrate — what gets migrated and what doesn't?</span>
-        <span class="faq-chevron">▶</span>
-      </div>
-      <div class="faq-a">
-        <p>The supported <em>subset</em> of conditions and actions migrates. Unsupported elements are:</p>
-        <ul style="margin:8px 0 0 16px;">
-          <li>Flagged with reason codes in the readiness table</li>
-          <li>Written to the Purview draft policy's description field as workaround notes</li>
-          <li>Visible to the admin — not hidden</li>
-        </ul>
-        <p style="margin-top:8px;"><strong>Admin must explicitly acknowledge each gap</strong> before the tool proceeds. Common partial scenarios:</p>
-        <ul style="margin:4px 0 0 16px;">
-          <li>MIME type filter → maps to file extensions only (information loss possible)</li>
-          <li>Sharing level "Private" → skipped (no Purview equivalent)</li>
-          <li>Parent folder condition → in development (ETA 6/27 — do not promise)</li>
-          <li>3P policy with TrashFile + ContentExtensionMatchesWords → creates two policies [D]+[E]</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ── SECTION 6: ALREADY IN PURVIEW ── -->
-    <div id="faq-postmig" style="margin:20px 0 6px; padding:6px 0 4px; border-bottom:2px solid var(--cp-border); font-size:0.8rem; font-weight:700; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.06em;">6 · Already in Purview — Post-migration questions</div>
+    <!-- ── SECTION 5: ALREADY IN PURVIEW ── -->
+    <div id="faq-postmig" style="margin:20px 0 6px; padding:6px 0 4px; border-bottom:2px solid var(--cp-border); font-size:0.8rem; font-weight:700; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.06em;">5 · Already in Purview — Post-migration questions</div>
 
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">
