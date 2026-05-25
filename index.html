@@ -268,10 +268,10 @@
 <nav class="topnav">
   <div class="topnav-left">
     <a class="nav-link active" id="nav-home" onclick="showHome()">Home</a>
-    <a class="nav-link" id="nav-scenarios" onclick="showSection('scenarios')">Scenario Blocks</a>
+    <a class="nav-link" id="nav-faq" onclick="showSection('faq')">FAQ</a>
     <a class="nav-link" id="nav-parity" onclick="showSection('parity')">Parity</a>
-    <a class="nav-link" id="nav-licensing" onclick="showSection('licensing')">Licensing</a>
     <a class="nav-link" id="nav-escalation" onclick="showSection('escalation')">Escalation</a>
+    <a class="nav-link" id="nav-what-stays" onclick="showSection('what-stays')">What Changes</a>
     <a class="nav-link" id="nav-glossary" onclick="showSection('glossary')">Glossary</a>
   </div>
   <div class="topnav-right">
@@ -291,63 +291,26 @@
     <p>Equips CSS with the guidance and resources to help customers transition from MDA to Purview. Start with a Scenario Block — everything else is a reference library.</p>
   </div>
 
-  <!-- Entry Layer cards -->
+  <!-- Flat card grid -->
   <div class="card-grid-section">
-    <h2>Start Here — Scenario Blocks</h2>
     <div class="card-grid">
-      <div class="card" onclick="showSection('scenarios', 'faq')">
-        <div><div class="card-label">FAQ</div><div class="card-sub">Missing feature or changed behavior</div></div>
+      <div class="card" onclick="showSection('faq')">
+        <div><div class="card-label">FAQ</div><div class="card-sub">Customer questions by migration stage</div></div>
       </div>
-      <div class="card" onclick="showSection('scenarios', 'parity-s')">
-        <div><div class="card-label">Parity Question</div><div class="card-sub">MDA vs Purview capability compare</div></div>
-      </div>
-      <div class="card" onclick="showSection('scenarios', 'escalation-s')">
-        <div><div class="card-label">Escalation</div><div class="card-sub">Churn risk, exec involvement</div></div>
-      </div>
-      <div class="card" onclick="showSection('scenarios', 'objection-s')">
-        <div><div class="card-label">Objection</div><div class="card-sub">Timeline / readiness pushback</div></div>
-      </div>
-    </div>
-  </div>
-
-  <hr class="divider" />
-
-  <!-- Depth Libraries -->
-  <div class="card-grid-section">
-    <h2>Depth Libraries</h2>
-    <div class="card-grid">
       <div class="card" onclick="showSection('parity')">
-        <div><div class="card-label">Parity Depth Library</div><div class="card-sub">Capability truth — conditions, actions, scopes</div></div>
-      </div>
-      <div class="card" onclick="showSection('licensing')">
-        <div><div class="card-label">Licensing Depth Library</div><div class="card-sub">SKUs, entitlements, edge cases</div></div>
-      </div>
-    </div>
-  </div>
-
-  <hr class="divider" />
-
-  <!-- Support & Decision cards -->
-  <div class="card-grid-section">
-    <h2>Support &amp; Decision Layers</h2>
-    <div class="card-grid">
-      <div class="card" onclick="showSection('messaging')">
-        <div><div class="card-label">Messaging &amp; Talking Points</div><div class="card-sub">Approved customer phrasing</div></div>
-      </div>
-      <div class="card" onclick="showSection('objections')">
-        <div><div class="card-label">Objections + Responses</div><div class="card-sub">Pushback handling library</div></div>
-      </div>
-      <div class="card" onclick="showSection('what-stays')">
-        <div><div class="card-label">What Stays / What Changes</div><div class="card-sub">Customer-facing migration delta</div></div>
+        <div><div class="card-label">Parity</div><div class="card-sub">MDA vs Purview — conditions, actions, apps</div></div>
       </div>
       <div class="card" onclick="showSection('escalation')">
-        <div><div class="card-label">Escalation Guide</div><div class="card-sub">When CSS / Purview / PG + Evidence</div></div>
+        <div><div class="card-label">Escalation</div><div class="card-sub">Routing guide — who owns what</div></div>
+      </div>
+      <div class="card" onclick="showSection('what-stays')">
+        <div><div class="card-label">What Stays / What Changes</div><div class="card-sub">Migration delta for customer conversations</div></div>
       </div>
       <div class="card" onclick="showSection('glossary')">
         <div><div class="card-label">Glossary</div><div class="card-sub">Key terms, 1-line definitions</div></div>
       </div>
-      <div class="card" onclick="showSection('sources')">
-        <div><div class="card-label">Source-of-Truth Pointers</div><div class="card-sub">Canonical doc links</div></div>
+      <div class="card" onclick="showSection('licensing')">
+        <div><div class="card-label">Licensing</div><div class="card-sub">SKUs, entitlements, edge cases</div></div>
       </div>
     </div>
   </div>
@@ -366,13 +329,12 @@
 </div><!-- /home-view -->
 
 <!-- ══════════════════════════════════
-     SECTION: SCENARIO BLOCKS
+     SECTION: FAQ
 ═══════════════════════════════════ -->
-<div class="section-page" id="section-scenarios">
+<div class="section-page" id="section-faq">
   <span class="back-link" onclick="showHome()">← Home</span>
-  <div class="page-title">Scenario Blocks</div>
+  <div class="page-title">FAQ</div>
   <div class="page-meta">
-    <span>Entry Layer</span>
     <span>Owner: CSS DLP Migration Team</span>
     <span>Last updated: May 2026</span>
   </div>
@@ -676,16 +638,27 @@
 
   </div>
 
-  <div id="block-parity-s" class="content-block">
-    <h3>Parity — Customer compares MDA capability to Purview equivalent</h3>
+  </div><!-- /block-faq -->
+</div><!-- /section-faq -->
 
+<!-- ══════════════════════════════════
+     SECTION: PARITY DEPTH LIBRARY
+═══════════════════════════════════ -->
+<div class="section-page" id="section-parity">
+  <span class="back-link" onclick="showHome()">← Home</span>
+  <div class="page-title">Parity</div>
+  <div class="page-meta">
+    <span>Owner: CSS DLP Migration Team</span>
+    <span>Last updated: May 2026</span>
+  </div>
+
+  <!-- At a glance -->
+  <div class="content-block">
+    <h3>MDA vs Purview — At a Glance</h3>
     <p style="font-size:15px; color:var(--cp-text-muted); margin-bottom:16px;"><strong>Trigger:</strong> "In MDA I could do X — can I do the same in Purview?"</p>
-
     <div style="overflow-x:auto; margin-bottom:16px;">
       <table class="simple-table">
-        <thead>
-          <tr><th>Aspect</th><th>MDA File Policy</th><th>Purview DLP / Info Protection</th></tr>
-        </thead>
+        <thead><tr><th>Aspect</th><th>MDA File Policy</th><th>Purview DLP / Info Protection</th></tr></thead>
         <tbody>
           <tr><td><strong>Architecture</strong></td><td>API-based retroactive scanning</td><td>API-based for cloud apps + proactive for Exchange / Teams / Endpoints</td></tr>
           <tr><td><strong>Policy structure</strong></td><td>One policy = one set of filters + actions</td><td>One policy = multiple rules, each with conditions + actions</td></tr>
@@ -699,130 +672,33 @@
         </tbody>
       </table>
     </div>
+    <div style="font-size:13px; color:var(--cp-text-muted); margin-bottom:16px;">* = net gain in Purview</div>
 
-    <div style="font-size:14px; color:var(--cp-text-muted); margin-bottom:16px;">* = net gain in Purview</div>
-
-    <div class="content-block" style="margin:0; background:var(--cp-surface-soft); border-color:var(--cp-border);">
-      <p style="font-size:15px; font-weight:600; margin-bottom:10px;">Governance Action Parity at a glance</p>
-      <table class="simple-table">
-        <thead><tr><th>MDA Governance Action</th><th>Purview Equivalent</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td>Notify file owner</td><td>User notifications → Notify who last modified</td><td class="full">Full</td></tr>
-          <tr><td>Notify specific users</td><td>User notifications → Notify specific people</td><td class="full">Full</td></tr>
-          <tr><td>Send alert</td><td>Incident reports → Send alert to admins</td><td class="full">Full</td></tr>
-          <tr><td>Remove public access</td><td>Restrict access → Block everyone except owner</td><td class="full">Full</td></tr>
-          <tr><td>Remove external users</td><td>Restrict access → Block people outside org</td><td class="full">Full</td></tr>
-          <tr><td>Make private</td><td>Restrict access → Block everyone except owner</td><td class="full">Full</td></tr>
-          <tr><td>Admin quarantine</td><td>Admin quarantine</td><td class="full">Full</td></tr>
-          <tr><td>Apply sensitivity label</td><td>Create separate auto-labeling policy</td><td class="partial">Separate policy needed</td></tr>
-          <tr><td>User quarantine</td><td>Restrict access + Power Automate flow</td><td class="partial">Workaround required</td></tr>
-          <tr><td>Trash / delete file</td><td>DLP restrict + Power Automate flow</td><td class="gap">No direct equivalent</td></tr>
-          <tr><td>Remove specific collaborator</td><td>SharePoint admin or Power Automate</td><td class="gap">No direct equivalent</td></tr>
-          <tr><td>Expire shared link</td><td>SharePoint sharing policies</td><td class="gap">No direct equivalent</td></tr>
-          <tr><td>Transfer file ownership</td><td>Manual or Power Automate (Google Workspace)</td><td class="gap">No direct equivalent</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div style="margin-top:14px; padding:12px 16px; background:rgba(220,38,38,0.06); border-radius:8px; font-size:14px; color:var(--cp-danger);">
+    <h3 style="margin-bottom:10px;">Governance Action — Quick Reference</h3>
+    <table class="simple-table">
+      <thead><tr><th>MDA Governance Action</th><th>Purview Equivalent</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Notify file owner</td><td>User notifications → Notify who last modified</td><td class="full">Full</td></tr>
+        <tr><td>Notify specific users</td><td>User notifications → Notify specific people</td><td class="full">Full</td></tr>
+        <tr><td>Send alert</td><td>Incident reports → Send alert to admins</td><td class="full">Full</td></tr>
+        <tr><td>Remove public access</td><td>Restrict access → Block everyone except owner</td><td class="full">Full</td></tr>
+        <tr><td>Remove external users</td><td>Restrict access → Block people outside org</td><td class="full">Full</td></tr>
+        <tr><td>Make private</td><td>Restrict access → Block everyone except owner</td><td class="full">Full</td></tr>
+        <tr><td>Admin quarantine</td><td>Admin quarantine</td><td class="full">Full</td></tr>
+        <tr><td>Apply sensitivity label</td><td>Create separate auto-labeling policy</td><td class="partial">Separate policy needed</td></tr>
+        <tr><td>User quarantine</td><td>Restrict access + Power Automate flow</td><td class="partial">Workaround required</td></tr>
+        <tr><td>Trash / delete file</td><td>DLP restrict + Power Automate flow</td><td class="gap">No direct equivalent</td></tr>
+        <tr><td>Remove specific collaborator</td><td>SharePoint admin or Power Automate</td><td class="gap">No direct equivalent</td></tr>
+        <tr><td>Expire shared link</td><td>SharePoint sharing policies</td><td class="gap">No direct equivalent</td></tr>
+        <tr><td>Transfer file ownership</td><td>Manual or Power Automate (Google Workspace)</td><td class="gap">No direct equivalent</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:14px; padding:10px 14px; background:rgba(220,38,38,0.06); border-radius:8px; font-size:14px; color:var(--cp-danger);">
       <strong>Confirmed gaps (no Purview equivalent today):</strong> AWS / ServiceNow / Cisco Webex app support · Folder-level scoping · Remove specific collaborator · User quarantine (native) · Expire shared link · Auto-labeling for 3P apps
     </div>
-
-    <p style="font-size:14px; color:var(--cp-text-muted); margin-top:14px;">→ Full detail: <a onclick="showSection('parity')" href="#" style="color:var(--cp-link)">Parity Depth Library</a> · <a onclick="showSection('licensing')" href="#" style="color:var(--cp-link)">Licensing Depth Library</a></p>
   </div>
 
-  <div id="block-escalation-s" class="content-block">
-    <h3>Escalation &amp; Routing — Where does this go?</h3>
-
-    <!-- Decision boxes -->
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0;">
-      <div style="padding:18px 20px; border-radius:10px; border:1.5px solid var(--cp-success); background:rgba(22,163,74,0.06);">
-        <div style="font-weight:700; font-size:1rem; color:var(--cp-success); margin-bottom:8px;">Something is broken</div>
-        <div style="font-size:0.95rem; color:var(--cp-text);">GA behavior that worked before is no longer working — DLP not enforcing, labels applying incorrectly, data missing from Content Explorer.</div>
-        <div style="margin-top:12px; font-weight:600; color:var(--cp-text);">→ Route to <strong>Purview CSS</strong> (hand off case)</div>
-        <div style="font-size:0.88rem; color:var(--cp-text-muted); margin-top:4px;">MDA CSS confirms it's a Purview-side break, then transfers. You do not open the ticket — you hand off.</div>
-      </div>
-      <div style="padding:18px 20px; border-radius:10px; border:1.5px solid var(--cp-warning); background:rgba(217,119,6,0.06);">
-        <div style="font-weight:700; font-size:1rem; color:var(--cp-warning); margin-bottom:8px;">Feature gap / customer wants more</div>
-        <div style="font-size:0.95rem; color:var(--cp-text);">Customer asks for a capability Purview doesn't have yet — remove specific collaborator, folder scoping, AWS app support, user quarantine.</div>
-        <div style="margin-top:12px; font-weight:600; color:var(--cp-text);">→ <strong>Product feedback</strong> (NOT a support ticket)</div>
-        <div style="font-size:0.88rem; color:var(--cp-text-muted); margin-top:4px;">Log via Purview DLP Product Team field feedback intake. Acknowledge the gap clearly to the customer — do not promise a date.</div>
-      </div>
-    </div>
-
-    <!-- Supportability boundary -->
-    <h4 style="margin:20px 0 10px; font-size:1rem; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.04em;">Supportability Boundary</h4>
-    <table class="simple-table">
-      <thead><tr><th>MDA CSS owns</th><th>Purview CSS owns</th></tr></thead>
-      <tbody>
-        <tr><td>Explaining what file policies are being deprecated and why</td><td>Purview DLP policy not enforcing correctly</td></tr>
-        <tr><td>Migration guidance — what maps to what</td><td>Labels applied incorrectly in Purview</td></tr>
-        <tr><td>Identifying whether a customer issue is a gap vs. a break</td><td>Data missing from Content / Activity Explorer</td></tr>
-        <tr><td>Routing to the right team (Purview CSS or PG)</td><td>Any Purview-side configuration or enforcement issue</td></tr>
-      </tbody>
-    </table>
-
-    <!-- Product ownership map -->
-    <h4 style="margin:20px 0 10px; font-size:1rem; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.04em;">Product Ownership Map</h4>
-    <table class="simple-table">
-      <thead><tr><th>Capability</th><th>Owns It</th><th>CSS Team</th></tr></thead>
-      <tbody>
-        <tr><td>File policies → DLP (SPO, ODB, Exchange)</td><td>Microsoft Purview</td><td>Purview CSS</td></tr>
-        <tr><td>Sensitive Info Types (SITs) &amp; Trainable Classifiers</td><td>Microsoft Purview</td><td>Purview CSS</td></tr>
-        <tr><td>Sensitivity Labels &amp; Encryption</td><td>Microsoft Purview / MIP</td><td>Purview CSS</td></tr>
-        <tr><td>Content Explorer / Activity Explorer</td><td>Microsoft Purview</td><td>Purview CSS</td></tr>
-        <tr><td>3P app DLP policies (Box, Dropbox, etc.) via Purview</td><td>Microsoft Purview</td><td>Purview CSS</td></tr>
-        <tr>
-          <td>
-            <strong>3P app connectors</strong> (MDA connector setup, auth, connectivity)<br>
-            <span style="font-size:0.85rem; color:var(--cp-warning);">Pre-req: connector must be live before Purview 3P DLP works</span>
-          </td>
-          <td>Microsoft Defender for Cloud Apps</td>
-          <td>MDA CSS</td>
-        </tr>
-      </tbody>
-    </table>
-    <div style="margin-top:10px; padding:10px 14px; background:var(--cp-accent-soft); border-radius:8px; font-size:0.9rem;">
-      <strong>3P connector nuance:</strong> Customers running 3P file DLP in Purview <em>must</em> connect MDA app connectors first. If a customer reports Purview 3P DLP not working, check connector health in MDA <strong>before</strong> routing to Purview CSS.
-    </div>
-
-    <p style="font-size:0.9rem; color:var(--cp-text-muted); margin-top:14px;">→ Full routing logic + evidence checklist: <a onclick="showSection('escalation')" href="#" style="color:var(--cp-link)">Escalation Guide</a></p>
-  </div>
-
-  <div id="block-objection-s" class="content-block">
-    <h3>🔁 Objection — Customer pushes back on timeline or readiness</h3>
-    <div style="padding:14px 18px; border-radius:8px; border:1.5px dashed var(--cp-warning); background:rgba(217,119,6,0.05);">
-      <div style="font-weight:700; color:var(--cp-warning); margin-bottom:8px;">⏳ PMM-approved framing pending</div>
-      <div style="font-size:0.95rem; color:var(--cp-text);">
-        Approved responses for customer objections (timeline pushback, feature gap blockers, forced migration resistance) are being finalized with PMM.<br><br>
-        <strong>Until then: do not improvise messaging on these topics.</strong> Acknowledge the concern, note it as feedback, and route through your manager or account team if the customer is escalating.
-      </div>
-      <div style="margin-top:12px; font-size:0.88rem; color:var(--cp-text-muted);">
-        Common objections this block will cover once approved:<br>
-        "We're not ready by December 2026" · "Feature X is a blocker" · "Why is Microsoft forcing this?" · "We just invested in MDA file policies"
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════
-     SECTION: PARITY DEPTH LIBRARY
-═══════════════════════════════════ -->
-<div class="section-page" id="section-parity">
-  <span class="back-link" onclick="showHome()">← Home</span>
-  <div class="page-title">Parity Depth Library</div>
-  <div class="page-meta">
-    <span>Depth Library</span>
-    <span>Owner: CSS DLP Migration Team</span>
-    <span>Last updated: May 2026</span>
-  </div>
-
-  <div class="page-title">Parity Depth Library</div>
-  <div class="page-meta">
-    <span>Depth Library</span>
-    <span>Owner: CSS DLP Migration Team</span>
-    <span>Last updated: May 2026</span>
-  </div>
+  <div style="padding:6px 0 4px; margin: 8px 0 16px; border-bottom:2px solid var(--cp-border); font-size:0.8rem; font-weight:700; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.06em;">Full Reference — Conditions, Actions &amp; App Support</div>
 
   <div class="content-block">
     <h3>Architecture & Structure Differences</h3>
@@ -1111,16 +987,79 @@
 ═══════════════════════════════════ -->
 <div class="section-page" id="section-escalation">
   <span class="back-link" onclick="showHome()">← Home</span>
-  <div class="page-title">Escalation Guide</div>
+  <div class="page-title">Escalation</div>
   <div class="page-meta">
-    <span>Decision Layer</span>
     <span>Owner: CSS DLP Migration Team</span>
     <span>Last updated: May 2026</span>
   </div>
 
+  <!-- Quick routing decision -->
+  <div class="content-block">
+    <h3>Quick Routing — Where does this go?</h3>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0;">
+      <div style="padding:18px 20px; border-radius:10px; border:1.5px solid var(--cp-danger); background:rgba(220,38,38,0.05);">
+        <div style="font-weight:700; font-size:1rem; color:var(--cp-danger); margin-bottom:8px;">Something is broken</div>
+        <div style="font-size:0.95rem; color:var(--cp-text);">GA behavior that worked before is no longer working — DLP not enforcing, labels applying incorrectly, data missing from Content Explorer.</div>
+        <div style="margin-top:12px; font-weight:600; color:var(--cp-text);">→ Route to <strong>Purview CSS</strong> (hand off case)</div>
+        <div style="font-size:0.88rem; color:var(--cp-text-muted); margin-top:4px;">Confirm it's a Purview-side break, then transfer. You do not open the ticket — you hand off.</div>
+      </div>
+      <div style="padding:18px 20px; border-radius:10px; border:1.5px solid var(--cp-warning); background:rgba(217,119,6,0.05);">
+        <div style="font-weight:700; font-size:1rem; color:var(--cp-warning); margin-bottom:8px;">Feature gap / capability missing</div>
+        <div style="font-size:0.95rem; color:var(--cp-text);">Customer asks for a capability Purview doesn't have yet — folder scoping, AWS app support, user quarantine, remove specific collaborator.</div>
+        <div style="margin-top:12px; font-weight:600; color:var(--cp-text);">→ Route to <strong>Purview CSS</strong> for product feedback intake</div>
+        <div style="font-size:0.88rem; color:var(--cp-text-muted); margin-top:4px;">Acknowledge the gap clearly to the customer — do not promise a date.</div>
+      </div>
+      <div style="padding:18px 20px; border-radius:10px; border:1.5px solid var(--cp-link); background:rgba(0,120,212,0.05);">
+        <div style="font-weight:700; font-size:1rem; color:var(--cp-link); margin-bottom:8px;">3P connector issue</div>
+        <div style="font-size:0.95rem; color:var(--cp-text);">Box, Dropbox, Google Workspace, or Salesforce not connecting or not scanning.</div>
+        <div style="margin-top:12px; font-weight:600; color:var(--cp-text);">→ <strong>MDA CSS owns</strong> — stays here regardless of migration status</div>
+        <div style="font-size:0.88rem; color:var(--cp-text-muted); margin-top:4px;">Connector setup and auth issues belong to MDA CSS. Check connector health before routing anywhere else.</div>
+      </div>
+      <div style="padding:18px 20px; border-radius:10px; border:1.5px solid var(--cp-border-strong); background:var(--cp-surface-soft);">
+        <div style="font-weight:700; font-size:1rem; color:var(--cp-text); margin-bottom:8px;">Migration guidance question</div>
+        <div style="font-size:0.95rem; color:var(--cp-text);">How do I recreate this policy? What does this filter map to? How do I configure this in Purview?</div>
+        <div style="margin-top:12px; font-weight:600; color:var(--cp-text);">→ <strong>MDA CSS advises</strong>, then hands off to Purview CSS for setup</div>
+        <div style="font-size:0.88rem; color:var(--cp-text-muted); margin-top:4px;">Use FAQ and Parity page to guide the customer. MDA CSS does not own Purview configuration.</div>
+      </div>
+    </div>
+
+    <h3 style="margin:20px 0 10px;">Supportability Boundary</h3>
+    <table class="simple-table">
+      <thead><tr><th>MDA CSS owns</th><th>Purview CSS owns</th></tr></thead>
+      <tbody>
+        <tr><td>Explaining what file policies are being deprecated and why</td><td>Purview DLP policy not enforcing correctly</td></tr>
+        <tr><td>Migration guidance — what maps to what</td><td>Labels applied incorrectly in Purview</td></tr>
+        <tr><td>Identifying whether a customer issue is a gap vs. a break</td><td>Data missing from Content / Activity Explorer</td></tr>
+        <tr><td>Routing to the right team (Purview CSS or PG)</td><td>Any Purview-side configuration or enforcement issue</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin:20px 0 10px;">Product Ownership Map</h3>
+    <table class="simple-table">
+      <thead><tr><th>Capability</th><th>Owns It</th><th>CSS Team</th></tr></thead>
+      <tbody>
+        <tr><td>File policies → DLP (SPO, ODB, Exchange)</td><td>Microsoft Purview</td><td>Purview CSS</td></tr>
+        <tr><td>Sensitive Info Types (SITs) &amp; Trainable Classifiers</td><td>Microsoft Purview</td><td>Purview CSS</td></tr>
+        <tr><td>Sensitivity Labels &amp; Encryption</td><td>Microsoft Purview / MIP</td><td>Purview CSS</td></tr>
+        <tr><td>Content Explorer / Activity Explorer</td><td>Microsoft Purview</td><td>Purview CSS</td></tr>
+        <tr><td>3P app DLP policies (Box, Dropbox, etc.) via Purview</td><td>Microsoft Purview</td><td>Purview CSS</td></tr>
+        <tr>
+          <td><strong>3P app connectors</strong> (MDA connector setup, auth, connectivity)<br>
+          <span style="font-size:0.85rem; color:var(--cp-warning);">Pre-req: connector must be live before Purview 3P DLP works</span></td>
+          <td>Microsoft Defender for Cloud Apps</td>
+          <td>MDA CSS</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:10px; padding:10px 14px; background:var(--cp-accent-soft); border-radius:8px; font-size:0.9rem;">
+      <strong>3P connector nuance:</strong> If a customer reports Purview 3P DLP not working, check connector health in MDA <strong>before</strong> routing to Purview CSS.
+    </div>
+  </div>
+
+  <div style="padding:6px 0 4px; margin: 8px 0 16px; border-bottom:2px solid var(--cp-border); font-size:0.8rem; font-weight:700; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.06em;">Routing by Migration Stage</div>
+
   <!-- Routing by stage -->
   <div class="content-block">
-    <h3>Routing by Migration Stage</h3>
     <p style="font-size:0.95rem; color:var(--cp-text-muted); margin-bottom:16px;">Find where the customer is in their migration journey — each stage has different owners and evidence requirements.</p>
 
     <!-- Stage 1: Pre-reqs -->
@@ -1313,8 +1252,8 @@
 </div>
 
 <script>
-  const sections = ['scenarios','parity','licensing','messaging','objections','what-stays','escalation','glossary','sources'];
-  const navMap = { scenarios:'nav-scenarios', parity:'nav-parity', licensing:'nav-licensing', escalation:'nav-escalation', glossary:'nav-glossary' };
+  const sections = ['faq','parity','licensing','messaging','objections','what-stays','escalation','glossary','sources'];
+  const navMap = { faq:'nav-faq', parity:'nav-parity', escalation:'nav-escalation', 'what-stays':'nav-what-stays', glossary:'nav-glossary' };
 
   function showHome() {
     document.getElementById('home-view').classList.remove('hidden');
