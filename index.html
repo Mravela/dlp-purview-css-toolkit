@@ -390,121 +390,413 @@
   </div>
 
   <div id="block-faq" class="content-block">
-    <h3>❓ FAQ — Customer asks about a missing feature or changed behavior</h3>
+    <h3>❓ FAQ — Customer questions by migration stage</h3>
+    <p style="font-size:0.9rem; color:var(--cp-text-muted); margin-bottom:16px;">Structured by migration stage. Jump to the right section, then use the Parity Depth Library for full detail.</p>
+
+    <!-- NAV PILLS -->
+    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
+      <a href="#faq-prereqs" style="padding:5px 12px; border-radius:20px; background:var(--cp-accent-soft); color:var(--cp-accent); font-size:0.85rem; font-weight:600; text-decoration:none;">1. Pre-reqs</a>
+      <a href="#faq-1p" style="padding:5px 12px; border-radius:20px; background:var(--cp-accent-soft); color:var(--cp-accent); font-size:0.85rem; font-weight:600; text-decoration:none;">2. 1P Policies</a>
+      <a href="#faq-3p" style="padding:5px 12px; border-radius:20px; background:var(--cp-accent-soft); color:var(--cp-accent); font-size:0.85rem; font-weight:600; text-decoration:none;">3. 3P Policies</a>
+      <a href="#faq-autolabel" style="padding:5px 12px; border-radius:20px; background:var(--cp-accent-soft); color:var(--cp-accent); font-size:0.85rem; font-weight:600; text-decoration:none;">4. Auto-labeling</a>
+      <a href="#faq-classify" style="padding:5px 12px; border-radius:20px; background:var(--cp-accent-soft); color:var(--cp-accent); font-size:0.85rem; font-weight:600; text-decoration:none;">5. Can/Partial/Cannot Migrate</a>
+      <a href="#faq-postmig" style="padding:5px 12px; border-radius:20px; background:var(--cp-accent-soft); color:var(--cp-accent); font-size:0.85rem; font-weight:600; text-decoration:none;">6. Already in Purview</a>
+    </div>
+
+    <!-- ── SECTION 1: PRE-REQS ── -->
+    <div id="faq-prereqs" style="margin-bottom:6px; padding:6px 0 4px; border-bottom:2px solid var(--cp-border); font-size:0.8rem; font-weight:700; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.06em;">1 · Pre-reqs — Licensing, Roles &amp; Connectors</div>
 
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span>Why can't I remove a specific collaborator like I could in MDA?</span>
+        <span>What license does the customer need to migrate to Purview DLP?</span>
         <span class="faq-chevron">▶</span>
       </div>
       <div class="faq-a">
-        <p><strong>What changed:</strong> MDA's "Remove specific collaborator" governance action has no direct equivalent in Purview DLP.</p>
-        <p><strong>What to do:</strong> Use Purview DLP to <em>restrict access</em> (block external users broadly), then supplement with a Power Automate flow triggered by the DLP alert to remove specific sharing permissions via SharePoint/OneDrive APIs.</p>
-        <p class="faq-ref">→ See: <a onclick="showSection('parity')" href="#">Parity Depth Library</a> · Governance Actions mapping</p>
+        <p><strong>Required:</strong> Microsoft 365 E5 or Microsoft 365 E5 Compliance (or equivalent standalone Purview DLP license). The migration tool validates this at the Licensing Gate — if it fails, the customer cannot proceed.</p>
+        <p><strong>3P apps (Box, Dropbox, Google Workspace, Salesforce):</strong> Require PAYG (Pay-As-You-Go) billing configured in addition to the base license. The tool surfaces a PAYG acknowledgement checkbox before creating 3P policies.</p>
+        <p><strong>What to tell the customer:</strong> Check Microsoft 365 admin center → Billing → Licenses. If E5 Compliance is missing, they need to purchase before migration can start.</p>
+        <p class="faq-ref">→ Open question OQ5: IP&amp;G licensing per-user vs tenant-level — confirm with Pallav before advising.</p>
       </div>
     </div>
 
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span>Where is user quarantine in Purview? MDA had user quarantine + admin quarantine.</span>
+        <span>What admin roles are needed to run the migration tool?</span>
         <span class="faq-chevron">▶</span>
       </div>
       <div class="faq-a">
-        <p><strong>What changed:</strong> Purview DLP supports <em>admin quarantine only</em>. User quarantine (move file to user's quarantine folder) has no direct equivalent.</p>
-        <p><strong>What to do:</strong> Use Purview DLP to restrict access (block-in-place), then add a Power Automate flow to move the file to a designated quarantine folder.</p>
-        <p class="faq-ref">→ See: <a onclick="showSection('parity')" href="#">Parity Depth Library</a> · Quarantine row</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span>My MDA policy applied a sensitivity label. Why do I need two Purview policies now?</span>
-        <span class="faq-chevron">▶</span>
-      </div>
-      <div class="faq-a">
-        <p><strong>What changed:</strong> In MDA, labeling was a governance action inside the file policy. In Purview, label application is handled by a separate <em>auto-labeling policy</em> (Information Protection), not by DLP.</p>
-        <p><strong>What to do:</strong> Create <em>two policies</em>:</p>
-        <ul>
-          <li>A <strong>Purview DLP policy</strong> for detection and restriction/alerting</li>
-          <li>A <strong>Purview auto-labeling policy</strong> (purview.microsoft.com → Information Protection → Auto-labeling) for label application</li>
-        </ul>
-        <p class="faq-ref">→ Key Resources: <a href="https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically" target="_blank">Auto-labeling Policies ↗</a></p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span>MDA could trash / delete a file. Where is that in Purview?</span>
-        <span class="faq-chevron">▶</span>
-      </div>
-      <div class="faq-a">
-        <p><strong>What changed:</strong> Purview DLP has no "trash file" or "delete file" action.</p>
-        <p><strong>What to do:</strong> Use a Purview DLP policy to restrict access, then trigger a Power Automate flow on the DLP alert to delete the file programmatically.</p>
-        <p class="faq-ref">→ See: <a onclick="showSection('parity')" href="#">Parity Depth Library</a> · Gap actions</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span>MDA scoped policies to specific folders. Why can't I do that in Purview?</span>
-        <span class="faq-chevron">▶</span>
-      </div>
-      <div class="faq-a">
-        <p><strong>What changed:</strong> MDA supported "Parent folder" as a file filter. Purview DLP scopes at the <em>site level</em> (SharePoint site URLs), not the folder level.</p>
-        <p><strong>What to do:</strong> Scope the Purview DLP policy to the relevant SharePoint site. If folder-level control is critical, evaluate SharePoint-level permissions or Power Automate as a supplement.</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span>My MDA policy monitored files in AWS / ServiceNow / Webex. Does Purview cover those?</span>
-        <span class="faq-chevron">▶</span>
-      </div>
-      <div class="faq-a">
-        <p><strong>What changed:</strong> Purview DLP does <em>not</em> support AWS, ServiceNow, or Cisco Webex. There is no equivalent location in Purview DLP for these apps.</p>
-        <p><strong>What to do:</strong> Evaluate native DLP capabilities in those platforms. These are confirmed gaps — do not promise a roadmap date without PG confirmation.</p>
-        <p><strong>Supported third-party apps in Purview:</strong> Box, Google Workspace, Dropbox, Salesforce (via "Instances" location).</p>
-        <p class="faq-ref">→ See: <a href="https://learn.microsoft.com/en-us/purview/dlp-use-policies-non-microsoft-cloud-apps" target="_blank">DLP for Non-Microsoft Cloud Apps ↗</a></p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span>MDA had no simulation mode. How does the Purview simulation work?</span>
-        <span class="faq-chevron">▶</span>
-      </div>
-      <div class="faq-a">
-        <p><strong>What's new (net gain):</strong> Purview DLP has full simulation mode ("Test it out first") — policies run and log matches without taking any enforcement action. Run for 1–2 weeks before going live.</p>
-        <p><strong>What to do:</strong> Always start new Purview policies in simulation mode. Review matches in the DLP Alerts dashboard and Activity Explorer, then compare against MDA match volumes before enforcing.</p>
-        <p class="faq-ref">→ Navigation: purview.microsoft.com → Data loss prevention → Policies → [Policy] → Simulation results</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span>MDA had a 50 file policy limit. What are the Purview limits?</span>
-        <span class="faq-chevron">▶</span>
-      </div>
-      <div class="faq-a">
-        <p><strong>What's new (net gain):</strong> Purview has significantly higher limits — 10,000 MIP + MIG policies and 600 DLP rules per tenant (vs. MDA's 50 file policies).</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span>Where do I find DLP alerts and activity data in Purview (vs. MDA)?</span>
-        <span class="faq-chevron">▶</span>
-      </div>
-      <div class="faq-a">
-        <table class="simple-table" style="margin-top:6px;">
-          <thead><tr><th>What you need</th><th>Where to find it in Purview</th></tr></thead>
+        <p><strong>Two roles required — both must pass:</strong></p>
+        <table class="simple-table" style="margin-top:8px;">
+          <thead><tr><th>Portal</th><th>Required Role</th></tr></thead>
           <tbody>
-            <tr><td>Policy matches &amp; alerts</td><td>purview.microsoft.com → Data loss prevention → Alerts</td></tr>
-            <tr><td>Activity history</td><td>purview.microsoft.com → Data loss prevention → Activity explorer</td></tr>
-            <tr><td>Auto-labeling matches</td><td>purview.microsoft.com → Information Protection → Auto-labeling → [Policy] → Items to review</td></tr>
-            <tr><td>Defender XDR integration</td><td>security.microsoft.com → Incidents &amp; alerts</td></tr>
+            <tr><td>MDA (security.microsoft.com)</td><td>Global Administrator or Security Administrator</td></tr>
+            <tr><td>Purview (purview.microsoft.com)</td><td>Compliance Administrator and/or Information Protection Administrator</td></tr>
           </tbody>
         </table>
+        <p style="margin-top:8px;">The Permission Gate checks both. If either fails, the tool surfaces the specific missing role with a docs link. Admin must fix the role assignment before progressing.</p>
+        <p class="faq-ref">→ Open questions OQ2 (MDA role) and OQ3 (Purview role) — confirm exact role names with Eng/Srivalli before advising.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Do I need to set up connectors before migrating? What is the O365 connector?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>1P (SPO/ODB/Exchange):</strong> The O365 connector in MDA may be required for SPO/ODB migration pre-req. Status: open question OQ4 — confirm with Pallav before advising customers this is mandatory.</p>
+        <p><strong>3P (Box, Dropbox, Google Workspace, Salesforce):</strong> MDA app connectors <strong>must be active</strong> before Purview 3P DLP can work. The migration tool checks connector status in the Prerequisites card.</p>
+        <p><strong>Already connected in MDA?</strong> No action needed — existing connectors carry over. Customer just needs to configure the Purview DLP policy targeting that instance.</p>
+        <p><strong>Not yet connected?</strong> Must connect in MDA first: security.microsoft.com → Cloud Apps → Connected apps → App connectors.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>The "Migrate to Purview" button is blocked / not available. Why?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p>The tool runs two gates before showing any policies. Check which gate is failing:</p>
+        <table class="simple-table" style="margin-top:8px;">
+          <thead><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr></thead>
+          <tbody>
+            <tr><td>Licensing check fails</td><td>No active E5 / E5 Compliance license</td><td>Purchase / assign license. Tool blocked until resolved.</td></tr>
+            <tr><td>Permission check fails</td><td>Missing MDA or Purview admin role</td><td>Assign correct role in respective admin center. Both must pass.</td></tr>
+            <tr><td>Gov cloud tenant</td><td>Gov cloud tenants are blocked in v1</td><td>Not supported in v1 — no workaround. Document as Cannot Migrate.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>What is PAYG and why is it needed for 3P policies?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>PAYG = Pay-As-You-Go</strong> — a billing model for Purview capabilities applied to third-party connected apps (Box, Dropbox, Google Workspace, Salesforce). Running DLP on these apps incurs metered usage charges beyond the base license.</p>
+        <p><strong>What the customer must do:</strong> Configure PAYG billing in Azure before using 3P DLP in Purview. The migration tool shows an inline PAYG acknowledgement checkbox — Create button is disabled until checked.</p>
+        <p class="faq-ref">→ Open question OQ6: PAYG meter — customer-configured or auto-provisioned? Confirm with Billing before advising setup steps.</p>
+      </div>
+    </div>
+
+    <!-- ── SECTION 2: 1P ── -->
+    <div id="faq-1p" style="margin:20px 0 6px; padding:6px 0 4px; border-bottom:2px solid var(--cp-border); font-size:0.8rem; font-weight:700; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.06em;">2 · 1P Policies — SPO / OneDrive / Exchange</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Conditions: How do my MDA file filters map to Purview DLP rule conditions?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <table class="simple-table">
+          <thead><tr><th>MDA File Filter</th><th>Purview DLP Condition</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Content inspection (preset / DCS)</td><td>Content contains → Sensitive info types</td><td>Same underlying detection engine</td></tr>
+            <tr><td>Content inspection (custom regex)</td><td>Content contains → Custom SIT</td><td>Create custom SIT in Purview first</td></tr>
+            <tr><td>Sensitivity label</td><td>Content contains → Sensitivity labels</td><td>Direct mapping</td></tr>
+            <tr><td>Access level = External/Public</td><td>Content is shared with people outside org</td><td>Direct mapping</td></tr>
+            <tr><td>File extension</td><td>File extension is</td><td>Direct mapping</td></tr>
+            <tr><td>File name</td><td>Document name contains words or phrases</td><td>Direct mapping</td></tr>
+            <tr><td>Minimum violation count</td><td>Instance count (min/max) per SIT</td><td>Direct mapping</td></tr>
+            <tr><td>Owner (user/group)</td><td>Policy scoping by user/group</td><td>Direct mapping</td></tr>
+            <tr><td>Parent folder</td><td>⚠️ No folder-level scoping</td><td>Site-level only. In development ETA 6/27 — do not promise date.</td></tr>
+            <tr><td>ContentIsNotLabeled</td><td>❌ Cannot Migrate</td><td>No Purview equivalent. Suggest manual auto-label approach.</td></tr>
+            <tr><td>MIME type / file type category</td><td>⚠️ Partial — maps to extensions only</td><td>Information loss possible — admin must verify extension list</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Actions: How do my MDA governance actions map to Purview DLP actions?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <table class="simple-table">
+          <thead><tr><th>MDA Governance Action</th><th>Purview DLP Action</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Notify file owner</td><td>User notifications → Notify who last modified</td><td class="full">✅ Full</td></tr>
+            <tr><td>Notify specific users</td><td>User notifications → Notify specific people</td><td class="full">✅ Full</td></tr>
+            <tr><td>Send alert</td><td>Incident reports → Send alert to admins</td><td class="full">✅ Full</td></tr>
+            <tr><td>Remove public access</td><td>Restrict access → Block everyone except owner</td><td class="full">✅ Full</td></tr>
+            <tr><td>Remove external users</td><td>Restrict access → Block people outside org</td><td class="full">✅ Full</td></tr>
+            <tr><td>Make private</td><td>Restrict access → Block everyone except owner</td><td class="full">✅ Full</td></tr>
+            <tr><td>Admin quarantine</td><td>Admin quarantine</td><td class="full">✅ Full</td></tr>
+            <tr><td>Apply / Remove sensitivity label</td><td>Separate auto-labeling policy required</td><td class="partial">⚠️ Separate policy</td></tr>
+            <tr><td>User quarantine</td><td>Restrict access + Power Automate flow</td><td class="partial">⚠️ Workaround</td></tr>
+            <tr><td>Trash / delete file</td><td>DLP alert + Power Automate flow</td><td class="gap">❌ No equivalent</td></tr>
+            <tr><td>Remove specific collaborator</td><td>SharePoint admin or Power Automate</td><td class="gap">❌ No equivalent</td></tr>
+            <tr><td>Expire shared link</td><td>SharePoint sharing policies</td><td class="gap">❌ No equivalent</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Alerts: Where do I see DLP matches and alerts now? (I used to use MDA Alerts)</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <table class="simple-table">
+          <thead><tr><th>What you need</th><th>Where in Purview</th></tr></thead>
+          <tbody>
+            <tr><td>Policy matches &amp; alerts</td><td>purview.microsoft.com → Data loss prevention → Alerts</td></tr>
+            <tr><td>Full activity history</td><td>purview.microsoft.com → Data loss prevention → Activity explorer</td></tr>
+            <tr><td>Simulation mode results</td><td>purview.microsoft.com → DLP → Policies → [Policy] → Simulation results</td></tr>
+            <tr><td>Auto-labeling matches</td><td>purview.microsoft.com → Information Protection → Auto-labeling → [Policy] → Items to review</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Why is my migrated SPO/ODB policy in Simulation mode and not enforcing?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>By design.</strong> The migration tool creates all SPO/ODB policies in <strong>Simulation mode ("Test it out first")</strong> — policies log matches without any enforcement action. This is a deliberate draft-first approach to prevent accidental enforcement.</p>
+        <p><strong>What to do:</strong> Run in simulation for 1–2 weeks, review matches in Activity Explorer, compare against MDA match volumes, tune false positives, then manually enable enforcement.</p>
+        <p><strong>To enable enforcement:</strong> purview.microsoft.com → DLP → Policies → [Policy] → Edit → Change mode to "Turn it on".</p>
+      </div>
+    </div>
+
+    <!-- ── SECTION 3: 3P ── -->
+    <div id="faq-3p" style="margin:20px 0 6px; padding:6px 0 4px; border-bottom:2px solid var(--cp-border); font-size:0.8rem; font-weight:700; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.06em;">3 · 3P Policies — Box, Dropbox, Google Workspace, Salesforce</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>My MDA policy monitored Box / Dropbox / Google Workspace / Salesforce. Does Purview support these?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>Yes</strong> — these four apps are supported in Purview DLP via the <strong>"Instances"</strong> location. AWS, ServiceNow, and Cisco Webex are <strong>not supported</strong> (no Purview equivalent).</p>
+        <p><strong>Pre-req:</strong> MDA app connector must be active. If already connected in MDA, no re-setup needed — connector carries over automatically to Purview Instances.</p>
+        <table class="simple-table" style="margin-top:8px;">
+          <thead><tr><th>App</th><th>Purview Location</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Box</td><td>Instances</td><td class="full">✅ Full (connector required)</td></tr>
+            <tr><td>Dropbox</td><td>Instances</td><td class="full">✅ Full (connector required)</td></tr>
+            <tr><td>Google Workspace</td><td>Instances</td><td class="full">✅ Full (connector required)</td></tr>
+            <tr><td>Salesforce</td><td>Instances</td><td class="full">✅ Full (connector required)</td></tr>
+            <tr><td>AWS / ServiceNow / Webex</td><td>—</td><td class="gap">❌ Not supported in v1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Conditions &amp; Actions: What 3P-specific limitations should I know?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>Key 3P limitations vs 1P:</strong></p>
+        <table class="simple-table">
+          <thead><tr><th>Capability</th><th>3P (Instances) Status</th></tr></thead>
+          <tbody>
+            <tr><td>Folder-level scoping</td><td class="gap">❌ Not available — policy applies across the entire connected app</td></tr>
+            <tr><td>Auto-labeling</td><td class="road">🗺 Roadmap — not yet available for 3P apps</td></tr>
+            <tr><td>TrashFile action</td><td class="partial">⚠️ Legacy 3P split [D] — creates policy in Disabled mode</td></tr>
+            <tr><td>MakePrivate / RemoveExternalUsers / RemoveSharedLink</td><td class="partial">⚠️ Legacy 3P split [D] — created in Disabled mode</td></tr>
+            <tr><td>BlockAccess</td><td class="partial">⚠️ 3P Locations split [E] — created in Disabled mode</td></tr>
+            <tr><td>Sharing level "Private"</td><td class="partial">⚠️ Partial — value skipped, no Purview equivalent</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:8px;"><strong>Policy split warning:</strong> If a single MDA policy has both TrashFile AND ContentExtensionMatchesWords, the tool creates <strong>two separate Purview policies</strong> [D] and [E]. Admin warned: same file may match both — behavior differs from the original single MDA policy.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Why are my 3P policies created as Disabled (not Simulation like 1P)?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>By design.</strong> 3P app DLP policies are created in <strong>Disabled mode</strong> (policy off) — not Simulation. This is because PAYG billing is involved: even simulation mode for 3P apps can incur metered charges. Admin must explicitly review and enable each 3P policy.</p>
+        <p><strong>To enable:</strong> purview.microsoft.com → DLP → Policies → [Policy] → Edit → Turn on. Ensure PAYG is configured and connector is healthy before enabling.</p>
+      </div>
+    </div>
+
+    <!-- ── SECTION 4: AUTO-LABEL ── -->
+    <div id="faq-autolabel" style="margin:20px 0 6px; padding:6px 0 4px; border-bottom:2px solid var(--cp-border); font-size:0.8rem; font-weight:700; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.06em;">4 · Auto-labeling Policies</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>My MDA policy applied a sensitivity label. Why do I need a separate Purview policy for that?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>What changed:</strong> In MDA, "Apply sensitivity label" was a governance action inside the file policy. In Purview, label application and DLP enforcement are <strong>separate policy types</strong>.</p>
+        <ul style="margin:8px 0 0 16px;">
+          <li><strong>Purview DLP policy</strong> → detects content and restricts access / alerts</li>
+          <li><strong>Purview auto-labeling policy</strong> (Information Protection) → applies the sensitivity label</li>
+        </ul>
+        <p style="margin-top:8px;">The migration tool creates both automatically from a single MDA policy that had a label action. Both are created in Simulation mode.</p>
+        <p><strong>Navigation:</strong> purview.microsoft.com → Information Protection → Auto-labeling</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>My auto-labeling policy is in Simulation — when will labels actually apply?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p>Simulation mode logs which items <em>would</em> get labeled without actually applying labels. This is a safe review step.</p>
+        <p><strong>To review simulation results:</strong> purview.microsoft.com → Information Protection → Auto-labeling → [Policy] → Items to review</p>
+        <p><strong>To turn on enforcement:</strong> After validating simulation results, enable the policy. Labels will apply to new and existing content going forward.</p>
+        <p><strong>Pre-req check:</strong> Verify the sensitivity label is published to the relevant users before enabling — unpublished labels will not apply even when the policy is on.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Does auto-labeling work for 3P apps (Box, Dropbox)?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>Not yet.</strong> Auto-labeling in Purview Information Protection currently supports <strong>first-party workloads only</strong> (SharePoint, OneDrive, Exchange). 3P app auto-labeling is on the roadmap but not available in v1.</p>
+        <p>If a customer's MDA policy applied labels to Box/Dropbox files, this is a confirmed gap. Do not promise a date — confirm with PG before advising.</p>
+      </div>
+    </div>
+
+    <!-- ── SECTION 5: CLASSIFICATION ── -->
+    <div id="faq-classify" style="margin:20px 0 6px; padding:6px 0 4px; border-bottom:2px solid var(--cp-border); font-size:0.8rem; font-weight:700; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.06em;">5 · Policy Classification — Can / Partial / Cannot Migrate</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>What does Can Migrate / Partial Migrate / Cannot Migrate mean?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <table class="simple-table">
+          <thead><tr><th>Status</th><th>Meaning</th><th>Admin action</th></tr></thead>
+          <tbody>
+            <tr><td class="full" style="white-space:nowrap;">✅ Can Migrate</td><td>All conditions, filters, and actions have Purview equivalents</td><td>None — proceeds automatically</td></tr>
+            <tr><td class="partial" style="white-space:nowrap;">⚠️ Partial Migrate</td><td>Supported subset migrates; unsupported elements flagged with reason codes</td><td>Must explicitly acknowledge each gap before proceeding</td></tr>
+            <tr><td class="gap" style="white-space:nowrap;">❌ Cannot Migrate</td><td>No supported conditions or actions — policy not sent to Purview</td><td>Review reason code. Plan manual recreation or accept gap.</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:8px; font-size:0.88rem; color:var(--cp-text-muted);">Classification is based purely on filter/condition/action Purview equivalence — <strong>not</strong> on licensing, PAYG status, or admin permissions.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>My policy shows Cannot Migrate — what are common reasons?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <table class="simple-table">
+          <thead><tr><th>Reason code / scenario</th><th>Why</th><th>What to do</th></tr></thead>
+          <tbody>
+            <tr><td>ContentIsNotLabeled condition</td><td>No Purview DLP equivalent for "file has no label" detection</td><td>Use auto-labeling to label files, then build DLP on labeled content</td></tr>
+            <tr><td>Target app = AWS / ServiceNow / Webex</td><td>Not supported in Purview DLP</td><td>Evaluate native DLP in those platforms. Confirmed gap.</td></tr>
+            <tr><td>No supported conditions or actions at all</td><td>Entire policy uses unsupported elements</td><td>Manual recreation needed or accept gap. Document for PG feedback.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>My policy is Partial Migrate — what gets migrated and what doesn't?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p>The supported <em>subset</em> of conditions and actions migrates. Unsupported elements are:</p>
+        <ul style="margin:8px 0 0 16px;">
+          <li>Flagged with reason codes in the readiness table</li>
+          <li>Written to the Purview draft policy's description field as workaround notes</li>
+          <li>Visible to the admin — not hidden</li>
+        </ul>
+        <p style="margin-top:8px;"><strong>Admin must explicitly acknowledge each gap</strong> before the tool proceeds. Common partial scenarios:</p>
+        <ul style="margin:4px 0 0 16px;">
+          <li>MIME type filter → maps to file extensions only (information loss possible)</li>
+          <li>Sharing level "Private" → skipped (no Purview equivalent)</li>
+          <li>Parent folder condition → in development (ETA 6/27 — do not promise)</li>
+          <li>3P policy with TrashFile + ContentExtensionMatchesWords → creates two policies [D]+[E]</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── SECTION 6: ALREADY IN PURVIEW ── -->
+    <div id="faq-postmig" style="margin:20px 0 6px; padding:6px 0 4px; border-bottom:2px solid var(--cp-border); font-size:0.8rem; font-weight:700; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.06em;">6 · Already in Purview — Post-migration questions</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>My Purview DLP policy is enabled but it's not blocking anything. What's wrong?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>This is a Purview CSS question — hand off the case.</strong> Once a policy is created and enabled in Purview, enforcement issues are owned by Purview CSS.</p>
+        <p><strong>Before handing off, verify:</strong></p>
+        <ul style="margin:8px 0 0 16px;">
+          <li>Policy is <strong>not</strong> still in Simulation mode (check policy status in Purview DLP)</li>
+          <li>For 3P: MDA connector is healthy — check in security.microsoft.com → Cloud Apps → Connected apps</li>
+          <li>Policy is scoped to the correct location (sites, users, or app instance)</li>
+        </ul>
+        <p style="margin-top:8px;">If connector is healthy and policy is on but still not enforcing → <strong>route to Purview CSS</strong>.</p>
+        <p class="faq-ref">→ See: <a onclick="showSection('escalation')" href="#" style="color:var(--cp-link)">Escalation Guide</a> for routing steps</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Labels are not being applied by my auto-labeling policy. What should I check?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>This is a Purview CSS question — hand off if basic checks pass.</strong></p>
+        <p><strong>Check first (MDA CSS scope):</strong></p>
+        <ul style="margin:8px 0 0 16px;">
+          <li>Is the auto-labeling policy still in <strong>Simulation mode</strong>? If yes — labels won't apply until turned on.</li>
+          <li>Is the sensitivity label <strong>published</strong> to the relevant users in the label policy?</li>
+          <li>Is the policy scoped to the correct SharePoint site / OneDrive accounts?</li>
+        </ul>
+        <p style="margin-top:8px;">If all checks pass and labels still not applying → <strong>route to Purview CSS</strong>.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>I see a co-existence warning in Purview. What does it mean and when does it go away?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p>The co-existence banner in Purview is shown when migrated policies exist as drafts. It persists until the admin manually dismisses it.</p>
+        <p><strong>What the banner means:</strong> "You have policies migrated from MDA. Disable MDA policies before enabling Purview policies to avoid enforcement conflicts."</p>
+        <p><strong>Correct sequence:</strong></p>
+        <ol style="margin:8px 0 0 16px;">
+          <li>Review Purview draft policies in simulation — validate coverage</li>
+          <li><strong>Disable MDA file policies</strong> (security.microsoft.com → Cloud Apps → Policies → Edit → Disable)</li>
+          <li>Enable Purview policies one at a time — monitor for 1–2 weeks</li>
+          <li>Delete MDA policies only after Purview is confirmed working</li>
+          <li>Dismiss the banner</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>My MDA policy still shows "Not Migrated". Why wasn't it migrated?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <table class="simple-table">
+          <thead><tr><th>MDA Policy State</th><th>Reason</th></tr></thead>
+          <tbody>
+            <tr><td>Not Migrated</td><td>Never attempted, classified as Cannot Migrate, or a mid-split rollback occurred</td></tr>
+            <tr><td>Migrated</td><td>All applicable Purview policies created successfully</td></tr>
+            <tr><td>Partially Migrated</td><td>Supported subset created; gaps documented in Purview draft description</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:8px;">If mid-split rollback occurred (partial creation failed), the tool rolls back fully — no orphan policies in Purview. Admin can re-run the tool safely (idempotent re-run, no duplicates).</p>
       </div>
     </div>
 
