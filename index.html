@@ -566,12 +566,54 @@
   </div>
 
   <div id="block-escalation-s" class="content-block">
-    <h3>⚡ Escalation — Customer escalates or invokes account team</h3>
-    <div class="ph">
-      <strong>Trigger:</strong> Customer mentions churn, SLA risk, or wants exec/account team involved.<br><br>
-      <strong>Quick Answer:</strong> [CONTENT PENDING]<br><br>
-      <strong>Where to look:</strong> Run through the <a href="#" onclick="showSection('escalation'); return false;" style="color:var(--cp-link)">Escalation Guide</a>. Check <a href="#" onclick="showSection('escalation', 'evidence');" style="color:var(--cp-link)">Evidence Checklist</a> before routing. S500 or large cohort? See Strategic Handling Rules.
+    <h3>⚡ Escalation &amp; Routing — Where does this go?</h3>
+
+    <!-- Decision boxes -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0;">
+      <div style="padding:18px 20px; border-radius:10px; border:1.5px solid var(--cp-success); background:rgba(22,163,74,0.06);">
+        <div style="font-weight:700; font-size:1rem; color:var(--cp-success); margin-bottom:8px;">🔴 Something is broken</div>
+        <div style="font-size:0.95rem; color:var(--cp-text);">GA behavior that worked before is no longer working — DLP not enforcing, labels applying incorrectly, data missing from Content Explorer.</div>
+        <div style="margin-top:12px; font-weight:600; color:var(--cp-text);">→ Route to <strong>Purview CSS</strong> (hand off case)</div>
+        <div style="font-size:0.88rem; color:var(--cp-text-muted); margin-top:4px;">MDA CSS confirms it's a Purview-side break, then transfers. You do not open the ticket — you hand off.</div>
+      </div>
+      <div style="padding:18px 20px; border-radius:10px; border:1.5px solid var(--cp-warning); background:rgba(217,119,6,0.06);">
+        <div style="font-weight:700; font-size:1rem; color:var(--cp-warning); margin-bottom:8px;">🟡 Feature gap / customer wants more</div>
+        <div style="font-size:0.95rem; color:var(--cp-text);">Customer asks for a capability Purview doesn't have yet — remove specific collaborator, folder scoping, AWS app support, user quarantine.</div>
+        <div style="margin-top:12px; font-weight:600; color:var(--cp-text);">→ <strong>Product feedback</strong> (NOT a support ticket)</div>
+        <div style="font-size:0.88rem; color:var(--cp-text-muted); margin-top:4px;">Log via Purview DLP Product Team field feedback intake. Acknowledge the gap clearly to the customer — do not promise a date.</div>
+      </div>
     </div>
+
+    <!-- Supportability boundary -->
+    <h4 style="margin:20px 0 10px; font-size:1rem; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.04em;">Supportability Boundary</h4>
+    <table class="simple-table">
+      <thead><tr><th>MDA CSS owns</th><th>Purview CSS owns</th></tr></thead>
+      <tbody>
+        <tr><td>Explaining what file policies are being deprecated and why</td><td>Purview DLP policy not enforcing correctly</td></tr>
+        <tr><td>Migration guidance — what maps to what</td><td>Labels applied incorrectly in Purview</td></tr>
+        <tr><td>Identifying whether a customer issue is a gap vs. a break</td><td>Data missing from Content / Activity Explorer</td></tr>
+        <tr><td>Routing to the right team (Purview CSS or PG)</td><td>Any Purview-side configuration or enforcement issue</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Product ownership map -->
+    <h4 style="margin:20px 0 10px; font-size:1rem; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.04em;">Product Ownership Map</h4>
+    <table class="simple-table">
+      <thead><tr><th>Capability</th><th>Owns It</th><th>CSS Team</th></tr></thead>
+      <tbody>
+        <tr><td>File policies → DLP (SPO, ODB, Exchange)</td><td>Microsoft Purview</td><td>Purview CSS</td></tr>
+        <tr><td>Sensitive Info Types (SITs) &amp; Trainable Classifiers</td><td>Microsoft Purview</td><td>Purview CSS</td></tr>
+        <tr><td>Sensitivity Labels &amp; Encryption</td><td>Microsoft Purview / MIP</td><td>Purview CSS</td></tr>
+        <tr><td>Content Explorer / Activity Explorer</td><td>Microsoft Purview</td><td>Purview CSS</td></tr>
+        <tr><td>Copilot DLP</td><td>Microsoft Purview</td><td>Purview CSS</td></tr>
+        <tr><td>Third-party SaaS file scanning (Box, Dropbox, etc.)</td><td>Microsoft Defender for Cloud Apps</td><td>MDA CSS</td></tr>
+        <tr><td>App Governance</td><td>Microsoft Defender for Cloud Apps</td><td>MDA CSS</td></tr>
+        <tr><td>SSPM (SaaS Security Posture Management)</td><td>Microsoft Defender for Cloud Apps</td><td>MDA CSS</td></tr>
+        <tr><td>Defender XDR Integration</td><td>Microsoft Defender / XDR</td><td>MDA CSS</td></tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:0.9rem; color:var(--cp-text-muted); margin-top:14px;">→ Full routing logic + evidence checklist: <a onclick="showSection('escalation')" href="#" style="color:var(--cp-link)">Escalation Guide</a></p>
   </div>
 
   <div id="block-objection-s" class="content-block">
