@@ -723,43 +723,6 @@
       </div>
     </div>
 
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span>I see a co-existence warning in Purview. What does it mean and when does it go away?</span>
-        <span class="faq-chevron">▶</span>
-      </div>
-      <div class="faq-a">
-        <p>The co-existence banner in Purview is shown when migrated policies exist as drafts. It persists until the admin manually dismisses it.</p>
-        <p><strong>What the banner means:</strong> "You have policies migrated from MDA. Disable MDA policies before enabling Purview policies to avoid enforcement conflicts."</p>
-        <p><strong>Correct sequence:</strong></p>
-        <ol style="margin:8px 0 0 16px;">
-          <li>Review Purview draft policies in simulation — validate coverage</li>
-          <li><strong>Disable MDA file policies</strong> (security.microsoft.com → Cloud Apps → Policies → Edit → Disable)</li>
-          <li>Enable Purview policies one at a time — monitor for 1–2 weeks</li>
-          <li>Delete MDA policies only after Purview is confirmed working</li>
-          <li>Dismiss the banner</li>
-        </ol>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        <span>My MDA policy still shows "Not Migrated". Why wasn't it migrated?</span>
-        <span class="faq-chevron">▶</span>
-      </div>
-      <div class="faq-a">
-        <table class="simple-table">
-          <thead><tr><th>MDA Policy State</th><th>Reason</th></tr></thead>
-          <tbody>
-            <tr><td>Not Migrated</td><td>Never attempted, classified as Cannot Migrate, or a mid-split rollback occurred</td></tr>
-            <tr><td>Migrated</td><td>All applicable Purview policies created successfully</td></tr>
-            <tr><td>Partially Migrated</td><td>Supported subset created; gaps documented in Purview draft description</td></tr>
-          </tbody>
-        </table>
-        <p style="margin-top:8px;">If mid-split rollback occurred (partial creation failed), the tool rolls back fully — no orphan policies in Purview. Admin can re-run the tool safely (idempotent re-run, no duplicates).</p>
-      </div>
-    </div>
-
   </div>
 
   <div id="block-parity-s" class="content-block">
