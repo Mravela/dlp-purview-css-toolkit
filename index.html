@@ -863,17 +863,80 @@
 ═══════════════════════════════════ -->
 <div class="section-page" id="section-what-stays">
   <span class="back-link" onclick="showHome()">← Home</span>
-  <div class="page-title">What Stays / What Changes <span class="pill pill-skeleton">Skeleton</span></div>
-  <div class="page-meta"><span>💬 Support Layer</span><span>Owner: TBD</span><span>Last updated: —</span></div>
+  <div class="page-title">What Stays / What Changes</div>
+  <div class="page-meta">
+    <span>💬 Support Layer</span>
+    <span>Owner: CSS DLP Migration Team</span>
+    <span>Last updated: May 2026</span>
+  </div>
+
   <div class="content-block">
-    <h3>✅ What Stays</h3>
-    <div class="ph">[CONTENT PENDING — Customer keeps these, no action needed]</div>
-    <h3 style="margin-top:16px;">🔄 What Changes</h3>
-    <div class="ph">[CONTENT PENDING — Customer must adapt, requires action]</div>
-    <h3 style="margin-top:16px;">✨ What's New</h3>
-    <div class="ph">[CONTENT PENDING — Net gains in Purview worth highlighting]</div>
-    <h3 style="margin-top:16px;">⚠️ What's Not Ready Yet</h3>
-    <div class="ph">[CONTENT PENDING — Honest gaps. Sync with <a href="#" onclick="showSection('parity'); return false;" style="color:var(--cp-link)">Parity Depth Library</a> gap rows. No duplication.]</div>
+    <h3>✅ What Stays — customer keeps this, no action needed</h3>
+    <table class="simple-table">
+      <thead><tr><th>Capability</th><th>Where it lives in Purview</th></tr></thead>
+      <tbody>
+        <tr><td>Detecting sensitive content (credit card, SSN, PII) in SharePoint, OneDrive, Exchange</td><td>Purview DLP policy → Sensitive Info Types (same underlying engine)</td></tr>
+        <tr><td>Sensitivity label-based detection</td><td>Purview DLP → Content contains > Sensitivity labels</td></tr>
+        <tr><td>Blocking external sharing of sensitive files</td><td>Purview DLP → Restrict access > Block people outside org</td></tr>
+        <tr><td>Admin quarantine</td><td>Purview DLP → Admin quarantine (direct equivalent)</td></tr>
+        <tr><td>Alerting compliance team on matches</td><td>Purview DLP → Incident reports > Send alert to admins</td></tr>
+        <tr><td>Notifying the file owner</td><td>Purview DLP → User notifications</td></tr>
+        <tr><td>Box, Google Workspace, Dropbox, Salesforce monitoring</td><td>Purview DLP → Instances location (MDA connector required)</td></tr>
+        <tr><td>File extension and file name filters</td><td>Purview DLP → File extension is / Document name contains</td></tr>
+        <tr><td>Custom regex content inspection</td><td>Purview DLP → Custom Sensitive Info Type</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="content-block" style="margin-top:12px;">
+    <h3>🔄 What Changes — customer must adapt</h3>
+    <table class="simple-table">
+      <thead><tr><th>What changed</th><th>What to do instead</th></tr></thead>
+      <tbody>
+        <tr><td>Applying / removing sensitivity labels was a governance action inside the file policy</td><td>Create a <strong>separate auto-labeling policy</strong> in Information Protection. One policy = one label.</td></tr>
+        <tr><td>One policy covered detection + restriction + labeling</td><td>Now requires <strong>two policies</strong>: DLP policy (detect/restrict) + auto-labeling policy (label)</td></tr>
+        <tr><td>User quarantine (move file to user folder)</td><td>Use <strong>Restrict access + Power Automate</strong> flow triggered by DLP alert</td></tr>
+        <tr><td>Policy navigation was in security.microsoft.com > Cloud Apps > Policies</td><td>Policies are now in <strong>purview.microsoft.com > Data loss prevention > Policies</strong></td></tr>
+        <tr><td>Alerts were in MDA Alerts dashboard</td><td>Alerts are now in <strong>Purview DLP Alerts dashboard</strong> and Activity Explorer</td></tr>
+        <tr><td>No simulation mode — policies enforced immediately</td><td>Always run in <strong>simulation mode first</strong> ("Test it out") — 1–2 weeks before enforcement</td></tr>
+        <tr><td>One policy = one set of filters + actions</td><td>One Purview policy can contain <strong>multiple rules</strong>, each with its own conditions + actions</td></tr>
+        <tr><td>Folder-level scoping in MDA</td><td><strong>Not available in Purview</strong> — scoping is at site level only (SPO/ODB)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="content-block" style="margin-top:12px;">
+    <h3>✨ What's New — net gains in Purview</h3>
+    <table class="simple-table">
+      <thead><tr><th>New capability</th><th>Why it matters</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Simulation mode</strong></td><td>Test policies before enforcement — see matches, tune false positives, no customer disruption</td></tr>
+        <tr><td><strong>10,000 policy limit</strong> (vs. 50 in MDA)</td><td>No more policy limit constraints — customers can be as granular as needed</td></tr>
+        <tr><td><strong>Multiple rules per policy</strong></td><td>Complex logic (different conditions → different actions) in a single policy</td></tr>
+        <tr><td><strong>Activity Explorer</strong></td><td>Unified view of all DLP events across workloads — no equivalent in MDA</td></tr>
+        <tr><td><strong>Endpoint DLP</strong></td><td>Extend the same policies to Windows/Mac endpoints — MDA had no endpoint coverage</td></tr>
+        <tr><td><strong>Teams DLP</strong></td><td>Protect sensitive content shared in Teams chats and channels</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="content-block" style="margin-top:12px;">
+    <h3>⚠️ What's Not Ready Yet — honest gaps</h3>
+    <div style="padding:10px 14px; background:rgba(220,38,38,0.06); border-radius:8px; font-size:0.95rem; margin-bottom:12px;">
+      These are confirmed gaps with no current Purview equivalent. See <a href="#" onclick="showSection('parity'); return false;" style="color:var(--cp-link)">Parity Depth Library</a> for full detail.
+    </div>
+    <table class="simple-table">
+      <thead><tr><th>Gap</th><th>Workaround</th></tr></thead>
+      <tbody>
+        <tr><td>Remove specific collaborator</td><td>SharePoint admin action or Power Automate flow</td></tr>
+        <tr><td>User quarantine (native)</td><td>Restrict access + Power Automate</td></tr>
+        <tr><td>Trash / delete file</td><td>Power Automate flow triggered by DLP alert</td></tr>
+        <tr><td>Expire shared link</td><td>SharePoint sharing policies</td></tr>
+        <tr><td>Folder-level scoping</td><td>Site-level scoping only</td></tr>
+        <tr><td>AWS, ServiceNow, Cisco Webex</td><td>No equivalent — evaluate alternatives</td></tr>
+        <tr><td>Auto-labeling for 3P apps (Box, Dropbox)</td><td>On roadmap — not yet available</td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -882,50 +945,76 @@
 ═══════════════════════════════════ -->
 <div class="section-page" id="section-escalation">
   <span class="back-link" onclick="showHome()">← Home</span>
-  <div class="page-title">Escalation Guide <span class="pill pill-skeleton">Skeleton</span></div>
-  <div class="page-meta"><span>⚡ Decision Layer</span><span>Owner: TBD</span><span>Last updated: —</span></div>
+  <div class="page-title">Escalation Guide</div>
+  <div class="page-meta">
+    <span>⚡ Decision Layer</span>
+    <span>Owner: CSS DLP Migration Team</span>
+    <span>Last updated: May 2026</span>
+  </div>
 
+  <!-- Routing decision -->
   <div class="content-block">
-    <h3>Routing Decision</h3>
+    <h3>Routing Decision Framework</h3>
     <div class="decision-node">
-      <strong>❓ Is this a confirmed product bug or regression?</strong>
-      <div class="dn-opts"><span class="dn-yes">Yes → [ROUTING PENDING — PG bug queue]</span><span class="dn-no">No → Continue ↓</span></div>
+      <strong>❓ Is GA behavior broken or regressed?</strong>
+      <div class="dn-opts">
+        <span class="dn-yes">Yes → Route to <strong>Purview CSS</strong> — hand off the case. Confirm it's a Purview-side break first.</span>
+        <span class="dn-no">No → Continue ↓</span>
+      </div>
     </div>
     <div class="decision-node">
-      <strong>❓ Confirmed parity gap (capability in MDA, absent in Purview)?</strong>
-      <div class="dn-opts"><span class="dn-yes">Yes → [ROUTING PENDING — Purview PM / PG feedback]</span><span class="dn-no">No → Continue ↓</span></div>
+      <strong>❓ Is this a confirmed parity gap (capability in MDA, absent in Purview today)?</strong>
+      <div class="dn-opts">
+        <span class="dn-yes">Yes → <strong>Product feedback</strong> — log via Purview DLP Product Team field feedback intake. Do NOT open a support ticket. Acknowledge the gap honestly to the customer.</span>
+        <span class="dn-no">No → Continue ↓</span>
+      </div>
     </div>
     <div class="decision-node">
-      <strong>❓ Customer is S500 or Cohort 1?</strong>
-      <div class="dn-opts"><span class="dn-yes">Yes → See Strategic Handling Rules below</span><span class="dn-no">No → Continue ↓</span></div>
+      <strong>❓ Is this a 3P connector issue (Box, Dropbox, Google Workspace, Salesforce not connecting)?</strong>
+      <div class="dn-opts">
+        <span class="dn-yes">Yes → <strong>MDA CSS owns</strong> — connector setup and auth issues stay with MDA CSS regardless of migration status.</span>
+        <span class="dn-no">No → Continue ↓</span>
+      </div>
     </div>
     <div class="decision-node">
-      <strong>❓ Active churn risk or exec involvement?</strong>
-      <div class="dn-opts"><span class="dn-yes">Yes → [ROUTING PENDING — loop in account team]</span><span class="dn-no">No → Handle in CSS with approved messaging</span></div>
+      <strong>❓ Is the customer asking a migration guidance question (how to, what maps to what)?</strong>
+      <div class="dn-opts">
+        <span class="dn-yes">Yes → <strong>MDA CSS handles</strong> — use FAQ block, Parity Depth Library, What Stays / What Changes.</span>
+        <span class="dn-no">No → Escalate to manager for triage.</span>
+      </div>
     </div>
   </div>
 
+  <!-- Evidence checklist -->
   <div id="block-evidence" class="content-block" style="margin-top:20px;">
     <h3>📋 Evidence Checklist — capture before routing any escalation</h3>
     <ul class="cl">
-      <li><div class="cl-box"></div><div><strong>Customer identity</strong> — Tenant ID, Name, Segment, Cohort</div></li>
+      <li><div class="cl-box"></div><div><strong>Customer identity</strong> — Tenant ID, org name, segment, cohort</div></li>
       <li><div class="cl-box"></div><div><strong>Issue description</strong> — exact capability or behavior, confirmed / reproduced</div></li>
-      <li><div class="cl-box"></div><div><strong>Parity status confirmed</strong> — checked against <a href="#" onclick="showSection('parity'); return false;" style="color:var(--cp-link)">Parity Depth Library</a></div></li>
-      <li><div class="cl-box"></div><div><strong>Licensing confirmed</strong> — SKU verified against <a href="#" onclick="showSection('licensing'); return false;" style="color:var(--cp-link)">Licensing Depth Library</a></div></li>
-      <li><div class="cl-box"></div><div><strong>Business impact</strong> — what breaks if unresolved</div></li>
-      <li><div class="cl-box"></div><div><strong>Steps already taken</strong> — what CSS tried and the result</div></li>
-      <li><div class="cl-box"></div><div><strong>Urgency signal</strong> — churn flag, exec name, timeline pressure</div></li>
-      <li><div class="cl-box"></div><div>[ADDITIONAL ITEMS PENDING — content review required]</div></li>
+      <li><div class="cl-box"></div><div><strong>Gap vs. break confirmed</strong> — checked against <a href="#" onclick="showSection('parity'); return false;" style="color:var(--cp-link)">Parity Depth Library</a>. Is this a known gap or unexpected regression?</div></li>
+      <li><div class="cl-box"></div><div><strong>Connector status (3P only)</strong> — is the MDA connector live and healthy? Check before routing to Purview CSS.</div></li>
+      <li><div class="cl-box"></div><div><strong>Business impact</strong> — what breaks or is at risk if unresolved</div></li>
+      <li><div class="cl-box"></div><div><strong>Steps already taken</strong> — what CSS tried and what the result was</div></li>
+      <li><div class="cl-box"></div><div><strong>Urgency signal</strong> — churn flag, exec involvement, compliance deadline pressure</div></li>
+      <li><div class="cl-box"></div><div><strong>Migration phase</strong> — where is the customer in their migration? (Assessing / Building / Testing / Rolling out / Decommissioning)</div></li>
     </ul>
   </div>
 
+  <!-- Strategic handling -->
   <div class="content-block" style="margin-top:12px;">
     <h3>⚖️ Strategic Handling Rules</h3>
-    <div class="ph">
-      <strong>S500 Accounts:</strong> [CONTENT PENDING — special handling, who to loop in, SLA, comms requirements]<br><br>
-      <strong>Cohort-Based Handling:</strong> [CONTENT PENDING — which cohorts get which treatment, timing rules]<br><br>
-      <strong>TCO-Sensitive Cases:</strong> [CONTENT PENDING — when cost drives the objection, who owns commercial conversation]
+    <div style="padding:12px 16px; border-radius:8px; background:var(--cp-accent-soft); font-size:0.9rem; margin-bottom:10px;">
+      ⚠️ S500 / Cohort handling rules and TCO escalation paths are pending — content review required with account team leadership.
     </div>
+    <table class="simple-table">
+      <thead><tr><th>Scenario</th><th>Rule</th></tr></thead>
+      <tbody>
+        <tr><td><strong>S500 account</strong></td><td>Flag immediately to manager. Do not handle solo. [Full handling rules pending]</td></tr>
+        <tr><td><strong>Large cohort impact</strong></td><td>If gap affects multiple customers in same cohort, escalate as pattern — not individual cases. Route to PG as field signal.</td></tr>
+        <tr><td><strong>TCO / cost objection</strong></td><td>Do not engage on commercial conversation. Loop in account team. [TCO rules pending]</td></tr>
+        <tr><td><strong>Compliance deadline pressure</strong></td><td>Acknowledge Dec 31 2026 deadline. Confirm migration timeline. Escalate if customer cannot meet it.</td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -934,20 +1023,35 @@
 ═══════════════════════════════════ -->
 <div class="section-page" id="section-glossary">
   <span class="back-link" onclick="showHome()">← Home</span>
-  <div class="page-title">Glossary <span class="pill pill-skeleton">Skeleton</span></div>
-  <div class="page-meta"><span>💬 Support Layer</span><span>Owner: TBD</span><span>Last updated: —</span></div>
+  <div class="page-title">Glossary</div>
+  <div class="page-meta">
+    <span>💬 Support Layer</span>
+    <span>Owner: CSS DLP Migration Team</span>
+    <span>Last updated: May 2026</span>
+  </div>
   <div class="content-block">
     <dl class="glossary">
-      <dt>MDA</dt><dd>Microsoft Defender for Cloud Apps — [CONTENT PENDING]</dd>
-      <dt>Purview DLP</dt><dd>Microsoft Purview Data Loss Prevention — [CONTENT PENDING]</dd>
-      <dt>DSP</dt><dd>[CONTENT PENDING]</dd>
-      <dt>CSS</dt><dd>Customer Success / Support — the team this toolkit is built for.</dd>
-      <dt>Cohort</dt><dd>[CONTENT PENDING — customer tier grouping used in migration wave planning]</dd>
-      <dt>S500</dt><dd>[CONTENT PENDING — strategic account designation, special handling required]</dd>
-      <dt>TCO</dt><dd>Total Cost of Ownership — [CONTENT PENDING]</dd>
-      <dt>Parity</dt><dd>Equivalence of a capability between MDA and Purview: Full, Partial, Gap, or Roadmap.</dd>
-      <dt>Parity Gap</dt><dd>A capability present in MDA that has no current equivalent in Purview.</dd>
-      <dt>PAYG</dt><dd>[CONTENT PENDING — Pay-as-you-go licensing model context]</dd>
+      <dt>MDA</dt><dd>Microsoft Defender for Cloud Apps — cloud security product that includes file policies for detecting and governing sensitive content in cloud apps. File policies are being deprecated Dec 31, 2026.</dd>
+      <dt>Purview DLP</dt><dd>Microsoft Purview Data Loss Prevention — the target platform for migrated file policies. Supports SPO, ODB, Exchange, Teams, Endpoints, and 3P apps via MDA connectors.</dd>
+      <dt>File Policy</dt><dd>An MDA construct that detects files matching filters (content, metadata, sharing) and applies governance actions. Being replaced by Purview DLP policies.</dd>
+      <dt>DLP Rule</dt><dd>A rule inside a Purview DLP policy. One policy can contain multiple rules, each with its own conditions and actions.</dd>
+      <dt>Sensitive Info Type (SIT)</dt><dd>A classifier in Purview that detects specific sensitive content patterns (e.g., Credit Card Number, SSN). Equivalent to MDA preset expressions / DCS content inspection.</dd>
+      <dt>Sensitivity Label</dt><dd>A classification tag (e.g., Confidential, Public) applied to files or emails. In Purview, applied via auto-labeling policy — not inside a DLP policy.</dd>
+      <dt>Auto-Labeling Policy</dt><dd>A separate Purview Information Protection policy that applies sensitivity labels based on content. Required when migrating MDA file policies that had "apply label" as a governance action.</dd>
+      <dt>Simulation Mode</dt><dd>A Purview DLP policy state where policies log matches without enforcing. Run for 1–2 weeks before turning on enforcement. Not available in MDA.</dd>
+      <dt>Admin Quarantine</dt><dd>A DLP action that moves a file to an admin-controlled quarantine folder. Supported in both MDA and Purview.</dd>
+      <dt>User Quarantine</dt><dd>An MDA action that moves a file to a user's personal quarantine folder. No direct equivalent in Purview — workaround: Restrict access + Power Automate.</dd>
+      <dt>Instances (location)</dt><dd>A Purview DLP location type for third-party connected apps (Box, Google Workspace, Dropbox, Salesforce). Requires an active MDA connector.</dd>
+      <dt>Parity Gap</dt><dd>A capability present in MDA that has no current equivalent in Purview. Examples: remove specific collaborator, folder-level scoping, AWS support.</dd>
+      <dt>Parity (Full / Partial / Gap / Roadmap)</dt><dd>Status labels used in the Parity Depth Library. Full = direct equivalent exists. Partial = workaround available. Gap = no equivalent. Roadmap = planned but not yet available.</dd>
+      <dt>CSS</dt><dd>Customer Success / Support — the team this toolkit is built for. MDA CSS handles migration clarity; Purview CSS handles Purview-side issues post-migration.</dd>
+      <dt>Power Automate</dt><dd>Microsoft's workflow automation tool. Used as a workaround for MDA governance actions with no Purview DLP equivalent (trash, user quarantine, remove collaborator).</dd>
+      <dt>Activity Explorer</dt><dd>A Purview tool showing DLP events across workloads. Equivalent to where customers previously monitored MDA file policy matches.</dd>
+      <dt>Deprecation deadline</dt><dd>December 31, 2026 — the date MDA file policies are turned off. Customers must complete migration before this date.</dd>
+      <dt>DSP</dt><dd>Data Security Posture — used in internal program naming (MDA Convergence Zen - DSP Only).</dd>
+      <dt>Cohort</dt><dd>A customer tier grouping used in migration wave planning. Cohort 1 typically = highest priority / most complex customers.</dd>
+      <dt>S500</dt><dd>Strategic 500 — Microsoft's top strategic accounts. Require escalated handling — do not handle solo.</dd>
+      <dt>TCO</dt><dd>Total Cost of Ownership — used when customers raise cost as an objection to migration. Commercial conversation owned by account team, not CSS.</dd>
     </dl>
   </div>
 </div>
