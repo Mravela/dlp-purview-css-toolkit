@@ -23,9 +23,9 @@
       --cp-text: #242424;
       --cp-text-muted: #5c5c5c;
       --cp-text-soft: #6f6f6f;
-      --cp-accent: #b11f4b;
-      --cp-accent-hover: #9a1a41;
-      --cp-accent-soft: rgba(177, 31, 75, 0.08);
+      --cp-accent: #2563eb;
+      --cp-accent-hover: #1d4ed8;
+      --cp-accent-soft: rgba(37, 99, 235, 0.08);
       --cp-accent-fg: #ffffff;
       --cp-success: #16a34a;
       --cp-danger: #dc2626;
@@ -44,9 +44,9 @@
       --cp-text: #dedede;
       --cp-text-muted: #919191;
       --cp-text-soft: #b0b0b0;
-      --cp-accent: #fd8ea1;
-      --cp-accent-hover: #fb7b91;
-      --cp-accent-soft: rgba(253,142,161,0.14);
+      --cp-accent: var(--cp-accent);
+      --cp-accent-hover: #3b82f6;
+      --cp-accent-soft: rgba(96, 165, 250, 0.14);
       --cp-accent-fg: #1a1a1a;
       --cp-success: #4ade80;
       --cp-danger: #f87171;
@@ -100,11 +100,11 @@
       background: linear-gradient(135deg, #0f1f3d 0%, #1a1040 55%, #2d0a2e 100%);
       padding: 56px 48px 52px;
       color: #fff;
-      border-bottom: 3px solid #60a5fa;
+      border-bottom: 3px solid var(--cp-accent);
     }
     .hero-eyebrow {
       font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: #60a5fa;
+      text-transform: uppercase; color: var(--cp-accent);
       margin-bottom: 14px;
     }
     .hero h1 { font-size: 40px; font-weight: 700; margin-bottom: 14px; line-height: 1.2; }
@@ -114,7 +114,7 @@
       font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5);
       display: flex; align-items: center; gap: 6px;
     }
-    .hero-meta span::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #60a5fa; }
+    .hero-meta span::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--cp-accent); }
 
     /* ── CARD GRID ── */
     .card-grid-section { padding: 36px 40px; }
