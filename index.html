@@ -741,10 +741,10 @@
           <tr><td>SharePoint Online</td><td>SharePoint sites</td><td class="full">✅ Full</td><td>Specific site URLs or all</td></tr>
           <tr><td>OneDrive for Business</td><td>OneDrive accounts</td><td class="full">✅ Full</td><td>Specific users/groups or all</td></tr>
           <tr><td>Exchange Online</td><td>Exchange Online</td><td class="full">✅ Full</td><td>Distribution groups</td></tr>
-          <tr><td>Box</td><td>Instances</td><td class="full">✅ Full</td><td>Connected app instance via Defender for Cloud Apps connector</td></tr>
-          <tr><td>Google Workspace</td><td>Instances</td><td class="full">✅ Full</td><td>Connected app instance</td></tr>
-          <tr><td>Dropbox</td><td>Instances</td><td class="full">✅ Full</td><td>Connected app instance</td></tr>
-          <tr><td>Salesforce</td><td>Instances</td><td class="full">✅ Full</td><td>Connected app instance</td></tr>
+          <tr><td>Box</td><td>Instances</td><td class="full">✅ Full</td><td>Requires MDA connector. <strong>Already connected in MDA? No action needed</strong> — connector carries over automatically.</td></tr>
+          <tr><td>Google Workspace</td><td>Instances</td><td class="full">✅ Full</td><td>Requires MDA connector. <strong>Already connected in MDA? No action needed</strong> — connector carries over automatically.</td></tr>
+          <tr><td>Dropbox</td><td>Instances</td><td class="full">✅ Full</td><td>Requires MDA connector. <strong>Already connected in MDA? No action needed</strong> — connector carries over automatically.</td></tr>
+          <tr><td>Salesforce</td><td>Instances</td><td class="full">✅ Full</td><td>Requires MDA connector. <strong>Already connected in MDA? No action needed</strong> — connector carries over automatically.</td></tr>
           <tr><td>Auto-labeling (3P apps)</td><td>—</td><td class="road">🗺 Roadmap</td><td>Not yet available — first-party workloads only for auto-labeling</td></tr>
           <tr><td>AWS</td><td>—</td><td class="gap">❌ Gap</td><td>No Purview DLP equivalent — evaluate alternatives</td></tr>
           <tr><td>ServiceNow</td><td>—</td><td class="gap">❌ Gap</td><td>No Purview DLP equivalent</td></tr>
@@ -752,6 +752,19 @@
         </tbody>
       </table>
     </div>
+
+    <!-- Connector nuance callout -->
+    <div style="margin-top:14px; display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+      <div style="padding:12px 16px; border-radius:8px; border-left:4px solid var(--cp-success); background:rgba(22,163,74,0.06); font-size:0.9rem;">
+        <strong style="color:var(--cp-success);">✅ Customer already uses MDA connectors</strong><br>
+        <span style="color:var(--cp-text);">No re-setup needed. The existing MDA connector (Box, Google Workspace, Dropbox, Salesforce) is automatically recognized by Purview as the "Instances" location. Customer just needs to configure the Purview DLP policy targeting that instance.</span>
+      </div>
+      <div style="padding:12px 16px; border-radius:8px; border-left:4px solid var(--cp-warning); background:rgba(217,119,6,0.06); font-size:0.9rem;">
+        <strong style="color:var(--cp-warning);">⚠️ Customer does NOT have MDA connectors</strong><br>
+        <span style="color:var(--cp-text);">They must connect the app in MDA first before Purview 3P DLP will work. This is a pre-req — Purview cannot scan 3P apps without an active MDA connector. Route connector setup questions to MDA CSS.</span>
+      </div>
+    </div>
+
     <p style="font-size:13px; color:var(--cp-text-muted); margin-top:12px;">
       ⚠️ <strong>Important:</strong> Third-party policies in MDA and Purview <em>cannot coexist</em>. Running equivalent policies in both products simultaneously creates enforcement conflicts. Disable MDA policies only after Purview policies are validated and turned on.
     </p>
