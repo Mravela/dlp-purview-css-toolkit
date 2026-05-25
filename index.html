@@ -512,11 +512,57 @@
 
   <div id="block-parity-s" class="content-block">
     <h3>🔍 Parity — Customer compares MDA capability to Purview equivalent</h3>
-    <div class="ph">
-      <strong>Trigger:</strong> "In MDA I could do X, can I do the same in Purview?"<br><br>
-      <strong>Quick Answer:</strong> [CONTENT PENDING]<br><br>
-      <strong>Where to look:</strong> <a href="#" onclick="showSection('parity'); return false;" style="color:var(--cp-link)">Parity Depth Library</a> for the exact row. If licensing is relevant, also check <a href="#" onclick="showSection('licensing'); return false;" style="color:var(--cp-link)">Licensing Depth Library</a>.
+
+    <p style="font-size:15px; color:var(--cp-text-muted); margin-bottom:16px;"><strong>Trigger:</strong> "In MDA I could do X — can I do the same in Purview?"</p>
+
+    <div style="overflow-x:auto; margin-bottom:16px;">
+      <table class="simple-table">
+        <thead>
+          <tr><th>Aspect</th><th>MDA File Policy</th><th>Purview DLP / Info Protection</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Architecture</strong></td><td>API-based retroactive scanning</td><td>API-based for cloud apps + proactive for Exchange / Teams / Endpoints</td></tr>
+          <tr><td><strong>Policy structure</strong></td><td>One policy = one set of filters + actions</td><td>One policy = multiple rules, each with conditions + actions</td></tr>
+          <tr><td><strong>Labeling</strong></td><td>Governance action inside file policy</td><td>Separate auto-labeling policy in Information Protection</td></tr>
+          <tr><td><strong>Sharing remediation</strong></td><td>Remove specific collaborators, change link access, remove public access</td><td>Block further access only — does not retroactively modify sharing</td></tr>
+          <tr><td><strong>Quarantine</strong></td><td>User quarantine + Admin quarantine</td><td>Admin quarantine only; user quarantine = block-in-place + Power Automate</td></tr>
+          <tr><td><strong>Simulation</strong></td><td>No simulation mode</td><td>Full simulation mode before enforcement ✨</td></tr>
+          <tr><td><strong>Policy limit</strong></td><td>50 file policies per tenant</td><td>10,000 MIP+MIG policies; 600 DLP rules per tenant ✨</td></tr>
+          <tr><td><strong>Folder scoping</strong></td><td>Parent folder filter supported</td><td>Site-level scoping only — no folder-level</td></tr>
+          <tr><td><strong>Auto-labeling (3P apps)</strong></td><td>Apply label governance action in policy</td><td>Not yet available for third-party connected apps</td></tr>
+        </tbody>
+      </table>
     </div>
+
+    <div style="font-size:14px; color:var(--cp-text-muted); margin-bottom:16px;">✨ = net gain in Purview</div>
+
+    <div class="content-block" style="margin:0; background:var(--cp-surface-soft); border-color:var(--cp-border);">
+      <p style="font-size:15px; font-weight:600; margin-bottom:10px;">📋 Governance Action Parity at a glance</p>
+      <table class="simple-table">
+        <thead><tr><th>MDA Governance Action</th><th>Purview Equivalent</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Notify file owner</td><td>User notifications → Notify who last modified</td><td class="full">✅ Full</td></tr>
+          <tr><td>Notify specific users</td><td>User notifications → Notify specific people</td><td class="full">✅ Full</td></tr>
+          <tr><td>Send alert</td><td>Incident reports → Send alert to admins</td><td class="full">✅ Full</td></tr>
+          <tr><td>Remove public access</td><td>Restrict access → Block everyone except owner</td><td class="full">✅ Full</td></tr>
+          <tr><td>Remove external users</td><td>Restrict access → Block people outside org</td><td class="full">✅ Full</td></tr>
+          <tr><td>Make private</td><td>Restrict access → Block everyone except owner</td><td class="full">✅ Full</td></tr>
+          <tr><td>Admin quarantine</td><td>Admin quarantine</td><td class="full">✅ Full</td></tr>
+          <tr><td>Apply sensitivity label</td><td>Create separate auto-labeling policy</td><td class="partial">⚠️ Separate policy needed</td></tr>
+          <tr><td>User quarantine</td><td>Restrict access + Power Automate flow</td><td class="partial">⚠️ Workaround required</td></tr>
+          <tr><td>Trash / delete file</td><td>DLP restrict + Power Automate flow</td><td class="gap">❌ No direct equivalent</td></tr>
+          <tr><td>Remove specific collaborator</td><td>SharePoint admin or Power Automate</td><td class="gap">❌ No direct equivalent</td></tr>
+          <tr><td>Expire shared link</td><td>SharePoint sharing policies</td><td class="gap">❌ No direct equivalent</td></tr>
+          <tr><td>Transfer file ownership</td><td>Manual or Power Automate (Google Workspace)</td><td class="gap">❌ No direct equivalent</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:14px; padding:12px 16px; background:rgba(220,38,38,0.06); border-radius:8px; font-size:14px; color:var(--cp-danger);">
+      ⚠️ <strong>Confirmed gaps (no Purview equivalent today):</strong> AWS / ServiceNow / Cisco Webex app support · Folder-level scoping · Remove specific collaborator · User quarantine (native) · Expire shared link · Auto-labeling for 3P apps
+    </div>
+
+    <p style="font-size:14px; color:var(--cp-text-muted); margin-top:14px;">→ Full detail: <a onclick="showSection('parity')" href="#" style="color:var(--cp-link)">Parity Depth Library</a> · <a onclick="showSection('licensing')" href="#" style="color:var(--cp-link)">Licensing Depth Library</a></p>
   </div>
 
   <div id="block-escalation-s" class="content-block">
@@ -543,43 +589,128 @@
 ═══════════════════════════════════ -->
 <div class="section-page" id="section-parity">
   <span class="back-link" onclick="showHome()">← Home</span>
-  <div class="page-title">Parity Depth Library <span class="pill pill-skeleton">Skeleton</span></div>
+  <div class="page-title">Parity Depth Library</div>
   <div class="page-meta">
     <span>📚 Depth Library</span>
-    <span>Owner: TBD</span>
-    <span>Last updated: —</span>
+    <span>Owner: CSS DLP Migration Team</span>
+    <span>Last updated: May 2026</span>
+  </div>
+
+  <div class="page-title">Parity Depth Library</div>
+  <div class="page-meta">
+    <span>📚 Depth Library</span>
+    <span>Owner: CSS DLP Migration Team</span>
+    <span>Last updated: May 2026</span>
   </div>
 
   <div class="content-block">
-    <h3>Product Capability Truth</h3>
-    <p style="margin-bottom:14px; font-size:12px; color:var(--cp-text-muted);">All MDA ↔ Purview capability comparisons live here only. Scenario blocks reference rows here — they never duplicate them.</p>
+    <h3>Architecture & Structure Differences</h3>
     <div style="overflow-x:auto;">
       <table class="simple-table">
-        <thead>
-          <tr>
-            <th>Feature / Capability</th>
-            <th>MDA Behavior</th>
-            <th>Purview Equivalent</th>
-            <th>Parity</th>
-            <th>Conditions</th>
-            <th>Actions</th>
-            <th>Notes / Edge Cases</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Aspect</th><th>MDA File Policy</th><th>Purview DLP / Info Protection</th></tr></thead>
         <tbody>
-          <tr><td>[Feature]</td><td>[PENDING]</td><td>[PENDING]</td><td class="full">Full</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td></tr>
-          <tr><td>[Feature]</td><td>[PENDING]</td><td>[PENDING]</td><td class="partial">Partial</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td></tr>
-          <tr><td>[Feature]</td><td>[PENDING]</td><td>[PENDING]</td><td class="gap">Gap</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td></tr>
-          <tr><td>[Feature]</td><td>[PENDING]</td><td>[PENDING]</td><td class="road">Roadmap</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td></tr>
+          <tr><td>Architecture</td><td>API-based retroactive scanning</td><td>API-based for cloud apps + proactive for Exchange/Teams/Endpoints</td></tr>
+          <tr><td>Policy structure</td><td>One policy = one set of filters + actions</td><td>One policy = multiple rules, each with conditions + actions</td></tr>
+          <tr><td>Labeling</td><td>Governance action within the file policy</td><td>Separate auto-labeling policy in Information Protection</td></tr>
+          <tr><td>Simulation mode</td><td>None</td><td>Full simulation mode before enforcement</td></tr>
+          <tr><td>Policy limit</td><td>50 file policies per tenant</td><td>10,000 MIP+MIG policies; 600 DLP rules per tenant</td></tr>
         </tbody>
       </table>
     </div>
-    <p style="font-size:11px; color:var(--cp-text-muted); margin-top:10px;">
-      <span class="full">● Full</span> &nbsp;
-      <span class="partial">● Partial</span> &nbsp;
-      <span class="gap">● Gap</span> &nbsp;
-      <span class="road">● Roadmap</span>
+  </div>
+
+  <div class="content-block">
+    <h3>File Filter → DLP Condition Mapping</h3>
+    <div style="overflow-x:auto;">
+      <table class="simple-table">
+        <thead><tr><th>MDA File Filter</th><th>Purview DLP Condition</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Access level = External/Public</td><td>Content is shared from M365 with people outside org</td><td class="full">✅ Full</td><td></td></tr>
+          <tr><td>Access level = Internal</td><td>Content is shared from M365 only with people inside org</td><td class="full">✅ Full</td><td></td></tr>
+          <tr><td>Sensitivity label</td><td>Content contains → Sensitivity labels</td><td class="full">✅ Full</td><td>Direct mapping</td></tr>
+          <tr><td>Content inspection (preset expression)</td><td>Content contains → Sensitive info types</td><td class="full">✅ Full</td><td>Map each preset to a SIT</td></tr>
+          <tr><td>Content inspection (custom regex)</td><td>Content contains → Sensitive info types (custom SIT)</td><td class="full">✅ Full</td><td>Create custom SIT first</td></tr>
+          <tr><td>Content inspection (DCS)</td><td>Content contains → Sensitive info types</td><td class="full">✅ Full</td><td>Same underlying engine</td></tr>
+          <tr><td>File extension</td><td>File extension is</td><td class="full">✅ Full</td><td></td></tr>
+          <tr><td>File name</td><td>Document name contains words or phrases</td><td class="full">✅ Full</td><td></td></tr>
+          <tr><td>Created date</td><td>Document created date</td><td class="partial">⚠️ Partial</td><td>SPO/ODB only</td></tr>
+          <tr><td>Last modified date</td><td>Document last modified date</td><td class="partial">⚠️ Partial</td><td>SPO/ODB only</td></tr>
+          <tr><td>File type</td><td>File extension is (or File type on Endpoints)</td><td class="full">✅ Full</td><td></td></tr>
+          <tr><td>Minimum violation count</td><td>Instance count (min/max) per SIT</td><td class="full">✅ Full</td><td></td></tr>
+          <tr><td>Owner</td><td>Policy scoping by user/group or Document created by</td><td class="full">✅ Full</td><td></td></tr>
+          <tr><td>Parent folder</td><td>SharePoint site-level scoping</td><td class="gap">❌ Gap</td><td>No folder-level; site-level only</td></tr>
+          <tr><td>Apply to folder hierarchy</td><td>—</td><td class="gap">❌ Gap</td><td>Not available in Purview</td></tr>
+          <tr><td>Quarantined = true/false</td><td>—</td><td class="gap">❌ Gap</td><td>Not available</td></tr>
+          <tr><td>File in recycle bin / trash</td><td>—</td><td class="gap">❌ Gap</td><td>Not available</td></tr>
+          <tr><td>File ID</td><td>—</td><td class="gap">❌ Gap</td><td>Not available</td></tr>
+          <tr><td>Matched policy</td><td>—</td><td class="gap">❌ Gap</td><td>Not available</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="content-block">
+    <h3>Governance Action → DLP Action Mapping</h3>
+    <div style="overflow-x:auto;">
+      <table class="simple-table">
+        <thead><tr><th>MDA Governance Action</th><th>Purview DLP Equivalent</th><th>Status</th><th>Workaround</th></tr></thead>
+        <tbody>
+          <tr><td>Notify file owner</td><td>User notifications → Notify who last modified</td><td class="full">✅ Full</td><td></td></tr>
+          <tr><td>Notify specific users</td><td>User notifications → Notify specific people</td><td class="full">✅ Full</td><td></td></tr>
+          <tr><td>Send alert</td><td>Incident reports → Send alert to admins</td><td class="full">✅ Full</td><td></td></tr>
+          <tr><td>Remove public access</td><td>Restrict access → Block everyone except owner</td><td class="full">✅ Full</td><td></td></tr>
+          <tr><td>Remove external users</td><td>Restrict access → Block people outside org</td><td class="full">✅ Full</td><td></td></tr>
+          <tr><td>Make private</td><td>Restrict access → Block everyone except owner</td><td class="full">✅ Full</td><td></td></tr>
+          <tr><td>Admin quarantine</td><td>Admin quarantine</td><td class="full">✅ Full</td><td></td></tr>
+          <tr><td>Apply sensitivity label</td><td>Not a DLP action — create auto-labeling policy</td><td class="partial">⚠️ Separate policy</td><td>Go to Purview → Information Protection → Auto-labeling</td></tr>
+          <tr><td>Remove sensitivity label</td><td>Auto-labeling "Remove labels only" policy</td><td class="partial">⚠️ Separate policy</td><td>Purview → Information Protection → Auto-labeling → Remove labels</td></tr>
+          <tr><td>User quarantine</td><td>No direct equivalent</td><td class="gap">❌ Gap</td><td>DLP restrict access + Power Automate (move to quarantine folder)</td></tr>
+          <tr><td>Trash / delete file</td><td>No direct equivalent</td><td class="gap">❌ Gap</td><td>DLP restrict access + Power Automate (delete on alert)</td></tr>
+          <tr><td>Remove specific collaborator</td><td>No direct equivalent</td><td class="gap">❌ Gap</td><td>SharePoint admin or Power Automate (remove specific permissions)</td></tr>
+          <tr><td>Expire shared link</td><td>No direct equivalent</td><td class="gap">❌ Gap</td><td>SharePoint sharing policies + Microsoft Entra Conditional Access</td></tr>
+          <tr><td>Transfer file ownership</td><td>No direct equivalent</td><td class="gap">❌ Gap</td><td>Manual process or Power Automate (Google Workspace specific)</td></tr>
+          <tr><td>Automated file restore after quarantine</td><td>Partial — admins can enable file owners to manually restore</td><td class="partial">⚠️ Partial</td><td>Full parity not yet available</td></tr>
+          <tr><td>Reduce public access</td><td>Partial equivalent available</td><td class="partial">⚠️ Partial</td><td>Full parity not yet available</td></tr>
+          <tr><td>Inherit parent permissions</td><td>Not available</td><td class="gap">❌ Gap</td><td>Use site-level SharePoint settings</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="content-block">
+    <h3>App / Location Support</h3>
+    <div style="overflow-x:auto;">
+      <table class="simple-table">
+        <thead><tr><th>MDA App</th><th>Purview Location</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>SharePoint Online</td><td>SharePoint sites</td><td class="full">✅ Full</td><td>Specific site URLs or all</td></tr>
+          <tr><td>OneDrive for Business</td><td>OneDrive accounts</td><td class="full">✅ Full</td><td>Specific users/groups or all</td></tr>
+          <tr><td>Exchange Online</td><td>Exchange Online</td><td class="full">✅ Full</td><td>Distribution groups</td></tr>
+          <tr><td>Box</td><td>Instances</td><td class="full">✅ Full</td><td>Connected app instance via Defender for Cloud Apps connector</td></tr>
+          <tr><td>Google Workspace</td><td>Instances</td><td class="full">✅ Full</td><td>Connected app instance</td></tr>
+          <tr><td>Dropbox</td><td>Instances</td><td class="full">✅ Full</td><td>Connected app instance</td></tr>
+          <tr><td>Salesforce</td><td>Instances</td><td class="full">✅ Full</td><td>Connected app instance</td></tr>
+          <tr><td>Auto-labeling (3P apps)</td><td>—</td><td class="road">🗺 Roadmap</td><td>Not yet available — first-party workloads only for auto-labeling</td></tr>
+          <tr><td>AWS</td><td>—</td><td class="gap">❌ Gap</td><td>No Purview DLP equivalent — evaluate alternatives</td></tr>
+          <tr><td>ServiceNow</td><td>—</td><td class="gap">❌ Gap</td><td>No Purview DLP equivalent</td></tr>
+          <tr><td>Cisco Webex</td><td>—</td><td class="gap">❌ Gap</td><td>No Purview DLP equivalent</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px; color:var(--cp-text-muted); margin-top:12px;">
+      ⚠️ <strong>Important:</strong> Third-party policies in MDA and Purview <em>cannot coexist</em>. Running equivalent policies in both products simultaneously creates enforcement conflicts. Disable MDA policies only after Purview policies are validated and turned on.
     </p>
+  </div>
+
+  <div class="content-block">
+    <h3>Key Resources</h3>
+    <ul style="font-size:15px; color:var(--cp-text-soft); padding-left:20px; line-height:2;">
+      <li><a href="https://learn.microsoft.com/en-us/purview/dlp-policy-reference" target="_blank" style="color:var(--cp-link)">Purview DLP Policy Reference ↗</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/purview/dlp-create-deploy-policy" target="_blank" style="color:var(--cp-link)">Create and Deploy DLP Policies ↗</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically" target="_blank" style="color:var(--cp-link)">Auto-labeling Policies ↗</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/purview/sensitive-information-type-entity-definitions" target="_blank" style="color:var(--cp-link)">Purview SIT Reference ↗</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/purview/dlp-use-policies-non-microsoft-cloud-apps" target="_blank" style="color:var(--cp-link)">DLP for Non-Microsoft Cloud Apps ↗</a></li>
+    </ul>
   </div>
 </div>
 
