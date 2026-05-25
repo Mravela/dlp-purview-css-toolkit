@@ -98,11 +98,23 @@
     /* ── HERO ── */
     .hero {
       background: linear-gradient(135deg, #0f1f3d 0%, #1a1040 55%, #2d0a2e 100%);
-      padding: 60px 40px 56px;
+      padding: 56px 48px 52px;
       color: #fff;
+      border-bottom: 3px solid var(--cp-accent);
     }
-    .hero h1 { font-size: 36px; font-weight: 700; margin-bottom: 16px; }
-    .hero p { font-size: 19px; color: rgba(255,255,255,0.72); max-width: 760px; line-height: 1.65; }
+    .hero-eyebrow {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--cp-accent);
+      margin-bottom: 14px;
+    }
+    .hero h1 { font-size: 40px; font-weight: 700; margin-bottom: 14px; line-height: 1.2; }
+    .hero p { font-size: 18px; color: rgba(255,255,255,0.68); max-width: 680px; line-height: 1.7; margin-bottom: 20px; }
+    .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; }
+    .hero-meta span {
+      font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .hero-meta span::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--cp-accent); }
 
     /* ── CARD GRID ── */
     .card-grid-section { padding: 36px 40px; }
@@ -287,8 +299,15 @@
 
   <!-- Hero -->
   <div class="hero">
+    <div class="hero-eyebrow">MDA File Policy Deprecation · December 31, 2026</div>
     <h1>DLP File Policy Migration to Purview</h1>
     <p>A detailed toolkit to empower CSS engineers for every customer conversation on MDA file policy deprecation, from pre-requisites to post-migration enforcement.</p>
+    <div class="hero-meta">
+      <span>FAQ</span>
+      <span>Parity Reference</span>
+      <span>Escalation Routing</span>
+      <span>Glossary</span>
+    </div>
   </div>
 
   <!-- Flat card grid -->
