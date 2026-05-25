@@ -411,16 +411,15 @@
         <span class="faq-chevron">▶</span>
       </div>
       <div class="faq-a">
-        <p><strong>Required:</strong> Microsoft 365 E5 or Microsoft 365 E5 Compliance (or equivalent standalone Purview DLP license). The migration tool validates this at the Licensing Gate — if it fails, the customer cannot proceed.</p>
-        <p><strong>3P apps (Box, Dropbox, Google Workspace, Salesforce):</strong> Require PAYG (Pay-As-You-Go) billing configured in addition to the base license. The tool surfaces a PAYG acknowledgement checkbox before creating 3P policies.</p>
+        <p><strong>Required:</strong> Microsoft 365 E5 or Microsoft 365 E5 Compliance (or equivalent standalone Purview DLP license).</p>
+        <p><strong>3P apps (Box, Dropbox, Google Workspace, Salesforce):</strong> Require PAYG (Pay-As-You-Go) billing configured in addition to the base license.</p>
         <p><strong>What to tell the customer:</strong> Check Microsoft 365 admin center → Billing → Licenses. If E5 Compliance is missing, they need to purchase before migration can start.</p>
-        <p class="faq-ref">→ Open question OQ5: IP&amp;G licensing per-user vs tenant-level — confirm with Pallav before advising.</p>
       </div>
     </div>
 
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span>What admin roles are needed to run the migration tool?</span>
+        <span>What admin roles are needed to migrate to Purview?</span>
         <span class="faq-chevron">▶</span>
       </div>
       <div class="faq-a">
@@ -432,8 +431,7 @@
             <tr><td>Purview (purview.microsoft.com)</td><td>Compliance Administrator and/or Information Protection Administrator</td></tr>
           </tbody>
         </table>
-        <p style="margin-top:8px;">The Permission Gate checks both. If either fails, the tool surfaces the specific missing role with a docs link. Admin must fix the role assignment before progressing.</p>
-        <p class="faq-ref">→ Open questions OQ2 (MDA role) and OQ3 (Purview role) — confirm exact role names with Eng/Srivalli before advising.</p>
+        <p style="margin-top:8px;">Both roles are required. Admin must fix any missing role assignment before migration can proceed.</p>
       </div>
     </div>
 
@@ -456,13 +454,13 @@
         <span class="faq-chevron">▶</span>
       </div>
       <div class="faq-a">
-        <p>The tool runs two gates before showing any policies. Check which gate is failing:</p>
+        <p>The customer needs to verify two things before starting migration:</p>
         <table class="simple-table" style="margin-top:8px;">
           <thead><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr></thead>
           <tbody>
-            <tr><td>Licensing check fails</td><td>No active E5 / E5 Compliance license</td><td>Purchase / assign license. Tool blocked until resolved.</td></tr>
+            <tr><td>Licensing check fails</td><td>No active E5 / E5 Compliance license</td><td>Purchase / assign license before proceeding.</td></tr>
             <tr><td>Permission check fails</td><td>Missing MDA or Purview admin role</td><td>Assign correct role in respective admin center. Both must pass.</td></tr>
-            <tr><td>Gov cloud tenant</td><td>Gov cloud tenants are blocked in v1</td><td>Not supported in v1 — no workaround. Document as Cannot Migrate.</td></tr>
+            <tr><td>Gov cloud tenant</td><td>Not supported</td><td>No workaround currently available.</td></tr>
           </tbody>
         </table>
       </div>
@@ -475,8 +473,7 @@
       </div>
       <div class="faq-a">
         <p><strong>PAYG = Pay-As-You-Go</strong> — a billing model for Purview capabilities applied to third-party connected apps (Box, Dropbox, Google Workspace, Salesforce). Running DLP on these apps incurs metered usage charges beyond the base license.</p>
-        <p><strong>What the customer must do:</strong> Configure PAYG billing in Azure before using 3P DLP in Purview. The migration tool shows an inline PAYG acknowledgement checkbox — Create button is disabled until checked.</p>
-        <p class="faq-ref">→ Open question OQ6: PAYG meter — customer-configured or auto-provisioned? Confirm with Billing before advising setup steps.</p>
+        <p><strong>What the customer must do:</strong> Configure PAYG billing in Azure before using 3P DLP in Purview.</p>
       </div>
     </div>
 
@@ -558,7 +555,7 @@
         <span class="faq-chevron">▶</span>
       </div>
       <div class="faq-a">
-        <p><strong>By design.</strong> The migration tool creates all SPO/ODB policies in <strong>Simulation mode ("Test it out first")</strong> — policies log matches without any enforcement action. This is a deliberate draft-first approach to prevent accidental enforcement.</p>
+        <p><strong>By design.</strong> SPO/ODB policies are created in <strong>Simulation mode ("Test it out first")</strong> — policies log matches without any enforcement action. This prevents accidental enforcement before coverage is validated.</p>
         <p><strong>What to do:</strong> Run in simulation for 1–2 weeks, review matches in Activity Explorer, compare against MDA match volumes, tune false positives, then manually enable enforcement.</p>
         <p><strong>To enable enforcement:</strong> purview.microsoft.com → DLP → Policies → [Policy] → Edit → Change mode to "Turn it on".</p>
       </div>
@@ -606,7 +603,7 @@
             <tr><td>Sharing level "Private"</td><td class="partial">⚠️ Partial — value skipped, no Purview equivalent</td></tr>
           </tbody>
         </table>
-        <p style="margin-top:8px;"><strong>Policy split warning:</strong> If a single MDA policy has both TrashFile AND ContentExtensionMatchesWords, the tool creates <strong>two separate Purview policies</strong> [D] and [E]. Admin warned: same file may match both — behavior differs from the original single MDA policy.</p>
+        <p style="margin-top:8px;"><strong>Policy split note:</strong> If a single MDA policy has both TrashFile AND ContentExtensionMatchesWords, Purview requires <strong>two separate policies</strong> to cover both. Admin should be aware that the same file may match both — behavior differs from the original single MDA policy.</p>
       </div>
     </div>
 
@@ -635,7 +632,7 @@
           <li><strong>Purview DLP policy</strong> → detects content and restricts access / alerts</li>
           <li><strong>Purview auto-labeling policy</strong> (Information Protection) → applies the sensitivity label</li>
         </ul>
-        <p style="margin-top:8px;">The migration tool creates both automatically from a single MDA policy that had a label action. Both are created in Simulation mode.</p>
+        <p style="margin-top:8px;">When migrating an MDA policy that applied a label, two Purview policies are needed — both created in Simulation mode.</p>
         <p><strong>Navigation:</strong> purview.microsoft.com → Information Protection → Auto-labeling</p>
       </div>
     </div>
