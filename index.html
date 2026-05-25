@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSS Toolkit — DLP → Purview Migration (v1)</title>
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+      const theme = param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --cp-bg: #f7f4ef;
+      --cp-bg-elevated: #fcfbf8;
+      --cp-surface: #ffffff;
+      --cp-surface-soft: #f5f5f5;
+      --cp-border: #dedede;
+      --cp-border-strong: #919191;
+      --cp-text: #242424;
+      --cp-text-muted: #5c5c5c;
+      --cp-text-soft: #6f6f6f;
+      --cp-accent: #b11f4b;
+      --cp-accent-hover: #9a1a41;
+      --cp-accent-soft: rgba(177, 31, 75, 0.08);
+      --cp-accent-fg: #ffffff;
+      --cp-success: #16a34a;
+      --cp-danger: #dc2626;
+      --cp-warning: #d97706;
+      --cp-link: #0078d4;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+      --cp-highlight: rgba(177, 31, 75, 0.12);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --cp-bg: #3d3b3a;
+      --cp-bg-elevated: #343231;
+      --cp-surface: #292929;
+      --cp-surface-soft: #2e2e2e;
+      --cp-border: #474747;
+      --cp-border-strong: #5f5f5f;
+      --cp-text: #dedede;
+      --cp-text-muted: #919191;
+      --cp-text-soft: #b0b0b0;
+      --cp-accent: #fd8ea1;
+      --cp-accent-hover: #fb7b91;
+      --cp-accent-soft: rgba(253, 142, 161, 0.14);
+      --cp-accent-fg: #1a1a1a;
+      --cp-success: #4ade80;
+      --cp-danger: #f87171;
+      --cp-warning: #fbbf24;
+      --cp-link: #4da6ff;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      --cp-highlight: rgba(253, 142, 161, 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--cp-bg);
+      color: var(--cp-text);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    /* ── HEADER ── */
+    .app-header {
+      background: var(--cp-surface);
+      border-bottom: 1px solid var(--cp-border);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      z-index: 100;
+    }
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .header-title { font-size: 15px; font-weight: 700; }
+    .header-sub { font-size: 11px; color: var(--cp-text-muted); margin-top: 1px; }
+    .header-right { display: flex; align-items: center; gap: 8px; }
+
+    .badge {
+      font-size: 10px; font-weight: 700; padding: 2px 8px;
+      border-radius: 20px; letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    .badge-accent { background: var(--cp-accent); color: var(--cp-accent-fg); }
+    .badge-lock {
+      background: var(--cp-surface-soft); color: var(--cp-text-muted);
+      border: 1px solid var(--cp-border);
+    }
+    .badge-skeleton { background: rgba(245,158,11,0.15); color: var(--cp-warning); }
+
+    .theme-btn {
+      background: var(--cp-surface-soft); border: 1px solid var(--cp-border);
+      border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 12px;
+      color: var(--cp-text-muted); font-family: inherit;
+    }
+    .theme-btn:hover { background: var(--cp-accent-soft); color: var(--cp-accent); }
+
+    /* ── LAYOUT ── */
+    .app-body { display: flex; flex: 1; overflow: hidden; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 248px; min-width: 248px;
+      background: var(--cp-surface);
+      border-right: 1px solid var(--cp-border);
+      overflow-y: auto; padding: 12px 0; flex-shrink: 0;
+    }
+    .sidebar-search { padding: 0 10px 10px; border-bottom: 1px solid var(--cp-border); margin-bottom: 6px; }
+    .sidebar-search input {
+      width: 100%; background: var(--cp-surface-soft); border: 1px solid var(--cp-border);
+      border-radius: 6px; padding: 6px 10px; font-size: 12px; color: var(--cp-text);
+      font-family: inherit; outline: none;
+    }
+    .sidebar-search input:focus { border-color: var(--cp-accent); }
+    .sidebar-search input::placeholder { color: var(--cp-text-muted); }
+
+    .sidebar-group-label {
+      padding: 8px 12px 4px;
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.8px; color: var(--cp-text-muted);
+      display: flex; align-items: center; gap: 5px;
+    }
+    .sidebar-item {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 12px 6px 18px; font-size: 12px; color: var(--cp-text-soft);
+      cursor: pointer; border-left: 3px solid transparent;
+      text-decoration: none; transition: background 0.1s;
+    }
+    .sidebar-item:hover { background: var(--cp-accent-soft); color: var(--cp-accent); }
+    .sidebar-item.active {
+      background: var(--cp-accent-soft); color: var(--cp-accent);
+      border-left-color: var(--cp-accent); font-weight: 600;
+    }
+    .sidebar-item.entry { color: var(--cp-accent); font-weight: 600; font-size: 12.5px; }
+
+    /* ── MAIN ── */
+    .main { flex: 1; overflow-y: auto; padding: 24px 32px; scroll-behavior: smooth; }
+
+    /* ── RULES BAR ── */
+    .rules-bar {
+      background: var(--cp-surface); border: 1px solid var(--cp-border);
+      border-radius: 8px; padding: 8px 14px; margin-bottom: 24px;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 11px;
+    }
+    .rules-label { font-weight: 700; color: var(--cp-text-muted); margin-right: 2px; }
+    .rule { display: flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
+    .rule-ok { background: rgba(22,163,74,0.1); color: var(--cp-success); }
+    .rule-block { background: rgba(220,38,38,0.08); color: var(--cp-danger); }
+
+    /* ── START HERE BANNER ── */
+    .start-banner {
+      background: var(--cp-accent); color: var(--cp-accent-fg);
+      border-radius: 8px; padding: 10px 16px; margin-bottom: 20px;
+      font-size: 12.5px; font-weight: 600; display: flex; align-items: center; gap: 8px;
+    }
+
+    /* ── SECTION ── */
+    .section { margin-bottom: 44px; scroll-margin-top: 16px; }
+    .section-header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 14px; padding-bottom: 10px;
+      border-bottom: 2px solid var(--cp-border);
+    }
+    .section-title { font-size: 17px; font-weight: 700; }
+    .layer-badge {
+      font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .lb-entry { background: rgba(177,31,75,0.1); color: var(--cp-accent); }
+    .lb-depth { background: rgba(22,163,74,0.1); color: var(--cp-success); }
+    .lb-support { background: rgba(0,120,212,0.1); color: var(--cp-link); }
+    .lb-decision { background: rgba(217,119,6,0.12); color: var(--cp-warning); }
+
+    /* ── BLOCK CARD ── */
+    .block-card {
+      background: var(--cp-surface); border: 1px solid var(--cp-border);
+      border-radius: 10px; margin-bottom: 10px; overflow: hidden;
+      box-shadow: 0 0 2px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.08);
+    }
+    .block-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 14px; cursor: pointer; user-select: none;
+      background: var(--cp-surface); transition: background 0.1s;
+    }
+    .block-header:hover { background: var(--cp-surface-soft); }
+    .bh-left { display: flex; align-items: center; gap: 8px; }
+    .block-title { font-size: 13px; font-weight: 600; }
+    .bh-right { display: flex; align-items: center; gap: 10px; }
+
+    .type-tag {
+      font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px;
+      text-transform: uppercase; letter-spacing: 0.4px; white-space: nowrap;
+    }
+    .tt-faq { background: rgba(0,120,212,0.1); color: var(--cp-link); }
+    .tt-parity { background: rgba(22,163,74,0.1); color: var(--cp-success); }
+    .tt-escalation { background: rgba(217,119,6,0.12); color: var(--cp-warning); }
+    .tt-objection { background: rgba(177,31,75,0.1); color: var(--cp-accent); }
+    .tt-library { background: rgba(22,163,74,0.1); color: var(--cp-success); }
+    .tt-neutral { background: var(--cp-surface-soft); color: var(--cp-text-muted); }
+
+    .block-status { font-size: 11px; color: var(--cp-text-muted); display: flex; align-items: center; gap: 4px; }
+    .sdot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+    .sdot-pending { background: var(--cp-text-muted); }
+    .sdot-draft { background: var(--cp-warning); }
+    .sdot-done { background: var(--cp-success); }
+
+    .chevron { font-size: 9px; color: var(--cp-text-muted); transition: transform 0.2s; }
+    .chevron.open { transform: rotate(90deg); }
+
+    .block-body { padding: 14px 16px; border-top: 1px solid var(--cp-border); display: none; }
+    .block-body.open { display: block; }
+
+    .block-footer {
+      display: flex; align-items: center; gap: 16px;
+      padding: 8px 14px; background: var(--cp-surface-soft);
+      border-top: 1px solid var(--cp-border); font-size: 11px; color: var(--cp-text-muted);
+    }
+    .meta { display: flex; align-items: center; gap: 4px; }
+    .meta b { color: var(--cp-text-soft); }
+
+    /* ── PLACEHOLDER BOX ── */
+    .ph {
+      background: var(--cp-surface-soft); border: 1.5px dashed var(--cp-border-strong);
+      border-radius: 8px; padding: 14px; color: var(--cp-text-muted);
+      font-size: 12px; margin-bottom: 10px; line-height: 1.7;
+    }
+    .ph strong { color: var(--cp-text); }
+
+    /* ── NO-DUP NOTICE ── */
+    .no-dup {
+      font-size: 11px; color: var(--cp-text-muted); font-style: italic;
+      display: flex; align-items: center; gap: 4px; margin-top: 8px;
+    }
+
+    /* ── LIB REF LINK ── */
+    .lref {
+      display: inline-flex; align-items: center; gap: 3px;
+      font-size: 11px; color: var(--cp-link);
+      background: rgba(0,120,212,0.08); border-radius: 4px;
+      padding: 2px 7px; cursor: pointer; text-decoration: none;
+    }
+    .lref:hover { background: rgba(0,120,212,0.16); }
+
+    /* ── V2 NOTICE ── */
+    .v2-notice {
+      margin-top: 10px; padding: 7px 10px;
+      background: rgba(220,38,38,0.06); border-radius: 6px;
+      font-size: 11px; color: var(--cp-danger);
+    }
+
+    /* ── TABLE ── */
+    .lib-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 10px; }
+    .lib-table th {
+      background: var(--cp-surface-soft); padding: 7px 10px; text-align: left;
+      font-weight: 600; font-size: 10px; color: var(--cp-text-muted);
+      border-bottom: 2px solid var(--cp-border); text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .lib-table td { padding: 8px 10px; border-bottom: 1px solid var(--cp-border); vertical-align: top; }
+    .lib-table tr:last-child td { border-bottom: none; }
+    .lib-table tr:hover td { background: var(--cp-accent-soft); }
+    .lib-table .p-full { color: var(--cp-success); font-weight: 600; }
+    .lib-table .p-partial { color: var(--cp-warning); font-weight: 600; }
+    .lib-table .p-gap { color: var(--cp-danger); font-weight: 600; }
+    .lib-table .p-road { color: var(--cp-link); font-weight: 600; }
+
+    /* ── DECISION TREE ── */
+    .decision-node {
+      background: var(--cp-surface-soft); border: 1px solid var(--cp-border);
+      border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; font-size: 12px;
+    }
+    .decision-node.dn-escalate { border-left: 3px solid var(--cp-warning); }
+    .dn-row { display: flex; gap: 16px; margin-top: 7px; font-size: 11px; }
+    .dn-yes { color: var(--cp-success); font-weight: 600; }
+    .dn-no { color: var(--cp-danger); font-weight: 600; }
+
+    /* ── CHECKLIST ── */
+    .cl-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 8px 0; border-bottom: 1px solid var(--cp-border); font-size: 12px;
+    }
+    .cl-item:last-child { border-bottom: none; }
+    .cl-box {
+      width: 15px; height: 15px; border: 1.5px solid var(--cp-border-strong);
+      border-radius: 3px; margin-top: 1px; flex-shrink: 0;
+    }
+
+    /* ── GLOSSARY ── */
+    .gl-term {
+      display: flex; gap: 14px; padding: 8px 0;
+      border-bottom: 1px solid var(--cp-border); font-size: 12px;
+    }
+    .gl-term:last-child { border-bottom: none; }
+    .gl-name { font-weight: 700; min-width: 130px; color: var(--cp-text); }
+    .gl-def { color: var(--cp-text-soft); }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--cp-border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--cp-border-strong); }
+
+    @media (max-width: 720px) {
+      .sidebar { display: none; }
+      .main { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header class="app-header">
+  <div class="header-left">
+    <div>
+      <div class="header-title">🛡️ CSS Toolkit — DLP → Purview Migration</div>
+      <div class="header-sub">Support Engineering Reference · Building Blocks</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="badge badge-lock">🔒 v1 Locked</span>
+    <span class="badge badge-skeleton">Skeleton</span>
+    <button class="theme-btn" onclick="toggleTheme()">☀️ / 🌙</button>
+  </div>
+</header>
+
+<!-- ══ BODY ══ -->
+<div class="app-body">
+
+  <!-- ── SIDEBAR ── -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-search">
+      <input type="text" id="searchInput" placeholder="🔍 Search blocks…" oninput="filterBlocks(this.value)" />
+    </div>
+
+    <div class="sidebar-group-label">🟠 Entry Layer</div>
+    <a class="sidebar-item entry active" onclick="scrollToSection('scenario-blocks')">▶ Scenario Blocks</a>
+
+    <div class="sidebar-group-label">📚 Depth Libraries</div>
+    <a class="sidebar-item" onclick="scrollToSection('parity-library')">Parity Depth Library</a>
+    <a class="sidebar-item" onclick="scrollToSection('licensing-library')">Licensing Depth Library</a>
+
+    <div class="sidebar-group-label">💬 Support Layers</div>
+    <a class="sidebar-item" onclick="scrollToSection('messaging')">Messaging & Talking Points</a>
+    <a class="sidebar-item" onclick="scrollToSection('objections')">Objections + Responses</a>
+    <a class="sidebar-item" onclick="scrollToSection('what-stays')">What Stays / What Changes</a>
+    <a class="sidebar-item" onclick="scrollToSection('glossary')">Glossary</a>
+    <a class="sidebar-item" onclick="scrollToSection('source-of-truth')">Source-of-Truth Pointers</a>
+
+    <div class="sidebar-group-label">⚡ Decision Layers</div>
+    <a class="sidebar-item" onclick="scrollToSection('escalation-guide')">Escalation & Handover Guide</a>
+    <a class="sidebar-item" onclick="scrollToSection('evidence-checklist')">Evidence Checklist</a>
+    <a class="sidebar-item" onclick="scrollToSection('strategic-rules')">Strategic Handling Rules</a>
+  </nav>
+
+  <!-- ── MAIN ── -->
+  <main class="main" id="mainScroll">
+
+    <!-- Rules enforcement bar -->
+    <div class="rules-bar">
+      <span class="rules-label">v1 Rules:</span>
+      <span class="rule rule-ok">✅ One entry point: Scenario Block</span>
+      <span class="rule rule-ok">✅ No duplication — facts in ONE library</span>
+      <span class="rule rule-ok">✅ Owner + Last Updated on every block</span>
+      <span class="rule rule-block">🚫 No tenant data — v2</span>
+      <span class="rule rule-block">🚫 No tool-era behaviors — v2</span>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         1. SCENARIO BLOCKS  (Entry Layer)
+         ════════════════════════════════════════ -->
+    <div class="section" id="scenario-blocks">
+      <div class="section-header">
+        <span>🟠</span>
+        <h2 class="section-title">Scenario Blocks</h2>
+        <span class="layer-badge lb-entry">Entry Layer</span>
+      </div>
+
+      <div class="start-banner">
+        ▶ START HERE — All CSS engagements begin with a Scenario Block. Find your scenario type below.
+      </div>
+
+      <!-- FAQ -->
+      <div class="block-card" data-tags="scenario faq missing feature changed behavior">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="bh-left">
+            <span class="type-tag tt-faq">FAQ</span>
+            <span class="block-title">Customer asks about a missing feature or changed behavior</span>
+          </div>
+          <div class="bh-right">
+            <span class="block-status"><span class="sdot sdot-pending"></span> Placeholder</span>
+            <span class="chevron">▶</span>
+          </div>
+        </div>
+        <div class="block-body">
+          <div class="ph">
+            <strong>Trigger:</strong> Customer asks why feature X is not available in Purview, or why behavior changed post-migration.<br><br>
+            <strong>Quick Answer:</strong> [CONTENT PENDING]<br><br>
+            <strong>References — do not copy, link only:</strong><br>
+            → <a class="lref" onclick="scrollToSection('parity-library')">📚 Parity Depth Library</a> — check capability status<br>
+            → <a class="lref" onclick="scrollToSection('messaging')">💬 Approved Messaging</a> — use exact phrasing<br>
+            → <a class="lref" onclick="scrollToSection('what-stays')">🔄 What Stays / What Changes</a> — customer narrative
+          </div>
+          <p class="no-dup">ℹ️ Do not copy capability facts here. All truth lives in the Parity Depth Library.</p>
+        </div>
+        <div class="block-footer">
+          <span class="meta"><b>Owner:</b> TBD</span>
+          <span class="meta"><b>Last Updated:</b> —</span>
+        </div>
+      </div>
+
+      <!-- Parity -->
+      <div class="block-card" data-tags="scenario parity capability comparison mda purview">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="bh-left">
+            <span class="type-tag tt-parity">Parity</span>
+            <span class="block-title">Customer compares MDA capability to Purview equivalent</span>
+          </div>
+          <div class="bh-right">
+            <span class="block-status"><span class="sdot sdot-pending"></span> Placeholder</span>
+            <span class="chevron">▶</span>
+          </div>
+        </div>
+        <div class="block-body">
+          <div class="ph">
+            <strong>Trigger:</strong> Customer side-by-sides MDA vs Purview — "In MDA I could do X, can I do the same in Purview?"<br><br>
+            <strong>Quick Answer:</strong> [CONTENT PENDING]<br><br>
+            <strong>References — do not copy, link only:</strong><br>
+            → <a class="lref" onclick="scrollToSection('parity-library')">📚 Parity Depth Library</a> — exact capability comparison<br>
+            → <a class="lref" onclick="scrollToSection('licensing-library')">📚 Licensing Depth Library</a> — if SKU is relevant<br>
+            → <a class="lref" onclick="scrollToSection('escalation-guide')">⚡ Escalation Guide</a> — if gap is confirmed and customer is upset
+          </div>
+          <p class="no-dup">ℹ️ Do not copy capability facts here. Refer to Parity Depth Library only.</p>
+        </div>
+        <div class="block-footer">
+          <span class="meta"><b>Owner:</b> TBD</span>
+          <span class="meta"><b>Last Updated:</b> —</span>
+        </div>
+      </div>
+
+      <!-- Escalation -->
+      <div class="block-card" data-tags="scenario escalation churn upset account team exec">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="bh-left">
+            <span class="type-tag tt-escalation">Escalation</span>
+            <span class="block-title">Customer escalates, threatens churn, or invokes account team</span>
+          </div>
+          <div class="bh-right">
+            <span class="block-status"><span class="sdot sdot-pending"></span> Placeholder</span>
+            <span class="chevron">▶</span>
+          </div>
+        </div>
+        <div class="block-body">
+          <div class="ph">
+            <strong>Trigger:</strong> Customer expresses dissatisfaction, mentions churn, SLA risk, or wants to involve account team / exec.<br><br>
+            <strong>Quick Answer:</strong> [CONTENT PENDING]<br><br>
+            <strong>References — do not copy, link only:</strong><br>
+            → <a class="lref" onclick="scrollToSection('escalation-guide')">⚡ Escalation & Handover Guide</a> — routing decision<br>
+            → <a class="lref" onclick="scrollToSection('evidence-checklist')">📋 Evidence Checklist</a> — gather before routing<br>
+            → <a class="lref" onclick="scrollToSection('strategic-rules')">⚖️ Strategic Handling Rules</a> — S500 / Cohort behavior
+          </div>
+          <p class="no-dup">ℹ️ Check Strategic Handling Rules before routing any S500 or large-cohort case.</p>
+        </div>
+        <div class="block-footer">
+          <span class="meta"><b>Owner:</b> TBD</span>
+          <span class="meta"><b>Last Updated:</b> —</span>
+        </div>
+      </div>
+
+      <!-- Objection -->
+      <div class="block-card" data-tags="scenario objection timeline pushback readiness not ready migration">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="bh-left">
+            <span class="type-tag tt-objection">Objection</span>
+            <span class="block-title">Customer objects to migration timeline, readiness, or deprecation decision</span>
+          </div>
+          <div class="bh-right">
+            <span class="block-status"><span class="sdot sdot-pending"></span> Placeholder</span>
+            <span class="chevron">▶</span>
+          </div>
+        </div>
+        <div class="block-body">
+          <div class="ph">
+            <strong>Trigger:</strong> Customer pushes back — "We're not ready", "The timeline is too aggressive", "This feature gap is a blocker".<br><br>
+            <strong>Quick Answer:</strong> [CONTENT PENDING]<br><br>
+            <strong>References — do not copy, link only:</strong><br>
+            → <a class="lref" onclick="scrollToSection('objections')">🔁 Objections + Responses</a> — approved pushback handling<br>
+            → <a class="lref" onclick="scrollToSection('messaging')">💬 Approved Messaging</a> — tone and phrasing<br>
+            → <a class="lref" onclick="scrollToSection('parity-library')">📚 Parity Depth Library</a> — if objection is capability-based
+          </div>
+          <p class="no-dup">ℹ️ Use approved responses from the Objections library. Do not improvise messaging.</p>
+        </div>
+        <div class="block-footer">
+          <span class="meta"><b>Owner:</b> TBD</span>
+          <span class="meta"><b>Last Updated:</b> —</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         2. PARITY DEPTH LIBRARY
+         ════════════════════════════════════════ -->
+    <div class="section" id="parity-library">
+      <div class="section-header">
+        <span>📚</span>
+        <h2 class="section-title">Parity Depth Library</h2>
+        <span class="layer-badge lb-depth">Depth Library</span>
+      </div>
+
+      <div class="block-card" data-tags="parity feature capability condition action scope policy behavior">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="bh-left">
+            <span class="type-tag tt-library">Library</span>
+            <span class="block-title">Product Capability Truth — Conditions, Actions, Scopes, Policy Types, Behaviors</span>
+          </div>
+          <div class="bh-right">
+            <span class="block-status"><span class="sdot sdot-pending"></span> Placeholder</span>
+            <span class="chevron">▶</span>
+          </div>
+        </div>
+        <div class="block-body">
+          <div class="ph" style="margin-bottom:12px;">
+            <strong>Source of Truth:</strong> All MDA ↔ Purview capability comparisons live here — and <em>only here</em>. Scenario blocks link to rows in this table; they never copy them.
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="lib-table">
+              <thead>
+                <tr>
+                  <th>Feature / Capability</th>
+                  <th>MDA Behavior</th>
+                  <th>Purview Equivalent</th>
+                  <th>Parity Status</th>
+                  <th>Conditions</th>
+                  <th>Actions</th>
+                  <th>Scopes</th>
+                  <th>Policy Type</th>
+                  <th>Edge Cases / Behaviors</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>[Feature Name]</td><td>[PENDING]</td><td>[PENDING]</td>
+                  <td class="p-gap">Gap</td>
+                  <td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td>
+                </tr>
+                <tr>
+                  <td>[Feature Name]</td><td>[PENDING]</td><td>[PENDING]</td>
+                  <td class="p-partial">Partial</td>
+                  <td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td>
+                </tr>
+                <tr>
+                  <td>[Feature Name]</td><td>[PENDING]</td><td>[PENDING]</td>
+                  <td class="p-full">Full</td>
+                  <td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td>
+                </tr>
+                <tr>
+                  <td>[Feature Name]</td><td>[PENDING]</td><td>[PENDING]</td>
+                  <td class="p-road">Roadmap</td>
+                  <td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; font-size:11px; margin-bottom:8px;">
+            <span style="color:var(--cp-text-muted); font-weight:600;">Legend:</span>
+            <span class="p-full">● Full Parity</span>
+            <span class="p-partial">● Partial</span>
+            <span class="p-gap">● Gap</span>
+            <span class="p-road">● Roadmap</span>
+          </div>
+          <div class="v2-notice">🚫 No tool-era behaviors in v1 — behaviors column will be filled in v2</div>
+        </div>
+        <div class="block-footer">
+          <span class="meta"><b>Owner:</b> TBD</span>
+          <span class="meta"><b>Last Updated:</b> —</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         3. LICENSING DEPTH LIBRARY
+         ════════════════════════════════════════ -->
+    <div class="section" id="licensing-library">
+      <div class="section-header">
+        <span>📚</span>
+        <h2 class="section-title">Licensing Depth Library</h2>
+        <span class="layer-badge lb-depth">Depth Library</span>
+      </div>
+
+      <div class="block-card" data-tags="licensing sku entitlement capability readiness edge cases">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="bh-left">
+            <span class="type-tag tt-library">Library</span>
+            <span class="block-title">Entitlement Truth — SKUs, Capabilities, Readiness, Edge Cases</span>
+          </div>
+          <div class="bh-right">
+            <span class="block-status"><span class="sdot sdot-pending"></span> Placeholder</span>
+            <span class="chevron">▶</span>
+          </div>
+        </div>
+        <div class="block-body">
+          <div class="ph" style="margin-bottom:12px;">
+            <strong>Source of Truth:</strong> All SKU-to-capability mappings and licensing edge cases live here — and <em>only here</em>.
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="lib-table">
+              <thead>
+                <tr>
+                  <th>SKU Name</th>
+                  <th>What's Included</th>
+                  <th>What's NOT Included</th>
+                  <th>Migration Readiness</th>
+                  <th>Edge Cases</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>[SKU Name]</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td>
+                </tr>
+                <tr>
+                  <td>[SKU Name]</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td>
+                </tr>
+                <tr>
+                  <td>[SKU Name]</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td><td>[PENDING]</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="block-footer">
+          <span class="meta"><b>Owner:</b> TBD</span>
+          <span class="meta"><b>Last Updated:</b> —</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         4. CUSTOMER MESSAGING / TALKING POINTS
+         ════════════════════════════════════════ -->
+    <div class="section" id="messaging">
+      <div class="section-header">
+        <span>💬</span>
+        <h2 class="section-title">Customer Messaging & Talking Points</h2>
+        <span class="layer-badge lb-support">Support Layer</span>
+      </div>
+
+      <div class="block-card" data-tags="messaging talking points approved phrasing framing">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="bh-left">
+            <span class="type-tag tt-neutral">Messaging</span>
+            <span class="block-title">Approved phrasing for migration conversations</span>
+          </div>
+          <div class="bh-right">
+            <span class="block-status"><span class="sdot sdot-pending"></span> Placeholder</span>
+            <span class="chevron">▶</span>
+          </div>
+        </div>
+        <div class="block-body">
+          <div class="ph">
+            <strong>Topics to cover (content pending from PMM / PG):</strong><br><br>
+            • <strong>Opening framing</strong> — why we're migrating and what it means for the customer<br>
+            • <strong>Timeline messaging</strong> — what's happening, when, and what's required from them<br>
+            • <strong>Gap acknowledgment</strong> — how to address gaps honestly without over-promising<br>
+            • <strong>Value message</strong> — what customers gain in Purview vs. MDA<br>
+            • <strong>"Not yet" language</strong> — how to handle roadmap items without committing<br>
+            • <strong>TCO / licensing angle</strong> — how to frame the cost story<br><br>
+            <strong>[CONTENT PENDING — Approved messaging from PMM / PG required]</strong>
+          </div>
+        </div>
+        <div class="block-footer">
+          <span class="meta"><b>Owner:</b> TBD</span>
+          <span class="meta"><b>Last Updated:</b> —</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         5. CUSTOMER OBJECTIONS + RESPONSES
+         ════════════════════════════════════════ -->
+    <div class="section" id="objections">
+      <div class="section-header">
+        <span>🔁</span>
+        <h2 class="section-title">Customer Objections + Responses</h2>
+        <span class="layer-badge lb-support">Support Layer</span>
+      </div>
+
+      <div class="block-card" data-tags="objection pushback response handle not ready timeline blocker churn">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="bh-left">
+            <span class="type-tag tt-objection">Objections</span>
+            <span class="block-title">Pushback handling — approved responses to common customer objections</span>
+          </div>
+          <div class="bh-right">
+            <span class="block-status"><span class="sdot sdot-pending"></span> Placeholder</span>
+            <span class="chevron">▶</span>
+          </div>
+        </div>
+        <div class="block-body">
+          <div class="ph">
+            <strong>Objections to address (responses pending from CSS + PMM):</strong><br><br>
+            • "We're not ready to migrate by [date]"<br>
+            • "Purview doesn't have [feature] — we're blocked"<br>
+            • "Why is Microsoft forcing this change?"<br>
+            • "We just deployed MDA — now you're deprecating it?"<br>
+            • "Our compliance team needs X — MDA had it, Purview doesn't"<br>
+            • "What happens if we don't migrate in time?"<br>
+            • "Can we get an extension / exception?"<br>
+            • "Your roadmap is too vague to plan around"<br><br>
+            <strong>[CONTENT PENDING — Approved responses required]</strong>
+          </div>
+        </div>
+        <div class="block-footer">
+          <span class="meta"><b>Owner:</b> TBD</span>
+          <span class="meta"><b>Last Updated:</b> —</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         6. WHAT STAYS / WHAT CHANGES
+         ════════════════════════════════════════ -->
+    <div class="section" id="what-stays">
+      <div class="section-header">
+        <span>🔄</span>
+        <h2 class="section-title">What Stays / What Changes</h2>
+        <span class="layer-badge lb-support">Support Layer</span>
+      </div>
+
+      <div class="block-card" data-tags="stays changes narrative customer summary gain loss new">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="bh-left">
+            <span class="type-tag tt-neutral">Narrative</span>
+            <span class="block-title">Customer-facing summary of the migration delta</span>
+          </div>
+          <div class="bh-right">
+            <span class="block-status"><span class="sdot sdot-pending"></span> Placeholder</span>
+            <span class="chevron">▶</span>
+          </div>
+        </div>
+        <div class="block-body">
+          <div class="ph">
+            <strong>✅ What Stays</strong> (customer keeps these — no action needed):<br>
+            &nbsp;&nbsp;• [CONTENT PENDING]<br><br>
+            <strong>🔄 What Changes</strong> (customer must adapt — requires action):<br>
+            &nbsp;&nbsp;• [CONTENT PENDING]<br><br>
+            <strong>✨ What's New</strong> (net gain in Purview — worth highlighting):<br>
+            &nbsp;&nbsp;• [CONTENT PENDING]<br><br>
+            <strong>⚠️ What's Not Ready Yet</strong> (honest gaps — do not over-promise):<br>
+            &nbsp;&nbsp;• [CONTENT PENDING — link to Parity Depth Library once populated]
+          </div>
+          <p class="no-dup">ℹ️ The "What's Not Ready Yet" list must stay in sync with Parity Depth Library gap rows. No duplication.</p>
+        </div>
+        <div class="block-footer">
+          <span class="meta"><b>Owner:</b> TBD</span>
+          <span class="meta"><b>Last Updated:</b> —</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         7. GLOSSARY
+         ════════════════════════════════════════ -->
+    <div class="section" id="glossary">
+      <div class="section-header">
+        <span>📖</span>
+        <h2 class="section-title">Glossary</h2>
+        <span class="layer-badge lb-support">Support Layer</span>
+      </div>
+
+      <div class="block-card" data-tags="glossary terms definitions acronyms mda purview dlp css">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="bh-left">
+            <span class="type-tag tt-neutral">Terms</span>
+            <span class="block-title">Key terms — 1-line definitions only, no explanations</span>
+          </div>
+          <div class="bh-right">
+            <span class="block-status"><span class="sdot sdot-pending"></span> Placeholder</span>
+            <span class="chevron">▶</span>
+          </div>
+        </div>
+        <div class="block-body">
+          <div class="gl-term"><span class="gl-name">MDA</span><span class="gl-def">Microsoft Defender for Cloud Apps — [CONTENT PENDING]</span></div>
+          <div class="gl-term"><span class="gl-name">Purview DLP</span><span class="gl-def">Microsoft Purview Data Loss Prevention — [CONTENT PENDING]</span></div>
+          <div class="gl-term"><span class="gl-name">DSP</span><span class="gl-def">[CONTENT PENDING]</span></div>
+          <div class="gl-term"><span class="gl-name">CSS</span><span class="gl-def">Customer Success / Support — the team this toolkit is built for.</span></div>
+          <div class="gl-term"><span class="gl-name">Cohort</span><span class="gl-def">[CONTENT PENDING — customer tier grouping used in migration wave planning]</span></div>
+          <div class="gl-term"><span class="gl-name">S500</span><span class="gl-def">[CONTENT PENDING — strategic account designation, special handling required]</span></div>
+          <div class="gl-term"><span class="gl-name">TCO</span><span class="gl-def">Total Cost of Ownership — [CONTENT PENDING]</span></div>
+          <div class="gl-term"><span class="gl-name">Parity</span><span class="gl-def">Equivalence of a capability between MDA and Purview: Full, Partial, Gap, or Roadmap.</span></div>
+          <div class="gl-term"><span class="gl-name">Parity Gap</span><span class="gl-def">A capability present in MDA that has no current equivalent in Purview.</span></div>
+          <div class="gl-term"><span class="gl-name">PAYG</span><span class="gl-def">[CONTENT PENDING — Pay-as-you-go licensing model context]</span></div>
+        </div>
+        <div class="block-footer">
+          <span class="meta"><b>Owner:</b> TBD</span>
+          <span class="meta"><b>Last Updated:</b> —</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         8. SOURCE-OF-TRUTH POINTERS
+         ════════════════════════════════════════ -->
+    <div class="section" id="source-of-truth">
+      <div class="section-header">
+        <span>🔗</span>
+        <h2 class="section-title">Source-of-Truth Pointers</h2>
+        <span class="layer-badge lb-support">Support Layer</span>
+      </div>
+
+      <div class="block-card" data-tags="source truth canonical docs links references pointers">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="bh-left">
+            <span class="type-tag tt-neutral">Links</span>
+            <span class="block-title">Canonical documentation — what to trust when in doubt</span>
+          </div>
+          <div class="bh-right">
+            <span class="block-status"><span class="sdot sdot-pending"></span> Placeholder</span>
+            <span class="chevron">▶</span>
+          </div>
+        </div>
+        <div class="block-body">
+          <div style="overflow-x:auto;">
+            <table class="lib-table">
+              <thead>
+                <tr>
+                  <th>Category</th><th>Document / Source</th><th>Owner</th><th>Link</th><th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Parity</td><td>[DOC NAME PENDING]</td><td>TBD</td><td><a class="lref" href="#">🔗 Link</a></td><td>[PENDING]</td></tr>
+                <tr><td>Licensing</td><td>[DOC NAME PENDING]</td><td>TBD</td><td><a class="lref" href="#">🔗 Link</a></td><td>[PENDING]</td></tr>
+                <tr><td>Migration Guide</td><td>[DOC NAME PENDING]</td><td>TBD</td><td><a class="lref" href="#">🔗 Link</a></td><td>[PENDING]</td></tr>
+                <tr><td>CSS Escalation</td><td>[DOC NAME PENDING]</td><td>TBD</td><td><a class="lref" href="#">🔗 Link</a></td><td>[PENDING]</td></tr>
+                <tr><td>Product Roadmap</td><td>[DOC NAME PENDING]</td><td>TBD</td><td><a class="lref" href="#">🔗 Link</a></td><td>[PENDING]</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="block-footer">
+          <span class="meta"><b>Owner:</b> TBD</span>
+          <span class="meta"><b>Last Updated:</b> —</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         9. ESCALATION & HANDOVER GUIDE
+         ════════════════════════════════════════ -->
+    <div class="section" id="escalation-guide">
+      <div class="section-header">
+        <span>⚡</span>
+        <h2 class="section-title">Escalation & Handover Decision Guide</h2>
+        <span class="layer-badge lb-decision">Decision Layer</span>
+      </div>
+
+      <div class="block-card" data-tags="escalation handover routing css purview pg decision when">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="bh-left">
+            <span class="type-tag tt-escalation">Decision</span>
+            <span class="block-title">When to handle in CSS · route to Purview team · escalate to PG</span>
+          </div>
+          <div class="bh-right">
+            <span class="block-status"><span class="sdot sdot-pending"></span> Placeholder</span>
+            <span class="chevron">▶</span>
+          </div>
+        </div>
+        <div class="block-body">
+          <div class="ph" style="margin-bottom:12px;">
+            <strong>Decision tree — routing criteria pending. Skeleton structure below.</strong>
+          </div>
+          <div class="decision-tree">
+            <div class="decision-node">
+              <strong>❓ Is this a confirmed product bug or regression?</strong>
+              <div class="dn-row">
+                <span class="dn-yes">Yes → [ROUTING PENDING — likely PG bug queue]</span>
+                <span class="dn-no">No → Continue ↓</span>
+              </div>
+            </div>
+            <div class="decision-node">
+              <strong>❓ Is this a confirmed parity gap (capability in MDA, absent in Purview)?</strong>
+              <div class="dn-row">
+                <span class="dn-yes">Yes → [ROUTING PENDING — Purview PM / PG feedback]</span>
+                <span class="dn-no">No → Continue ↓</span>
+              </div>
+            </div>
+            <div class="decision-node">
+              <strong>❓ Is customer S500 or Cohort 1?</strong>
+              <div class="dn-row">
+                <span class="dn-yes">Yes → See <a class="lref" onclick="scrollToSection('strategic-rules')">⚖️ Strategic Handling Rules</a></span>
+                <span class="dn-no">No → Continue ↓</span>
+              </div>
+            </div>
+            <div class="decision-node">
+              <strong>❓ Is there active churn risk or exec involvement?</strong>
+              <div class="dn-row">
+                <span class="dn-yes">Yes → [ROUTING PENDING — account team loop-in required]</span>
+                <span class="dn-no">No → Handle in CSS, close with approved messaging</span>
+              </div>
+            </div>
+            <div class="decision-node dn-escalate">
+              <strong>⚡ [ADDITIONAL DECISION NODES PENDING]</strong>
+            </div>
+          </div>
+        </div>
+        <div class="block-footer">
+          <span class="meta"><b>Owner:</b> TBD</span>
+          <span class="meta"><b>Last Updated:</b> —</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         10. ESCALATION EVIDENCE CHECKLIST
+         ════════════════════════════════════════ -->
+    <div class="section" id="evidence-checklist">
+      <div class="section-header">
+        <span>📋</span>
+        <h2 class="section-title">Escalation Evidence Checklist</h2>
+        <span class="layer-badge lb-decision">Decision Layer</span>
+      </div>
+
+      <div class="block-card" data-tags="evidence checklist escalation capture before routing gather">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="bh-left">
+            <span class="type-tag tt-escalation">Checklist</span>
+            <span class="block-title">What to capture before routing any escalation</span>
+          </div>
+          <div class="bh-right">
+            <span class="block-status"><span class="sdot sdot-pending"></span> Placeholder</span>
+            <span class="chevron">▶</span>
+          </div>
+        </div>
+        <div class="block-body">
+          <div class="ph" style="margin-bottom:12px;">
+            <strong>⚠️ Complete all items before routing. Incomplete escalations will be returned.</strong>
+          </div>
+          <div class="cl-item"><div class="cl-box"></div><div><strong>Customer identity</strong> — Tenant ID, Name, Segment, Cohort <span style="color:var(--cp-text-muted)">[confirm field names in v2]</span></div></div>
+          <div class="cl-item"><div class="cl-box"></div><div><strong>Issue description</strong> — exact capability or behavior in question, reproduced or confirmed</div></div>
+          <div class="cl-item"><div class="cl-box"></div><div><strong>Parity status confirmed</strong> — checked against <a class="lref" onclick="scrollToSection('parity-library')">Parity Depth Library</a> before routing</div></div>
+          <div class="cl-item"><div class="cl-box"></div><div><strong>Licensing confirmed</strong> — SKU verified against <a class="lref" onclick="scrollToSection('licensing-library')">Licensing Depth Library</a></div></div>
+          <div class="cl-item"><div class="cl-box"></div><div><strong>Business impact</strong> — what breaks for the customer if this is unresolved</div></div>
+          <div class="cl-item"><div class="cl-box"></div><div><strong>Steps already taken</strong> — what CSS tried, what the result was</div></div>
+          <div class="cl-item"><div class="cl-box"></div><div><strong>Urgency signal</strong> — churn risk flag, exec name (if involved), timeline pressure</div></div>
+          <div class="cl-item"><div class="cl-box"></div><div><strong>[ADDITIONAL ITEMS PENDING — content review required]</strong></div></div>
+        </div>
+        <div class="block-footer">
+          <span class="meta"><b>Owner:</b> TBD</span>
+          <span class="meta"><b>Last Updated:</b> —</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         11. STRATEGIC HANDLING RULES
+         ════════════════════════════════════════ -->
+    <div class="section" id="strategic-rules">
+      <div class="section-header">
+        <span>⚖️</span>
+        <h2 class="section-title">Strategic Handling Rules</h2>
+        <span class="layer-badge lb-decision">Decision Layer</span>
+      </div>
+
+      <div class="block-card" data-tags="strategic s500 cohort tco behavior special handling rules">
+        <div class="block-header" onclick="toggleBlock(this)">
+          <div class="bh-left">
+            <span class="type-tag tt-escalation">Rules</span>
+            <span class="block-title">Special handling for S500 accounts, Cohort customers, TCO-sensitive cases</span>
+          </div>
+          <div class="bh-right">
+            <span class="block-status"><span class="sdot sdot-pending"></span> Placeholder</span>
+            <span class="chevron">▶</span>
+          </div>
+        </div>
+        <div class="block-body">
+          <div class="ph">
+            <strong>🏢 S500 Accounts:</strong><br>
+            [CONTENT PENDING — special handling rules, who to loop in, SLA behavior, communication requirements]<br><br>
+            <strong>🎯 Cohort-Based Handling:</strong><br>
+            [CONTENT PENDING — which cohorts get which treatment, timing rules, communication obligations per cohort]<br><br>
+            <strong>💰 TCO-Sensitive Cases:</strong><br>
+            [CONTENT PENDING — when a customer's cost analysis is driving the objection, escalation path, who owns the commercial conversation]<br><br>
+            <strong>🚫 Do NOT escalate S500 cases without:</strong><br>
+            • [CONTENT PENDING — pre-conditions checklist]
+          </div>
+          <div class="v2-notice">🚫 No tenant-specific data in v1 — strategic rules apply to tiers and cohorts, never individual tenants</div>
+        </div>
+        <div class="block-footer">
+          <span class="meta"><b>Owner:</b> TBD</span>
+          <span class="meta"><b>Last Updated:</b> —</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  function toggleBlock(header) {
+    const body = header.nextElementSibling;
+    const chevron = header.querySelector('.chevron');
+    const open = body.classList.toggle('open');
+    chevron.classList.toggle('open', open);
+  }
+
+  function toggleTheme() {
+    const html = document.documentElement;
+    html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  }
+
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const main = document.getElementById('mainScroll');
+    main.scrollTo({ top: el.offsetTop - 20, behavior: 'smooth' });
+    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.sidebar-item').forEach(i => {
+      if (i.getAttribute('onclick') && i.getAttribute('onclick').includes(id)) i.classList.add('active');
+    });
+  }
+
+  function filterBlocks(q) {
+    const query = q.toLowerCase();
+    document.querySelectorAll('[data-tags]').forEach(card => {
+      const text = (card.getAttribute('data-tags') + ' ' + card.innerText).toLowerCase();
+      card.style.display = (!query || text.includes(query)) ? '' : 'none';
+    });
+  }
+
+  // Sidebar active state on scroll
+  const mainEl = document.getElementById('mainScroll');
+  const sections = document.querySelectorAll('.section');
+  mainEl.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (mainEl.scrollTop >= s.offsetTop - 40) current = s.id;
+    });
+    document.querySelectorAll('.sidebar-item').forEach(i => {
+      const match = i.getAttribute('onclick') && i.getAttribute('onclick').includes(current);
+      i.classList.toggle('active', !!match && !!current);
+    });
+  }, { passive: true });
+</script>
+
+</body>
+</html>
