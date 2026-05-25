@@ -226,6 +226,25 @@
     .contact-box a { color: var(--cp-accent); font-weight: 600; text-decoration: none; }
     .contact-box a:hover { text-decoration: underline; }
 
+    /* FAQ accordion */
+    .faq-item { border: 1px solid var(--cp-border); border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+    .faq-q {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 18px; cursor: pointer; font-size: 16px; font-weight: 600;
+      background: var(--cp-surface-soft); transition: background 0.15s;
+    }
+    .faq-q:hover { background: var(--cp-accent-soft); color: var(--cp-accent); }
+    .faq-chevron { font-size: 11px; color: var(--cp-text-muted); transition: transform 0.2s; flex-shrink: 0; margin-left: 12px; }
+    .faq-chevron.open { transform: rotate(90deg); }
+    .faq-a { display: none; padding: 16px 18px; border-top: 1px solid var(--cp-border); font-size: 15px; }
+    .faq-a.open { display: block; }
+    .faq-a p { margin-bottom: 10px; color: var(--cp-text-soft); }
+    .faq-a p:last-child { margin-bottom: 0; }
+    .faq-a ul { padding-left: 20px; color: var(--cp-text-soft); margin-bottom: 10px; }
+    .faq-a ul li { margin-bottom: 5px; }
+    .faq-ref { font-size: 13px; color: var(--cp-text-muted); font-style: italic; }
+    .faq-ref a { color: var(--cp-link); cursor: pointer; }
+
     /* Status pills */
     .pill {
       display: inline-block; font-size: 13px; font-weight: 700;
@@ -363,20 +382,132 @@
 ═══════════════════════════════════ -->
 <div class="section-page" id="section-scenarios">
   <span class="back-link" onclick="showHome()">← Home</span>
-  <div class="page-title">Scenario Blocks <span class="pill pill-skeleton">Skeleton</span></div>
+  <div class="page-title">Scenario Blocks</div>
   <div class="page-meta">
     <span>🟠 Entry Layer</span>
-    <span>Owner: TBD</span>
-    <span>Last updated: —</span>
+    <span>Owner: CSS DLP Migration Team</span>
+    <span>Last updated: May 2026</span>
   </div>
 
   <div id="block-faq" class="content-block">
     <h3>❓ FAQ — Customer asks about a missing feature or changed behavior</h3>
-    <div class="ph">
-      <strong>Trigger:</strong> Customer asks why feature X is not in Purview, or why behavior changed post-migration.<br><br>
-      <strong>Quick Answer:</strong> [CONTENT PENDING]<br><br>
-      <strong>Where to look:</strong> Check <a href="#" onclick="showSection('parity'); return false;" style="color:var(--cp-link)">Parity Depth Library</a> for capability status, then use <a href="#" onclick="showSection('messaging'); return false;" style="color:var(--cp-link)">Approved Messaging</a> for phrasing.
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Why can't I remove a specific collaborator like I could in MDA?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>What changed:</strong> MDA's "Remove specific collaborator" governance action has no direct equivalent in Purview DLP.</p>
+        <p><strong>What to do:</strong> Use Purview DLP to <em>restrict access</em> (block external users broadly), then supplement with a Power Automate flow triggered by the DLP alert to remove specific sharing permissions via SharePoint/OneDrive APIs.</p>
+        <p class="faq-ref">→ See: <a onclick="showSection('parity')" href="#">Parity Depth Library</a> · Governance Actions mapping</p>
+      </div>
     </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Where is user quarantine in Purview? MDA had user quarantine + admin quarantine.</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>What changed:</strong> Purview DLP supports <em>admin quarantine only</em>. User quarantine (move file to user's quarantine folder) has no direct equivalent.</p>
+        <p><strong>What to do:</strong> Use Purview DLP to restrict access (block-in-place), then add a Power Automate flow to move the file to a designated quarantine folder.</p>
+        <p class="faq-ref">→ See: <a onclick="showSection('parity')" href="#">Parity Depth Library</a> · Quarantine row</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>My MDA policy applied a sensitivity label. Why do I need two Purview policies now?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>What changed:</strong> In MDA, labeling was a governance action inside the file policy. In Purview, label application is handled by a separate <em>auto-labeling policy</em> (Information Protection), not by DLP.</p>
+        <p><strong>What to do:</strong> Create <em>two policies</em>:</p>
+        <ul>
+          <li>A <strong>Purview DLP policy</strong> for detection and restriction/alerting</li>
+          <li>A <strong>Purview auto-labeling policy</strong> (purview.microsoft.com → Information Protection → Auto-labeling) for label application</li>
+        </ul>
+        <p class="faq-ref">→ Key Resources: <a href="https://learn.microsoft.com/en-us/purview/apply-sensitivity-label-automatically" target="_blank">Auto-labeling Policies ↗</a></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>MDA could trash / delete a file. Where is that in Purview?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>What changed:</strong> Purview DLP has no "trash file" or "delete file" action.</p>
+        <p><strong>What to do:</strong> Use a Purview DLP policy to restrict access, then trigger a Power Automate flow on the DLP alert to delete the file programmatically.</p>
+        <p class="faq-ref">→ See: <a onclick="showSection('parity')" href="#">Parity Depth Library</a> · Gap actions</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>MDA scoped policies to specific folders. Why can't I do that in Purview?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>What changed:</strong> MDA supported "Parent folder" as a file filter. Purview DLP scopes at the <em>site level</em> (SharePoint site URLs), not the folder level.</p>
+        <p><strong>What to do:</strong> Scope the Purview DLP policy to the relevant SharePoint site. If folder-level control is critical, evaluate SharePoint-level permissions or Power Automate as a supplement.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>My MDA policy monitored files in AWS / ServiceNow / Webex. Does Purview cover those?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>What changed:</strong> Purview DLP does <em>not</em> support AWS, ServiceNow, or Cisco Webex. There is no equivalent location in Purview DLP for these apps.</p>
+        <p><strong>What to do:</strong> Evaluate native DLP capabilities in those platforms. These are confirmed gaps — do not promise a roadmap date without PG confirmation.</p>
+        <p><strong>Supported third-party apps in Purview:</strong> Box, Google Workspace, Dropbox, Salesforce (via "Instances" location).</p>
+        <p class="faq-ref">→ See: <a href="https://learn.microsoft.com/en-us/purview/dlp-use-policies-non-microsoft-cloud-apps" target="_blank">DLP for Non-Microsoft Cloud Apps ↗</a></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>MDA had no simulation mode. How does the Purview simulation work?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>What's new (net gain):</strong> Purview DLP has full simulation mode ("Test it out first") — policies run and log matches without taking any enforcement action. Run for 1–2 weeks before going live.</p>
+        <p><strong>What to do:</strong> Always start new Purview policies in simulation mode. Review matches in the DLP Alerts dashboard and Activity Explorer, then compare against MDA match volumes before enforcing.</p>
+        <p class="faq-ref">→ Navigation: purview.microsoft.com → Data loss prevention → Policies → [Policy] → Simulation results</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>MDA had a 50 file policy limit. What are the Purview limits?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>What's new (net gain):</strong> Purview has significantly higher limits — 10,000 MIP + MIG policies and 600 DLP rules per tenant (vs. MDA's 50 file policies).</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Where do I find DLP alerts and activity data in Purview (vs. MDA)?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <table class="simple-table" style="margin-top:6px;">
+          <thead><tr><th>What you need</th><th>Where to find it in Purview</th></tr></thead>
+          <tbody>
+            <tr><td>Policy matches &amp; alerts</td><td>purview.microsoft.com → Data loss prevention → Alerts</td></tr>
+            <tr><td>Activity history</td><td>purview.microsoft.com → Data loss prevention → Activity explorer</td></tr>
+            <tr><td>Auto-labeling matches</td><td>purview.microsoft.com → Information Protection → Auto-labeling → [Policy] → Items to review</td></tr>
+            <tr><td>Defender XDR integration</td><td>security.microsoft.com → Incidents &amp; alerts</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 
   <div id="block-parity-s" class="content-block">
@@ -669,6 +800,13 @@
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 50);
     }
+  }
+
+  function toggleFaq(el) {
+    const ans = el.nextElementSibling;
+    const chev = el.querySelector('.faq-chevron');
+    const open = ans.classList.toggle('open');
+    chev.classList.toggle('open', open);
   }
 
   function toggleTheme() {
