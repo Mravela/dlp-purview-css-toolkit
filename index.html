@@ -439,12 +439,12 @@
 
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span>Do I need to set up connectors before migrating? What is the O365 connector?</span>
+        <span>Do I need to set up connectors before migrating?</span>
         <span class="faq-chevron">▶</span>
       </div>
       <div class="faq-a">
-        <p><strong>1P (SPO/ODB/Exchange):</strong> The O365 connector in MDA may be required for SPO/ODB migration pre-req. Status: open question OQ4 — confirm with Pallav before advising customers this is mandatory.</p>
-        <p><strong>3P (Box, Dropbox, Google Workspace, Salesforce):</strong> MDA app connectors <strong>must be active</strong> before Purview 3P DLP can work. The migration tool checks connector status in the Prerequisites card.</p>
+        <p><strong>1P (SPO/ODB/Exchange):</strong> No connector setup required — SPO, OneDrive, and Exchange are native Purview locations.</p>
+        <p><strong>3P (Box, Dropbox, Google Workspace, Salesforce):</strong> MDA app connectors <strong>must be active</strong> before Purview 3P DLP can work.</p>
         <p><strong>Already connected in MDA?</strong> No action needed — existing connectors carry over. Customer just needs to configure the Purview DLP policy targeting that instance.</p>
         <p><strong>Not yet connected?</strong> Must connect in MDA first: security.microsoft.com → Cloud Apps → Connected apps → App connectors.</p>
       </div>
