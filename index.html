@@ -605,13 +605,20 @@
         <tr><td>Sensitive Info Types (SITs) &amp; Trainable Classifiers</td><td>Microsoft Purview</td><td>Purview CSS</td></tr>
         <tr><td>Sensitivity Labels &amp; Encryption</td><td>Microsoft Purview / MIP</td><td>Purview CSS</td></tr>
         <tr><td>Content Explorer / Activity Explorer</td><td>Microsoft Purview</td><td>Purview CSS</td></tr>
-        <tr><td>Copilot DLP</td><td>Microsoft Purview</td><td>Purview CSS</td></tr>
-        <tr><td>Third-party SaaS file scanning (Box, Dropbox, etc.)</td><td>Microsoft Defender for Cloud Apps</td><td>MDA CSS</td></tr>
-        <tr><td>App Governance</td><td>Microsoft Defender for Cloud Apps</td><td>MDA CSS</td></tr>
-        <tr><td>SSPM (SaaS Security Posture Management)</td><td>Microsoft Defender for Cloud Apps</td><td>MDA CSS</td></tr>
-        <tr><td>Defender XDR Integration</td><td>Microsoft Defender / XDR</td><td>MDA CSS</td></tr>
+        <tr><td>3P app DLP policies (Box, Dropbox, etc.) via Purview</td><td>Microsoft Purview</td><td>Purview CSS</td></tr>
+        <tr>
+          <td>
+            <strong>3P app connectors</strong> (MDA connector setup, auth, connectivity)<br>
+            <span style="font-size:0.85rem; color:var(--cp-warning);">⚠️ Pre-req: connector must be live before Purview 3P DLP works</span>
+          </td>
+          <td>Microsoft Defender for Cloud Apps</td>
+          <td>MDA CSS</td>
+        </tr>
       </tbody>
     </table>
+    <div style="margin-top:10px; padding:10px 14px; background:var(--cp-accent-soft); border-radius:8px; font-size:0.9rem;">
+      <strong>3P connector nuance:</strong> Customers running 3P file DLP in Purview <em>must</em> connect MDA app connectors first. If a customer reports Purview 3P DLP not working, check connector health in MDA <strong>before</strong> routing to Purview CSS.
+    </div>
 
     <p style="font-size:0.9rem; color:var(--cp-text-muted); margin-top:14px;">→ Full routing logic + evidence checklist: <a onclick="showSection('escalation')" href="#" style="color:var(--cp-link)">Escalation Guide</a></p>
   </div>
