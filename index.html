@@ -1130,69 +1130,134 @@
     <span>Last updated: May 2026</span>
   </div>
 
-  <!-- Routing decision -->
+  <!-- Routing by stage -->
   <div class="content-block">
-    <h3>Routing Decision Framework</h3>
-    <div class="decision-node">
-      <strong>❓ Is GA behavior broken or regressed?</strong>
-      <div class="dn-opts">
-        <span class="dn-yes">Yes → Route to <strong>Purview CSS</strong> — hand off the case. Confirm it's a Purview-side break first.</span>
-        <span class="dn-no">No → Continue ↓</span>
+    <h3>Routing by Migration Stage</h3>
+    <p style="font-size:0.95rem; color:var(--cp-text-muted); margin-bottom:16px;">Find where the customer is in their migration journey — each stage has different owners and evidence requirements.</p>
+
+    <!-- Stage 1: Pre-reqs -->
+    <div style="margin-bottom:20px;">
+      <div style="font-size:1rem; font-weight:700; color:var(--cp-text); padding:10px 14px; background:var(--cp-surface-soft); border-left:4px solid var(--cp-accent); border-radius:6px 0 0 6px; margin-bottom:8px;">
+        Stage 1 — Pre-requisites
       </div>
+      <table class="simple-table">
+        <thead><tr><th style="width:34%">Scenario</th><th style="width:22%">Owner</th><th>What to capture / do</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Purview DLP license not valid or not showing</td>
+            <td><span style="font-weight:600; color:var(--cp-warning)">Billing / Tenant admin</span></td>
+            <td>Confirm tenant license SKU. CSS does not troubleshoot licensing — point customer to admin portal or billing team. Share <a href="https://learn.microsoft.com/en-us/purview/dlp-overview-plan-for-dlp" target="_blank" style="color:var(--cp-link)">licensing docs</a>.</td>
+          </tr>
+          <tr>
+            <td>Admin missing Purview Compliance or IP Admin role</td>
+            <td><span style="font-weight:600; color:var(--cp-warning)">Customer's IT Admin</span></td>
+            <td>Identify the specific missing role. Share role assignment steps. CSS confirms requirement — does not assign roles.</td>
+          </tr>
+          <tr>
+            <td>3P connector not connecting (Box, Dropbox, Google Workspace, Salesforce)</td>
+            <td><span style="font-weight:600; color:var(--cp-accent)">MDA CSS owns</span></td>
+            <td>Connector setup and auth issues stay with MDA CSS regardless of migration status. Capture: connector name, auth error message, connector health screenshot in MDA.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="decision-node">
-      <strong>❓ Is this a confirmed parity gap (capability in MDA, absent in Purview today)?</strong>
-      <div class="dn-opts">
-        <span class="dn-yes">Yes → <strong>Product feedback</strong> — log via Purview DLP Product Team field feedback intake. Do NOT open a support ticket. Acknowledge the gap honestly to the customer.</span>
-        <span class="dn-no">No → Continue ↓</span>
+
+    <!-- Stage 2: Setup & Policy Creation -->
+    <div style="margin-bottom:20px;">
+      <div style="font-size:1rem; font-weight:700; color:var(--cp-text); padding:10px 14px; background:var(--cp-surface-soft); border-left:4px solid var(--cp-accent); border-radius:6px 0 0 6px; margin-bottom:8px;">
+        Stage 2 — Setup &amp; Policy Creation
       </div>
+      <table class="simple-table">
+        <thead><tr><th style="width:34%">Scenario</th><th style="width:22%">Owner</th><th>What to capture / do</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>How do I recreate my MDA condition/filter in Purview?</td>
+            <td><span style="font-weight:600; color:var(--cp-success)">MDA CSS handles</span></td>
+            <td>Use <a href="#" onclick="showSection('parity'); return false;" style="color:var(--cp-link)">Parity Depth Library</a> to find the Purview equivalent. Walk customer through condition mapping. No escalation needed.</td>
+          </tr>
+          <tr>
+            <td>MDA action has no Purview equivalent (e.g. User Quarantine, Trash file)</td>
+            <td><span style="font-weight:600; color:var(--cp-success)">MDA CSS handles</span></td>
+            <td>Confirm gap using Parity Depth Library. Offer the documented workaround (Power Automate flow, Restrict Access). Set honest expectation — this is a known gap.</td>
+          </tr>
+          <tr>
+            <td>Customer wants to migrate label-apply action — unsure where auto-labeling policy goes</td>
+            <td><span style="font-weight:600; color:var(--cp-success)">MDA CSS handles</span></td>
+            <td>Label apply/remove actions move to <strong>Purview Information Protection → Auto-labeling policy</strong>, not a DLP policy. Walk through: one auto-label policy per label, run in simulation first.</td>
+          </tr>
+          <tr>
+            <td>Policy created in Purview but not matching expected content</td>
+            <td><span style="font-weight:600; color:var(--cp-link)">Purview CSS</span></td>
+            <td>Hand off. Capture before routing: policy name, SIT or label condition used, workload scoped, test file details, simulation results from Activity Explorer.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="decision-node">
-      <strong>❓ Is this a 3P connector issue (Box, Dropbox, Google Workspace, Salesforce not connecting)?</strong>
-      <div class="dn-opts">
-        <span class="dn-yes">Yes → <strong>MDA CSS owns</strong> — connector setup and auth issues stay with MDA CSS regardless of migration status.</span>
-        <span class="dn-no">No → Continue ↓</span>
+
+    <!-- Stage 3: Parity Gaps -->
+    <div style="margin-bottom:20px;">
+      <div style="font-size:1rem; font-weight:700; color:var(--cp-text); padding:10px 14px; background:var(--cp-surface-soft); border-left:4px solid var(--cp-accent); border-radius:6px 0 0 6px; margin-bottom:8px;">
+        Stage 3 — Parity Gaps
       </div>
+      <table class="simple-table">
+        <thead><tr><th style="width:34%">Scenario</th><th style="width:22%">Owner</th><th>What to capture / do</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Customer identifies a capability in MDA with no Purview equivalent</td>
+            <td><span style="font-weight:600; color:var(--cp-link)">Purview CSS</span></td>
+            <td>Confirm against <a href="#" onclick="showSection('parity'); return false;" style="color:var(--cp-link)">Parity Depth Library</a>. Acknowledge gap honestly. Route to Purview CSS for product feedback intake. Capture: gap name, customer use case, business impact, tenant ID.</td>
+          </tr>
+          <tr>
+            <td>Customer blocked on a gap and cannot complete migration</td>
+            <td><span style="font-weight:600; color:var(--cp-link)">Purview CSS</span></td>
+            <td>Do not unblock with workarounds that change security posture. Route to Purview CSS with full context. Escalate urgency if Dec 31, 2026 deadline is at risk.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="decision-node">
-      <strong>❓ Is the customer asking a migration guidance question (how to, what maps to what)?</strong>
-      <div class="dn-opts">
-        <span class="dn-yes">Yes → <strong>MDA CSS handles</strong> — use FAQ block, Parity Depth Library, What Stays / What Changes.</span>
-        <span class="dn-no">No → Escalate to manager for triage.</span>
+
+    <!-- Stage 4: Post-Migration -->
+    <div style="margin-bottom:8px;">
+      <div style="font-size:1rem; font-weight:700; color:var(--cp-text); padding:10px 14px; background:var(--cp-surface-soft); border-left:4px solid var(--cp-accent); border-radius:6px 0 0 6px; margin-bottom:8px;">
+        Stage 4 — Post-Migration &amp; Enforcement
       </div>
+      <table class="simple-table">
+        <thead><tr><th style="width:34%">Scenario</th><th style="width:22%">Owner</th><th>What to capture / do</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Purview DLP policy enabled but not enforcing</td>
+            <td><span style="font-weight:600; color:var(--cp-link)">Purview CSS</span></td>
+            <td>Hand off. Capture: policy name and state (On/Simulation), workload, test file + expected action, Activity Explorer output, whether MDA policy is still active (co-existence conflict risk).</td>
+          </tr>
+          <tr>
+            <td>DLP alerts not appearing in Purview</td>
+            <td><span style="font-weight:600; color:var(--cp-link)">Purview CSS</span></td>
+            <td>Hand off. Capture: alert configuration, Activity Explorer output, policy rule conditions, expected alert recipients.</td>
+          </tr>
+          <tr>
+            <td>Customer sees duplicate matches or double-enforcement</td>
+            <td><span style="font-weight:600; color:var(--cp-accent)">MDA CSS first-check</span></td>
+            <td>Likely co-existence issue — MDA policy and Purview policy both active on same files. Confirm MDA policy is disabled before escalating. If both are disabled and issue persists → route to Purview CSS.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
   <!-- Evidence checklist -->
   <div id="block-evidence" class="content-block" style="margin-top:20px;">
-    <h3>📋 Evidence Checklist — capture before routing any escalation</h3>
+    <h3>📋 Always Capture Before Routing</h3>
+    <p style="font-size:0.95rem; color:var(--cp-text-muted); margin-bottom:12px;">Regardless of stage — gather this before handing off any case.</p>
     <ul class="cl">
-      <li><div class="cl-box"></div><div><strong>Customer identity</strong> — Tenant ID, org name, segment, cohort</div></li>
+      <li><div class="cl-box"></div><div><strong>Tenant ID + org name</strong> — required for any handoff</div></li>
+      <li><div class="cl-box"></div><div><strong>Migration stage</strong> — where is the customer? (Assessing / Building policies / Testing in Simulation / Rolling out enforcement / Decommissioning MDA)</div></li>
       <li><div class="cl-box"></div><div><strong>Issue description</strong> — exact capability or behavior, confirmed / reproduced</div></li>
-      <li><div class="cl-box"></div><div><strong>Gap vs. break confirmed</strong> — checked against <a href="#" onclick="showSection('parity'); return false;" style="color:var(--cp-link)">Parity Depth Library</a>. Is this a known gap or unexpected regression?</div></li>
-      <li><div class="cl-box"></div><div><strong>Connector status (3P only)</strong> — is the MDA connector live and healthy? Check before routing to Purview CSS.</div></li>
-      <li><div class="cl-box"></div><div><strong>Business impact</strong> — what breaks or is at risk if unresolved</div></li>
-      <li><div class="cl-box"></div><div><strong>Steps already taken</strong> — what CSS tried and what the result was</div></li>
-      <li><div class="cl-box"></div><div><strong>Urgency signal</strong> — churn flag, exec involvement, compliance deadline pressure</div></li>
-      <li><div class="cl-box"></div><div><strong>Migration phase</strong> — where is the customer in their migration? (Assessing / Building / Testing / Rolling out / Decommissioning)</div></li>
+      <li><div class="cl-box"></div><div><strong>Gap vs. break confirmed</strong> — checked against <a href="#" onclick="showSection('parity'); return false;" style="color:var(--cp-link)">Parity Depth Library</a></div></li>
+      <li><div class="cl-box"></div><div><strong>MDA policy status</strong> — is the MDA policy still active? (co-existence risk)</div></li>
+      <li><div class="cl-box"></div><div><strong>Business impact</strong> — what protection is at risk if unresolved</div></li>
+      <li><div class="cl-box"></div><div><strong>Steps already taken</strong> — what was tried and what the result was</div></li>
+      <li><div class="cl-box"></div><div><strong>Urgency signal</strong> — churn risk, exec visibility, Dec 31 2026 deadline pressure</div></li>
     </ul>
-  </div>
-
-  <!-- Strategic handling -->
-  <div class="content-block" style="margin-top:12px;">
-    <h3>⚖️ Strategic Handling Rules</h3>
-    <div style="padding:12px 16px; border-radius:8px; background:var(--cp-accent-soft); font-size:0.9rem; margin-bottom:10px;">
-      ⚠️ S500 / Cohort handling rules and TCO escalation paths are pending — content review required with account team leadership.
-    </div>
-    <table class="simple-table">
-      <thead><tr><th>Scenario</th><th>Rule</th></tr></thead>
-      <tbody>
-        <tr><td><strong>S500 account</strong></td><td>Flag immediately to manager. Do not handle solo. [Full handling rules pending]</td></tr>
-        <tr><td><strong>Large cohort impact</strong></td><td>If gap affects multiple customers in same cohort, escalate as pattern — not individual cases. Route to PG as field signal.</td></tr>
-        <tr><td><strong>TCO / cost objection</strong></td><td>Do not engage on commercial conversation. Loop in account team. [TCO rules pending]</td></tr>
-        <tr><td><strong>Compliance deadline pressure</strong></td><td>Acknowledge Dec 31 2026 deadline. Confirm migration timeline. Escalate if customer cannot meet it.</td></tr>
-      </tbody>
-    </table>
   </div>
 </div>
 
