@@ -450,24 +450,6 @@
 
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span>The "Migrate to Purview" button is blocked / not available. Why?</span>
-        <span class="faq-chevron">▶</span>
-      </div>
-      <div class="faq-a">
-        <p>The customer needs to verify two things before starting migration:</p>
-        <table class="simple-table" style="margin-top:8px;">
-          <thead><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr></thead>
-          <tbody>
-            <tr><td>Licensing check fails</td><td>No active E5 / E5 Compliance license</td><td>Purchase / assign license before proceeding.</td></tr>
-            <tr><td>Permission check fails</td><td>Missing MDA or Purview admin role</td><td>Assign correct role in respective admin center. Both must pass.</td></tr>
-            <tr><td>Gov cloud tenant</td><td>Not supported</td><td>No workaround currently available.</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
         <span>What is PAYG and why is it needed for 3P policies?</span>
         <span class="faq-chevron">▶</span>
       </div>
@@ -551,13 +533,21 @@
 
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span>Why is my migrated SPO/ODB policy in Simulation mode and not enforcing?</span>
+        <span>Best practice: Should I enforce Purview policies immediately after creating them?</span>
         <span class="faq-chevron">▶</span>
       </div>
       <div class="faq-a">
-        <p><strong>By design.</strong> SPO/ODB policies are created in <strong>Simulation mode ("Test it out first")</strong> — policies log matches without any enforcement action. This prevents accidental enforcement before coverage is validated.</p>
-        <p><strong>What to do:</strong> Run in simulation for 1–2 weeks, review matches in Activity Explorer, compare against MDA match volumes, tune false positives, then manually enable enforcement.</p>
-        <p><strong>To enable enforcement:</strong> purview.microsoft.com → DLP → Policies → [Policy] → Edit → Change mode to "Turn it on".</p>
+        <p><strong>No — always run in Simulation mode first.</strong> This applies to both 1P DLP policies and auto-labeling policies.</p>
+        <table class="simple-table" style="margin-top:8px;">
+          <thead><tr><th>Policy type</th><th>Recommended first step</th><th>When to enforce</th></tr></thead>
+          <tbody>
+            <tr><td>1P DLP policy (SPO/ODB/Exchange)</td><td>Set to Simulation mode — logs matches, no enforcement</td><td>After 1–2 weeks of validated coverage and tuned false positives</td></tr>
+            <tr><td>Auto-labeling policy</td><td>Run simulation — review which items would be labeled</td><td>After confirming correct items match and label is published to users</td></tr>
+            <tr><td>3P DLP policy (Box, Dropbox etc.)</td><td>Created as Disabled — review before turning on</td><td>After confirming connector is healthy and PAYG is configured</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:8px;"><strong>To enable enforcement:</strong> purview.microsoft.com → DLP → Policies → [Policy] → Edit → Turn it on<br>
+        <strong>For auto-labeling:</strong> purview.microsoft.com → Information Protection → Auto-labeling → [Policy] → Turn on</p>
       </div>
     </div>
 
@@ -573,13 +563,13 @@
         <p><strong>Yes</strong> — these four apps are supported in Purview DLP via the <strong>"Instances"</strong> location. AWS, ServiceNow, and Cisco Webex are <strong>not supported</strong> (no Purview equivalent).</p>
         <p><strong>Pre-req:</strong> MDA app connector must be active. If already connected in MDA, no re-setup needed — connector carries over automatically to Purview Instances.</p>
         <table class="simple-table" style="margin-top:8px;">
-          <thead><tr><th>App</th><th>Purview Location</th><th>Status</th></tr></thead>
+          <thead><tr><th>App</th><th>Purview Location</th><th>Notes</th></tr></thead>
           <tbody>
-            <tr><td>Box</td><td>Instances</td><td class="full">✅ Full (connector required)</td></tr>
-            <tr><td>Dropbox</td><td>Instances</td><td class="full">✅ Full (connector required)</td></tr>
-            <tr><td>Google Workspace</td><td>Instances</td><td class="full">✅ Full (connector required)</td></tr>
-            <tr><td>Salesforce</td><td>Instances</td><td class="full">✅ Full (connector required)</td></tr>
-            <tr><td>AWS / ServiceNow / Webex</td><td>—</td><td class="gap">❌ Not supported in v1</td></tr>
+            <tr><td>Box</td><td>Instances</td><td>Connector required</td></tr>
+            <tr><td>Dropbox</td><td>Instances</td><td>Connector required</td></tr>
+            <tr><td>Google Workspace</td><td>Instances</td><td>Connector required</td></tr>
+            <tr><td>Salesforce</td><td>Instances</td><td>Connector required</td></tr>
+            <tr><td>AWS / ServiceNow / Webex</td><td>—</td><td class="gap">❌ Not supported</td></tr>
           </tbody>
         </table>
       </div>
