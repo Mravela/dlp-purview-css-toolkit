@@ -287,7 +287,7 @@
     <a class="nav-link" id="nav-glossary" onclick="showSection('glossary')">Glossary</a>
   </div>
   <div class="topnav-right">
-    <span class="version-badge">v1 · Skeleton</span>
+    <span class="version-badge">Skeleton</span>
     <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme">◑</button>
   </div>
 </nav>
@@ -388,6 +388,32 @@
 
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Do MDA customers need to purchase additional licenses to migrate to Purview DLP?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><strong>No — MDA customers are NOT required to purchase any additional licenses.</strong> Microsoft is providing a promotional SKU (100% discount) to all MDA licensed customers:</p>
+        <table class="simple-table" style="margin-top:8px;">
+          <thead><tr><th>Scenario</th><th>What the customer needs</th><th>Promo coverage</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>1P policies</strong> (SharePoint, OneDrive, Teams)</td>
+              <td>IP&amp;G license. Customers who do not currently have IP&amp;G will receive the promo SKU.</td>
+              <td>100% discount via promo SKU</td>
+            </tr>
+            <tr>
+              <td><strong>3P policies</strong> (Box, Dropbox, Google Workspace, Salesforce)</td>
+              <td>IP&amp;G + 3P Pay-As-You-Go (PAYG) billing setup required. Customers will still receive 100% discount on PAYG charges via promo SKU.</td>
+              <td>100% discount via promo SKU</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top:8px;"><strong>What to tell the customer:</strong> There is no net new cost for migrating from MDA DLP to Purview DLP. The promo SKU covers both IP&amp;G entitlement and 3P PAYG charges for all MDA licensed customers. For empowerment guide details and further licensing questions, loop in your CSAM or Business Planning contact.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
         <span>What admin roles are needed to migrate to Purview?</span>
         <span class="faq-chevron">▶</span>
       </div>
@@ -428,6 +454,46 @@
       </div>
     </div>
 
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Will Microsoft migrate my policies for me?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><em>Answer pending — to be confirmed once migration tool scope is finalised.</em></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Will Microsoft offer any service to help with the migration (e.g. FastTrack)?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><em>Answer pending — to be confirmed once migration tool scope is finalised.</em></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Why is Microsoft removing DLP from MDA?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><em>Answer pending — official customer-facing framing to be provided by PMM.</em></p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Who handles licensing questions for customers without a CSAM (Pro customers)?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><em>Answer pending — to be confirmed with Business Planning team on empowerment guide scope.</em></p>
+      </div>
+    </div>
+
     <!-- ── SECTION 2: 1P ── -->
     <div id="faq-1p" style="margin:20px 0 6px; padding:6px 0 4px; border-bottom:2px solid var(--cp-border); font-size:0.8rem; font-weight:700; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.06em;">2 · 1P Policies — SPO / OneDrive / Exchange</div>
 
@@ -451,6 +517,10 @@
             <tr><td>Parent folder</td><td>No folder-level scoping</td><td>Site-level only. In development ETA 6/27 — do not promise date.</td></tr>
             <tr><td>ContentIsNotLabeled</td><td>Cannot Migrate</td><td>No Purview equivalent. Suggest manual auto-label approach.</td></tr>
             <tr><td>MIME type / file type category</td><td>Partial — maps to extensions only</td><td>Information loss possible — admin must verify extension list</td></tr>
+            <tr><td>Owner OU (organizational unit)</td><td>No Purview equivalent</td><td>Cannot Migrate. Purview DLP does not support OU-based scoping. Use group-based policy scoping as a workaround.</td></tr>
+            <tr><td>Collaborators — Any from domain</td><td>No Purview equivalent</td><td>Cannot Migrate. Purview DLP does not support per-domain collaborator filtering.</td></tr>
+            <tr><td>Collaborators — Entire organization</td><td>No Purview equivalent</td><td>Cannot Migrate. Use sharing scope conditions as the closest approximation.</td></tr>
+            <tr><td>Collaborators — Groups / Users</td><td>Policy scoping by user/group</td><td>Partial — achievable via policy-level user/group scoping, not as a per-rule condition.</td></tr>
           </tbody>
         </table>
       </div>
@@ -566,7 +636,15 @@
       </div>
     </div>
 
-    <!-- ── SECTION 4: AUTO-LABEL ── -->
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Can Microsoft share the roadmap for 3P app support in Purview?</span>
+        <span class="faq-chevron">▶</span>
+      </div>
+      <div class="faq-a">
+        <p><em>Answer pending — roadmap details to be confirmed with PG. Do not promise a date to customers.</em></p>
+      </div>
+    </div>    <!-- ── SECTION 4: AUTO-LABEL ── -->
     <div id="faq-autolabel" style="margin:20px 0 6px; padding:6px 0 4px; border-bottom:2px solid var(--cp-border); font-size:0.8rem; font-weight:700; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.06em;">4 · Auto-labeling Policies</div>
 
     <div class="faq-item">
@@ -591,7 +669,7 @@
         <span class="faq-chevron">▶</span>
       </div>
       <div class="faq-a">
-        <p><strong>Not yet.</strong> Auto-labeling in Purview Information Protection currently supports <strong>first-party workloads only</strong> (SharePoint, OneDrive, Exchange). 3P app auto-labeling is on the roadmap but not available in v1.</p>
+        <p><strong>Not yet.</strong> Auto-labeling in Purview Information Protection currently supports <strong>first-party workloads only</strong> (SharePoint, OneDrive, Exchange). 3P app auto-labeling is on the roadmap but not yet available.</p>
         <p>If a customer's MDA policy applied labels to Box/Dropbox files, this is a confirmed gap. Do not promise a date — confirm with PG before advising.</p>
       </div>
     </div>
@@ -1154,7 +1232,7 @@
           <tr>
             <td>Customer identifies a capability in MDA with no Purview equivalent</td>
             <td><span style="font-weight:600; color:var(--cp-link)">Purview CSS</span></td>
-            <td>Confirm against <a href="#" onclick="showSection('parity'); return false;" style="color:var(--cp-link)">Parity Depth Library</a>. Acknowledge gap honestly. Route to Purview CSS for product feedback intake. Capture: gap name, customer use case, business impact, tenant ID.</td>
+            <td>Confirm against <a href="#" onclick="showSection('parity'); return false;" style="color:var(--cp-link)">Parity Depth Library</a>. Acknowledge gap honestly. Route to Purview CSS for product feedback intake. Capture: gap name, customer use case, business impact, tenant ID. <strong>Acknowledge the gap clearly to the customer — do not promise a delivery date or roadmap timeline.</strong></td>
           </tr>
           <tr>
             <td>Customer blocked on a gap and cannot complete migration</td>
