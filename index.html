@@ -285,6 +285,7 @@
     <a class="nav-link" id="nav-escalation" onclick="showSection('escalation')">Escalation</a>
     <a class="nav-link" id="nav-what-stays" onclick="showSection('what-stays')">What Changes</a>
     <a class="nav-link" id="nav-glossary" onclick="showSection('glossary')">Glossary</a>
+    <a class="nav-link" id="nav-handshake" onclick="showSection('handshake')">CSS Handshake</a>
   </div>
   <div class="topnav-right">
     <span class="version-badge">Skeleton</span>
@@ -330,6 +331,9 @@
       </div>
       <div class="card" onclick="showSection('licensing')">
         <div><div class="card-label">Licensing</div><div class="card-sub">SKUs, entitlements, edge cases</div></div>
+      </div>
+      <div class="card" onclick="showSection('handshake')">
+        <div><div class="card-label">Purview CSS Handshake</div><div class="card-sub">SPOCs, escalation contacts &amp; warm handoff protocol</div></div>
       </div>
     </div>
   </div>
@@ -1348,9 +1352,58 @@
   </div>
 </div>
 
+<!-- ══════════════════════════════════
+     SECTION: PURVIEW CSS HANDSHAKE
+═══════════════════════════════════ -->
+<div class="section-page" id="section-handshake">
+  <span class="back-link" onclick="showHome()">← Home</span>
+  <div class="page-title">Purview CSS Handshake</div>
+  <div class="page-meta"><span>Support Layer</span><span>Owner: TBD</span><span>Last updated: —</span></div>
+
+  <div class="content-block">
+    <h3>Purpose</h3>
+    <p>This section defines the handshake protocol between MDA CSS and Purview CSS for migration-related customer cases. It lists the designated SPOCs, escalation contacts, and the warm handoff process to ensure customers are not caught between two support teams.</p>
+  </div>
+
+  <div class="content-block">
+    <h3>SPOCs &amp; Team Leads</h3>
+    <p style="font-size:12px; color:var(--cp-text-muted); margin-bottom:10px;">⚠️ SPOCs to be confirmed — names will be added once alignment is complete.</p>
+    <table class="simple-table">
+      <thead><tr><th>Team</th><th>SPOC / Team Lead</th><th>Scope</th><th>Contact</th></tr></thead>
+      <tbody>
+        <tr><td>MDA CSS</td><td><em>[TBD]</em></td><td>MDA DLP — migration triage, escalation intake</td><td><em>[TBD]</em></td></tr>
+        <tr><td>Purview CSS</td><td><em>[TBD]</em></td><td>Purview DLP — post-migration support, parity gaps</td><td><em>[TBD]</em></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="content-block">
+    <h3>Warm Handoff Protocol</h3>
+    <table class="simple-table">
+      <thead><tr><th>Step</th><th>Action</th><th>Owner</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Confirm customer is actively migrating or has completed migration to Purview DLP</td><td>MDA CSS engineer</td></tr>
+        <tr><td>2</td><td>Check parity gap — if issue is a known Cannot Migrate condition, route to product feedback intake (do not hand to Purview CSS)</td><td>MDA CSS engineer</td></tr>
+        <tr><td>3</td><td>If issue is Purview-side (config, policy behaviour, connector), initiate warm handoff to Purview CSS SPOC</td><td>MDA CSS engineer</td></tr>
+        <tr><td>4</td><td>Purview CSS SPOC acknowledges and picks up the case — customer is introduced to the new engineer</td><td>Purview CSS SPOC</td></tr>
+        <tr><td>5</td><td>MDA CSS engineer remains CC'd until customer confirms resolution</td><td>MDA CSS engineer</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="content-block">
+    <h3>What NOT to hand off</h3>
+    <ul>
+      <li>Cases where the root cause is a <strong>parity gap</strong> (Cannot Migrate condition) — route to product feedback intake instead</li>
+      <li>Cases still in <strong>pre-migration assessment</strong> — keep with MDA CSS until customer is ready to migrate</li>
+      <li>Licensing questions — handle via CSAM or Business Planning contact, not Purview CSS</li>
+    </ul>
+  </div>
+</div>
+
 <script>
-  const sections = ['faq','parity','licensing','messaging','objections','what-stays','escalation','glossary','sources'];
-  const navMap = { faq:'nav-faq', parity:'nav-parity', escalation:'nav-escalation', 'what-stays':'nav-what-stays', glossary:'nav-glossary' };
+  const sections = ['faq','parity','licensing','messaging','objections','what-stays','escalation','glossary','sources','handshake'];
+  const navMap = { faq:'nav-faq', parity:'nav-parity', escalation:'nav-escalation', 'what-stays':'nav-what-stays', glossary:'nav-glossary', handshake:'nav-handshake' };
 
   function showHome() {
     document.getElementById('home-view').classList.remove('hidden');
