@@ -398,21 +398,23 @@
       <div class="faq-a">
         <p><strong>No — MDA customers are NOT required to purchase any additional licenses.</strong> Microsoft is providing a promotional SKU (100% discount) to all MDA licensed customers:</p>
         <table class="simple-table" style="margin-top:8px;">
-          <thead><tr><th>Scenario</th><th>What the customer needs</th><th>Promo coverage</th></tr></thead>
+          <thead><tr><th>Scenario</th><th>What the customer needs</th><th>Setup required?</th><th>Promo coverage</th></tr></thead>
           <tbody>
             <tr>
               <td><strong>1P policies</strong> (SharePoint, OneDrive, Teams)</td>
-              <td>IP&amp;G license. Customers who do not currently have IP&amp;G will receive the promo SKU.</td>
+              <td>IP&amp;G licensing. Customers without IP&amp;G will receive the promo SKU.</td>
+              <td><strong>No setup needed</strong> — works as-is once IP&amp;G is confirmed.</td>
               <td>100% discount via promo SKU</td>
             </tr>
             <tr>
               <td><strong>3P policies</strong> (Box, Dropbox, Google Workspace, Salesforce)</td>
-              <td>IP&amp;G + 3P Pay-As-You-Go (PAYG) billing setup required. Customers will still receive 100% discount on PAYG charges via promo SKU.</td>
-              <td>100% discount via promo SKU</td>
+              <td>IP&amp;G + 3P Pay-As-You-Go (PAYG) account + connectors configured.</td>
+              <td><strong>Setup required</strong> — customer must configure a PAYG billing account in Azure AND turn on 3P connectors before 3P DLP capabilities work in Purview.</td>
+              <td>100% discount via promo SKU (covers PAYG charges)</td>
             </tr>
           </tbody>
         </table>
-        <p style="margin-top:8px;"><strong>What to tell the customer:</strong> There is no net new cost for migrating from MDA DLP to Purview DLP. The promo SKU covers both IP&amp;G entitlement and 3P PAYG charges for all MDA licensed customers. For empowerment guide details and further licensing questions, loop in your CSAM or Business Planning contact.</p>
+        <p style="margin-top:8px;"><strong>What to tell the customer:</strong> There is no net new cost for migrating from MDA DLP to Purview DLP. The promo SKU covers both IP&amp;G entitlement and 3P PAYG charges for all MDA licensed customers. For 3P customers, remind them that PAYG setup and connector configuration are required steps before policies go live. For further licensing questions, loop in your CSAM or Business Planning contact.</p>
       </div>
     </div>
 
