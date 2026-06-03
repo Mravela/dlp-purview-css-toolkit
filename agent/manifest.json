@@ -14,8 +14,8 @@
     "full": "MDA to Purview DLP Migration Assistant"
   },
   "description": {
-    "short": "CSS support agent for MDA → Purview DLP migration",
-    "full": "Helps CSS engineers answer customer questions on MDA file policy migration to Purview DLP — parity checks, escalation routing, licensing, and post-migration issues. Grounded strictly on the CSS toolkit. Does not hallucinate."
+    "short": "MDA → Purview DLP migration reference agent",
+    "full": "Answers questions on migrating from MDA file policies to Microsoft Purview DLP — parity gaps, licensing, escalation routing, post-migration issues, and customer-facing talking points. For CSS engineers and account teams. Grounded strictly on the migration toolkit."
   },
   "icons": {
     "color": "color.png",
