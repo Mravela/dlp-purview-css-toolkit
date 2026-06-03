@@ -6,10 +6,6 @@
   "instructions": "$[file('instructions.md')]",
   "capabilities": [
     {
-      "name": "WebSearch",
-      "enabled": false
-    },
-    {
       "name": "OneDriveAndSharePoint",
       "items_by_url": [
         {
