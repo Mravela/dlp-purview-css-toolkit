@@ -4,16 +4,7 @@
   "name": "MDA to Purview DLP Migration Assistant",
   "description": "Answers questions on migrating from MDA file policies to Microsoft Purview DLP — parity gaps, licensing, escalation routing, post-migration issues, and customer-facing talking points. For CSS engineers and account teams. Grounded strictly on the migration toolkit.",
   "instructions": "$[file('instructions.md')]",
-  "capabilities": [
-    {
-      "name": "OneDriveAndSharePoint",
-      "items_by_url": [
-        {
-          "url": "https://microsoftapc-my.sharepoint.com/:t:/g/personal/mravela_microsoft_com/IQCBePlsDGfNRZjVF3HzuKnWAQeP3BhS5z5q36ehAkL7koo?e=JCbfwn"
-        }
-      ]
-    }
-  ],
+  "capabilities": [],
   "conversation_starters": [
     {
       "title": "Check a parity condition",
