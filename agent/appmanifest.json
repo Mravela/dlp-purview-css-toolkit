@@ -10,8 +10,8 @@
     "termsOfUseUrl": "https://www.microsoft.com/servicesagreement"
   },
   "name": {
-    "short": "CSS Migration Agent",
-    "full": "MDA DLP Migration CSS Assistant"
+    "short": "DLP Migration Assistant",
+    "full": "MDA to Purview DLP Migration Assistant"
   },
   "description": {
     "short": "CSS support agent for MDA → Purview DLP migration",

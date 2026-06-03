@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.0/schema.json",
   "version": "v1.0",
-  "name": "MDA DLP Migration CSS Assistant",
+  "name": "MDA to Purview DLP Migration Assistant",
   "description": "CSS support agent for the MDA file policy migration to Microsoft Purview DLP. Answers parity questions, escalation routing, licensing, and post-migration issues — grounded strictly on the CSS toolkit.",
   "instructions": "$[file('instructions.md')]",
   "capabilities": [
