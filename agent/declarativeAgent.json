@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.0/schema.json",
+  "version": "v1.0",
+  "name": "MDA DLP Migration CSS Assistant",
+  "description": "CSS support agent for the MDA file policy migration to Microsoft Purview DLP. Answers parity questions, escalation routing, licensing, and post-migration issues — grounded strictly on the CSS toolkit.",
+  "instructions": "$[file('instructions.md')]",
+  "capabilities": [
+    {
+      "name": "WebSearch",
+      "enabled": false
+    },
+    {
+      "name": "OneDriveAndSharePoint",
+      "items_by_url": [
+        {
+          "url": "https://mravela.github.io/dlp-purview-css-toolkit/knowledge.md"
+        }
+      ]
+    }
+  ],
+  "conversation_starters": [
+    {
+      "title": "Check a parity condition",
+      "text": "My customer has a Parent Folder filter in their MDA policy. Can this migrate to Purview?"
+    },
+    {
+      "title": "Escalation routing",
+      "text": "Customer's Purview DLP policy is enabled but not enforcing. Who owns this and what do I capture?"
+    },
+    {
+      "title": "Licensing question",
+      "text": "Customer doesn't have IP&G licensing. Do they need to buy additional licenses to migrate?"
+    },
+    {
+      "title": "3P policy question",
+      "text": "My customer uses Salesforce. Does Purview DLP support it and what are the limitations?"
+    }
+  ]
+}

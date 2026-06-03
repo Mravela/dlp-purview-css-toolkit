@@ -1,0 +1,33 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.19/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.19",
+  "version": "1.0.0",
+  "id": "a3f8c2d1-7b44-4e9a-bc11-f20d3e8a5c62",
+  "developer": {
+    "name": "CSS DLP Migration Team",
+    "websiteUrl": "https://mravela.github.io/dlp-purview-css-toolkit/",
+    "privacyUrl": "https://privacy.microsoft.com",
+    "termsOfUseUrl": "https://www.microsoft.com/servicesagreement"
+  },
+  "name": {
+    "short": "CSS Migration Agent",
+    "full": "MDA DLP Migration CSS Assistant"
+  },
+  "description": {
+    "short": "CSS support agent for MDA → Purview DLP migration",
+    "full": "Helps CSS engineers answer customer questions on MDA file policy migration to Purview DLP — parity checks, escalation routing, licensing, and post-migration issues. Grounded strictly on the CSS toolkit. Does not hallucinate."
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "accentColor": "#0078D4",
+  "copilotAgents": {
+    "declarativeAgents": [
+      {
+        "id": "dlp-migration-css-agent",
+        "file": "declarativeAgent.json"
+      }
+    ]
+  }
+}
