@@ -1292,6 +1292,41 @@
       <li><div class="cl-box"></div><div><strong>Urgency signal</strong> — churn risk, exec visibility, Dec 31 2026 deadline pressure</div></li>
     </ul>
   </div>
+
+  <!-- PG Escalation -->
+  <div class="content-block" style="margin-top:20px;">
+    <h3>Escalating to Product Group</h3>
+    <p style="font-size:0.95rem; color:var(--cp-text-muted); margin-bottom:16px;">Use this path when a customer challenges the deprecation itself — not a technical issue, but a business or policy objection. These cannot be resolved by CSS.</p>
+    <table class="simple-table">
+      <thead><tr><th style="width:42%">Customer says</th><th style="width:28%">CSS response</th><th>Escalate to PG?</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>"Why are you deprecating MDA DLP?"</td>
+          <td>Use official PMM messaging — see <a href="#" onclick="showSection('messaging'); return false;" style="color:var(--cp-link)">Messaging &amp; Objections</a></td>
+          <td><span style="color:var(--cp-success); font-weight:600;">No — self-serve</span></td>
+        </tr>
+        <tr>
+          <td>"I want this MDA feature to exist in Purview"</td>
+          <td>Acknowledge the gap, document use case and business impact with tenant ID</td>
+          <td><span style="color:var(--cp-warning); font-weight:600;">Yes → PG DL</span></td>
+        </tr>
+        <tr>
+          <td>"I want an exception from the deprecation"</td>
+          <td><strong>There are no exceptions.</strong> Be transparent — the deprecation applies to all customers without exception. Do not raise to PG.</td>
+          <td><span style="color:var(--cp-danger); font-weight:600;">No — do not escalate</span></td>
+        </tr>
+        <tr>
+          <td>"This feature gap is blocking my business / I cannot migrate"</td>
+          <td>Acknowledge the blocker. Document: exact gap, customer use case, business impact, tenant ID, deadline risk.</td>
+          <td><span style="color:var(--cp-warning); font-weight:600;">Yes → PG DL</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:14px; padding:12px 16px; background:var(--cp-accent-soft); border-radius:8px; font-size:0.9rem;">
+      <strong>How to escalate to PG:</strong> Send to the MDA + Purview LT distribution list — include tenant ID, customer name, specific ask, and business impact.<br>
+      <span style="color:var(--cp-warning);">⚠️ <strong>PG escalation DL: [To be confirmed — DL is being created. Check with Madhurika Ravela before use.]</strong></span>
+    </div>
+  </div>
 </div>
 
 <!-- ══════════════════════════════════
@@ -1391,6 +1426,10 @@
         <tr><td>5</td><td>MDA CSS engineer remains CC'd until customer confirms resolution</td><td>MDA CSS engineer</td></tr>
       </tbody>
     </table>
+    <div style="margin-top:10px; padding:10px 14px; background:var(--cp-accent-soft); border-radius:8px; font-size:0.9rem;">
+      <strong>Handoff mechanism:</strong> Transfer the ICM ticket to the Purview CSS queue.<br>
+      <span style="color:var(--cp-warning);">⚠️ <strong>Purview CSS ICM queue: [To be confirmed with Purview CSS team — do not transfer without the correct queue name.]</strong></span>
+    </div>
   </div>
 
   <div class="content-block">
