@@ -1420,7 +1420,7 @@
       <thead><tr><th>Step</th><th>Action</th><th>Owner</th></tr></thead>
       <tbody>
         <tr><td>1</td><td>Confirm customer is actively migrating or has completed migration to Purview DLP</td><td>MDA CSS engineer</td></tr>
-        <tr><td>2</td><td>Check parity gap — if issue is a known Cannot Migrate condition, route to product feedback intake (do not hand to Purview CSS)</td><td>MDA CSS engineer</td></tr>
+        <tr><td>2</td><td>Check parity gap — if issue is a known Cannot Migrate condition, hand off to Purview CSS. Purview CSS owns routing to their PG for product feedback. MDA CSS cannot action these.</td><td>MDA CSS engineer</td></tr>
         <tr><td>3</td><td>If issue is Purview-side (config, policy behaviour, connector), initiate warm handoff to Purview CSS SPOC</td><td>MDA CSS engineer</td></tr>
         <tr><td>4</td><td>Purview CSS SPOC acknowledges and picks up the case — customer is introduced to the new engineer</td><td>Purview CSS SPOC</td></tr>
         <tr><td>5</td><td>MDA CSS engineer remains CC'd until customer confirms resolution</td><td>MDA CSS engineer</td></tr>
@@ -1435,7 +1435,7 @@
   <div class="content-block">
     <h3>What NOT to hand off</h3>
     <ul>
-      <li>Cases where the root cause is a <strong>parity gap</strong> (Cannot Migrate condition) — route to product feedback intake instead</li>
+      <li>Cases where the root cause is a <strong>parity gap</strong> (Cannot Migrate condition) — <strong>hand off to Purview CSS</strong>. Purview CSS raises to their PG. MDA CSS cannot action these.</li>
       <li>Cases still in <strong>pre-migration assessment</strong> — keep with MDA CSS until customer is ready to migrate</li>
       <li>Licensing questions — handle via CSAM or Business Planning contact, not Purview CSS</li>
     </ul>
