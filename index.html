@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -466,7 +466,7 @@
         <span class="faq-chevron">▶</span>
       </div>
       <div class="faq-a">
-        <p><em>Answer pending — to be confirmed once migration tool scope is finalised.</em></p>
+        <p><em>TBD</em></p>
       </div>
     </div>
 
@@ -476,7 +476,7 @@
         <span class="faq-chevron">▶</span>
       </div>
       <div class="faq-a">
-        <p><em>Answer pending — to be confirmed once migration tool scope is finalised.</em></p>
+        <p><em>TBD</em></p>
       </div>
     </div>
 
@@ -486,7 +486,7 @@
         <span class="faq-chevron">▶</span>
       </div>
       <div class="faq-a">
-        <p><em>Answer pending — official customer-facing framing to be provided by PMM.</em></p>
+        <p><em>TBD</em></p>
       </div>
     </div>
 
@@ -648,7 +648,7 @@
         <span class="faq-chevron">▶</span>
       </div>
       <div class="faq-a">
-        <p><em>Answer pending — roadmap details to be confirmed with PG. Do not promise a date to customers.</em></p>
+        <p>Roadmap queries will be addressed by Purview PG. Hand off to Purview CSS.</p>
       </div>
     </div>    <!-- ── SECTION 4: AUTO-LABEL ── -->
     <div id="faq-autolabel" style="margin:20px 0 6px; padding:6px 0 4px; border-bottom:2px solid var(--cp-border); font-size:0.8rem; font-weight:700; color:var(--cp-text-muted); text-transform:uppercase; letter-spacing:.06em;">4 · Auto-labeling Policies</div>
@@ -691,35 +691,16 @@
       </div>
       <div class="faq-a">
         <p><strong>This is a Purview CSS question — hand off the case.</strong> Once a policy is created and enabled in Purview, enforcement issues are owned by Purview CSS.</p>
-        <p><strong>Before handing off, verify:</strong></p>
-        <ul style="margin:8px 0 0 16px;">
-          <li>Policy is <strong>not</strong> still in Simulation mode (check policy status in Purview DLP)</li>
-          <li>For 3P: MDA connector is healthy — check in security.microsoft.com → Cloud Apps → Connected apps</li>
-          <li>Policy is scoped to the correct location (sites, users, or app instance)</li>
-        </ul>
-        <p style="margin-top:8px;">If connector is healthy and policy is on but still not enforcing → <strong>route to Purview CSS</strong>.</p>
-        <p class="faq-ref">→ See: <a onclick="showSection('escalation')" href="#" style="color:var(--cp-link)">Escalation Guide</a> for routing steps</p>
       </div>
-    </div>
-
-    <div class="faq-item">
+    </div>    <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">
         <span>Labels are not being applied by my auto-labeling policy. What should I check?</span>
         <span class="faq-chevron">▶</span>
       </div>
       <div class="faq-a">
         <p><strong>This is a Purview CSS question — hand off if basic checks pass.</strong></p>
-        <p><strong>Check first (MDA CSS scope):</strong></p>
-        <ul style="margin:8px 0 0 16px;">
-          <li>Is the auto-labeling policy still in <strong>Simulation mode</strong>? If yes — labels won't apply until turned on.</li>
-          <li>Is the sensitivity label <strong>published</strong> to the relevant users in the label policy?</li>
-          <li>Is the policy scoped to the correct SharePoint site / OneDrive accounts?</li>
-        </ul>
-        <p style="margin-top:8px;">If all checks pass and labels still not applying → <strong>route to Purview CSS</strong>.</p>
       </div>
-    </div>
-
-    <div class="faq-item">
+    </div>    <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">
         <span>Can MDA and Purview policies run at the same time? What happens if both are active?</span>
         <span class="faq-chevron">▶</span>
@@ -728,10 +709,10 @@
         <p><strong>No — they cannot co-exist.</strong> Running equivalent policies in both MDA and Purview simultaneously creates enforcement conflicts: files may be double-matched, actions may conflict, and alerts will be duplicated.</p>
         <p style="margin-top:8px;"><strong>Correct sequence once satisfied with Purview coverage:</strong></p>
         <ol style="margin:8px 0 0 16px;">
-          <li>Run Purview policy in simulation for 1–2 weeks — validate coverage, tune false positives</li>
-          <li><strong>Disable the corresponding MDA policy</strong> — security.microsoft.com → Cloud Apps → Policies → Edit → Disable</li>
+          <li>Run Purview policy in simulation mode — validate coverage, tune false positives</li>
+          <li><strong>Disable the corresponding MDA policy</strong> — security.microsoft.com → Cloud Apps → Policies → Information Protection → Edit → Disable</li>
           <li>Enable the Purview policy for enforcement</li>
-          <li>Monitor for 1–2 weeks, then delete the MDA policy</li>
+          <li>Monitor for a few weeks, then disable the MDA policy</li>
         </ol>
         <div style="margin-top:10px; padding:8px 12px; background:rgba(220,38,38,0.08); border-radius:6px; font-size:0.88rem; color:var(--cp-danger);">
           <strong>Never enable a Purview policy while the equivalent MDA policy is still active.</strong>
@@ -1175,13 +1156,13 @@
         <tbody>
           <tr>
             <td>Purview DLP license not valid or not showing</td>
-            <td><span style="font-weight:600; color:var(--cp-warning)">Billing / Tenant admin</span></td>
-            <td>Confirm tenant license SKU. CSS does not troubleshoot licensing — point customer to admin portal or billing team. Share <a href="https://learn.microsoft.com/en-us/purview/dlp-overview-plan-for-dlp" target="_blank" style="color:var(--cp-link)">licensing docs</a>.</td>
+            <td><span style="font-weight:600; color:var(--cp-warning)">MDA CSS</span></td>
+            <td>MDA CSS does not troubleshoot licensing — point customer to admin portal and hand off case to Purview CSS.</td>
           </tr>
           <tr>
             <td>Admin missing Purview Compliance or IP Admin role</td>
-            <td><span style="font-weight:600; color:var(--cp-warning)">Customer's IT Admin</span></td>
-            <td>Identify the specific missing role. Share role assignment steps. CSS confirms requirement — does not assign roles.</td>
+            <td><span style="font-weight:600; color:var(--cp-warning)">MDA CSS</span></td>
+            <td>MDA CSS specifies what role is needed and hands off to Purview CSS.</td>
           </tr>
           <tr>
             <td>3P connector not connecting (Box, Dropbox, Google Workspace, Salesforce)</td>
@@ -1211,20 +1192,26 @@
           <tr>
             <td>MDA action has no Purview equivalent (e.g. User Quarantine, Trash file)</td>
             <td><span style="font-weight:600; color:var(--cp-success)">MDA CSS advises → Purview CSS</span></td>
-            <td>Confirm gap using Parity Depth Library. Share documented workaround (Power Automate flow, Restrict Access). Set honest expectation — known gap. Hand off to Purview CSS for workaround implementation.</td>
+            <td>Set honest expectation — known gap. Confirm gap using Parity Depth Library. Hand off to Purview CSS.</td>
           </tr>
           <tr>
             <td>Customer wants to migrate label-apply action — unsure where auto-labeling policy goes</td>
             <td><span style="font-weight:600; color:var(--cp-success)">MDA CSS advises → Purview CSS</span></td>
-            <td>Advise: label apply/remove actions move to <strong>Purview Information Protection → Auto-labeling policy</strong>, not a DLP policy. One auto-label policy per label, run in simulation first. Hand off to Purview CSS for configuration.</td>
+            <td>Advise: label apply/remove actions move to <strong>Purview Information Protection → Auto-labeling policy</strong>, not a DLP policy. Hand off to Purview CSS for configuration.</td>
           </tr>
           <tr>
             <td>Policy created in Purview but not matching expected content</td>
             <td><span style="font-weight:600; color:var(--cp-link)">Purview CSS</span></td>
             <td>Hand off immediately — this is a Purview-side issue. Capture before routing: policy name, SIT or label condition used, workload scoped, test file details, Activity Explorer output.</td>
           </tr>
+          <tr>
+            <td>Customer blocked on a gap and cannot complete migration</td>
+            <td><span style="font-weight:600; color:var(--cp-link)">Purview CSS</span></td>
+            <td>Do not unblock with workarounds that change security posture. Route to Purview CSS with full context. Escalate urgency if Jan 6, 2026 deadline is at risk.</td>
+          </tr>
         </tbody>
       </table>
+      <div style="margin-top:12px; padding:10px 14px; background:rgba(220,38,38,0.08); border-radius:8px; font-size:0.9rem; color:var(--cp-danger);"><strong>Deprecation deadline:</strong> Jan 6, 2026 — the date MDA file policies are turned off. Customers must complete migration before this date.</div>
     </div>
 
     <!-- Stage 3: Parity Gaps -->
@@ -1243,7 +1230,7 @@
           <tr>
             <td>Customer blocked on a gap and cannot complete migration</td>
             <td><span style="font-weight:600; color:var(--cp-link)">Purview CSS</span></td>
-            <td>Do not unblock with workarounds that change security posture. Route to Purview CSS with full context. Escalate urgency if Dec 31, 2026 deadline is at risk.</td>
+            <td>Do not unblock with workarounds that change security posture. Route to Purview CSS with full context. Escalate urgency if Jan 6, 2026 deadline is at risk.</td>
           </tr>
         </tbody>
       </table>
