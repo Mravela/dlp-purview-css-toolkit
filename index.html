@@ -286,6 +286,7 @@
     <a class="nav-link" id="nav-what-stays" onclick="showSection('what-stays')">What Changes</a>
     <a class="nav-link" id="nav-glossary" onclick="showSection('glossary')">Glossary</a>
     <a class="nav-link" id="nav-handshake" onclick="showSection('handshake')">CSS Handshake</a>
+    <a class="nav-link" id="nav-policy-timeline" onclick="showSection('policy-timeline')">Policy Timeline</a>
   </div>
   <div class="topnav-right">
     <span class="version-badge">Skeleton</span>
@@ -334,6 +335,9 @@
       </div>
       <div class="card" onclick="showSection('handshake')">
         <div><div class="card-label">Purview CSS Handshake</div><div class="card-sub">SPOCs, escalation contacts &amp; warm handoff protocol</div></div>
+      </div>
+      <div class="card" onclick="showSection('policy-timeline')">
+        <div><div class="card-label">Policy Timeline</div><div class="card-sub">What customers experience during &amp; after deprecation</div></div>
       </div>
     </div>
   </div>
@@ -1429,9 +1433,254 @@
   </div>
 </div>
 
+<!-- ══════════════════════════════════
+     SECTION: POLICY TIMELINE
+═══════════════════════════════════ -->
+<div class="section-page" id="section-policy-timeline">
+  <span class="back-link" onclick="showHome()">← Home</span>
+  <div class="page-title">Policy Timeline — What Customers Experience</div>
+  <div class="page-meta">
+    <span>Owner: CSS DLP Migration Team</span>
+    <span>Last updated: June 2026</span>
+  </div>
+
+  <!-- Timeline overview banner -->
+  <div style="padding:18px 22px; background:linear-gradient(135deg,#0f1f3d 0%,#1a1040 60%,#2d0a2e 100%); border-radius:10px; color:#fff; margin-bottom:20px;">
+    <div style="font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--cp-accent); margin-bottom:10px;">Deprecation Overview</div>
+    <p style="font-size:15px; color:rgba(255,255,255,0.75); line-height:1.7; margin-bottom:14px;">
+      MDA file policies follow a two-phase wind-down. The first phase gives customers six months to migrate; the second phase permanently removes all file policy surfaces from MDA.
+    </p>
+    <div style="display:grid; grid-template-columns:1fr auto 1fr; gap:0; align-items:center;">
+      <div style="background:rgba(217,119,6,0.18); border:1px solid rgba(217,119,6,0.5); border-radius:8px; padding:14px 18px; text-align:center;">
+        <div style="font-size:12px; font-weight:700; color:#fbbf24; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px;">Phase 1 · Deprecation Notice</div>
+        <div style="font-size:17px; font-weight:700; color:#fff;">Jul 6, 2026 → Jan 6, 2027</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.6); margin-top:4px;">Policies still run · Customers notified · Migration window</div>
+      </div>
+      <div style="padding:0 14px; font-size:22px; color:rgba(255,255,255,0.3);">→</div>
+      <div style="background:rgba(220,38,38,0.18); border:1px solid rgba(220,38,38,0.5); border-radius:8px; padding:14px 18px; text-align:center;">
+        <div style="font-size:12px; font-weight:700; color:#f87171; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px;">Phase 2 · Full Removal</div>
+        <div style="font-size:17px; font-weight:700; color:#fff;">Jan 6, 2027 onwards</div>
+        <div style="font-size:13px; color:rgba(255,255,255,0.6); margin-top:4px;">All file policy surfaces removed from MDA</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase 1 -->
+  <div id="block-phase1" class="content-block">
+    <h3 style="display:flex; align-items:center; gap:10px;">
+      <span style="background:rgba(217,119,6,0.12); color:#d97706; font-size:13px; font-weight:700; padding:3px 10px; border-radius:20px; white-space:nowrap;">Phase 1</span>
+      During Deprecation Notice Period — Jul 6, 2026 to Jan 6, 2027
+    </h3>
+    <p style="font-size:0.95rem; color:var(--cp-text-muted); margin-bottom:16px;">
+      Policies continue to run. Customers receive in-product deprecation notices and are directed to migrate to Purview DLP before the enforcement deadline.
+    </p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;">
+      <div style="padding:14px 16px; border-radius:8px; border-left:4px solid var(--cp-success); background:rgba(22,163,74,0.06); font-size:0.9rem;">
+        <strong style="color:var(--cp-success); display:block; margin-bottom:6px;">✓ Still works</strong>
+        <ul style="padding-left:16px; color:var(--cp-text); line-height:1.9; margin:0;">
+          <li>Existing file policies continue to evaluate and enforce</li>
+          <li>Policy matches are recorded in governance logs</li>
+          <li>Governance actions execute (quarantine, notify, restrict)</li>
+          <li>Alerts are generated and visible in MDA</li>
+          <li>Tasks and activities from policy matches remain visible</li>
+          <li>Customers can still create, edit, and disable file policies</li>
+        </ul>
+      </div>
+      <div style="padding:14px 16px; border-radius:8px; border-left:4px solid var(--cp-warning); background:rgba(217,119,6,0.06); font-size:0.9rem;">
+        <strong style="color:var(--cp-warning); display:block; margin-bottom:6px;">⚠ What's changing</strong>
+        <ul style="padding-left:16px; color:var(--cp-text); line-height:1.9; margin:0;">
+          <li>In-product deprecation banners and notices appear in MDA</li>
+          <li>Migration recommendation prompts are shown to admins</li>
+          <li>Microsoft communications (Message Center + email) go out</li>
+          <li>No new feature development for MDA file policies</li>
+          <li>This is the window to complete migration — no exceptions</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin:20px 0 10px; font-size:16px;">What Customers See in MDA (Phase 1)</h3>
+    <table class="simple-table">
+      <thead><tr><th>MDA Surface</th><th>What the Customer Sees</th><th>Impact</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Cloud Apps → Policies → Information Protection</td>
+          <td>Existing file policies listed with a deprecation notice banner; policies are still active</td>
+          <td class="partial">Notice only — no change to enforcement</td>
+        </tr>
+        <tr>
+          <td>Policy matches / Governance logs</td>
+          <td>Matches continue to populate; governance log entries appear as normal</td>
+          <td class="full">Fully operational</td>
+        </tr>
+        <tr>
+          <td>Alerts dashboard (MDA)</td>
+          <td>Alerts from file policy matches continue to appear</td>
+          <td class="full">Fully operational</td>
+        </tr>
+        <tr>
+          <td>Governance tasks (e.g. quarantine, notify)</td>
+          <td>Tasks generated by file policies continue to execute and are visible</td>
+          <td class="full">Fully operational</td>
+        </tr>
+        <tr>
+          <td>Policy creation / editing</td>
+          <td>New file policies can still be created; existing ones editable — with deprecation notice</td>
+          <td class="partial">Operational with warnings</td>
+        </tr>
+        <tr>
+          <td>Message Center notifications</td>
+          <td>Official MC post about deprecation and migration steps; links to Purview migration guidance</td>
+          <td class="partial">Informational — action required</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:16px; padding:12px 16px; background:rgba(217,119,6,0.08); border-radius:8px; font-size:0.9rem; border-left:4px solid var(--cp-warning);">
+      <strong style="color:var(--cp-warning);">CSS Guidance for Phase 1 cases:</strong>
+      <ul style="padding-left:16px; color:var(--cp-text); margin:8px 0 0; line-height:1.8;">
+        <li>Customers asking about deprecation notices → confirm timeline: Phase 1 ends Jan 6, 2027. Policies still run; migration is required before that date.</li>
+        <li>Customers asking whether they must act immediately → advise they have the migration window but should start now; enforcement gaps widen closer to the deadline.</li>
+        <li>Customers wanting to delay → acknowledge timeline; there are <strong>no exceptions or extensions</strong>. Direct to migration guidance and offer to help scope the effort.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div id="block-phase2" class="content-block" style="margin-top:12px;">
+    <h3 style="display:flex; align-items:center; gap:10px;">
+      <span style="background:rgba(220,38,38,0.12); color:#dc2626; font-size:13px; font-weight:700; padding:3px 10px; border-radius:20px; white-space:nowrap;">Phase 2</span>
+      Post Jan 6, 2027 — Full Removal from MDA
+    </h3>
+
+    <div style="margin:14px 0; padding:14px 18px; background:rgba(220,38,38,0.07); border:1px solid rgba(220,38,38,0.3); border-radius:8px; font-size:0.95rem;">
+      <strong style="color:var(--cp-danger);">Important — Uber Clarification:</strong>
+      <p style="margin:8px 0 0; color:var(--cp-text); line-height:1.7;">
+        Everything related to file policies is <strong>permanently removed from all MDA surfaces</strong> on Jan 6, 2027. This includes the policies themselves, their enforcement engine, all historical matches, governance logs, policy-generated tasks, and all related alerts. <strong>There is no rollback and no grace period after this date.</strong>
+      </p>
+    </div>
+
+    <h3 style="margin:18px 0 10px; font-size:16px;">What Is Removed — Complete Surface Inventory</h3>
+    <table class="simple-table">
+      <thead><tr><th>MDA Surface / Capability</th><th>Status Post Jan 6, 2027</th><th>Where to go instead</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>File Policies</strong> (Cloud Apps → Policies → Information Protection)</td>
+          <td class="gap">Removed</td>
+          <td>Purview → Data loss prevention → Policies</td>
+        </tr>
+        <tr>
+          <td><strong>Policy enforcement</strong> (content scanning, action execution)</td>
+          <td class="gap">Removed — no more scans or actions</td>
+          <td>Purview DLP policy with simulation → enforcement mode</td>
+        </tr>
+        <tr>
+          <td><strong>Policy matches</strong> (historical match records in MDA)</td>
+          <td class="gap">Removed — not migrated to Purview</td>
+          <td>Purview Activity Explorer (for new matches post-migration)</td>
+        </tr>
+        <tr>
+          <td><strong>Governance logs</strong> (MDA file policy governance actions log)</td>
+          <td class="gap">Removed — not migrated to Purview</td>
+          <td>Purview DLP Alerts + Activity Explorer (going forward only)</td>
+        </tr>
+        <tr>
+          <td><strong>Governance tasks</strong> (quarantine tasks, notify tasks, action queue)</td>
+          <td class="gap">Removed — pending tasks will not complete</td>
+          <td>Purview Admin Quarantine (for quarantine scenarios post-migration)</td>
+        </tr>
+        <tr>
+          <td><strong>File policy alerts</strong> (in MDA Alerts dashboard)</td>
+          <td class="gap">Removed — no new alerts generated</td>
+          <td>Purview → Data loss prevention → Alerts</td>
+        </tr>
+        <tr>
+          <td><strong>Policy-linked notifications / emails</strong></td>
+          <td class="gap">Removed — no new notifications from MDA file policies</td>
+          <td>Purview DLP user notifications and incident reports</td>
+        </tr>
+        <tr>
+          <td><strong>File policy simulation / test mode</strong></td>
+          <td class="gap">Removed</td>
+          <td>Purview DLP Simulation mode</td>
+        </tr>
+        <tr>
+          <td><strong>Auto-labeling via file policy governance action</strong></td>
+          <td class="gap">Removed</td>
+          <td>Purview Information Protection → Auto-labeling policy</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:16px; padding:14px 18px; background:rgba(220,38,38,0.06); border-radius:8px; font-size:0.9rem; border-left:4px solid var(--cp-danger);">
+      <strong style="color:var(--cp-danger);">What this means for customers who have NOT migrated by Jan 6, 2027:</strong>
+      <ul style="padding-left:16px; color:var(--cp-text); margin:8px 0 0; line-height:1.9;">
+        <li>All file policy enforcement <strong>stops immediately</strong> — sensitive files that were being governed are no longer protected</li>
+        <li>Historical match records and governance logs are gone — no audit trail from MDA for compliance purposes</li>
+        <li>Pending tasks (e.g. quarantined files awaiting review) will not be accessible through MDA</li>
+        <li>Customers bear full responsibility for the data protection gap if migration is not completed</li>
+      </ul>
+    </div>
+
+    <h3 style="margin:20px 0 10px; font-size:16px;">What Persists in MDA After Jan 6, 2027</h3>
+    <p style="font-size:0.9rem; color:var(--cp-text-muted); margin-bottom:10px;">Not everything in MDA is affected. Non-file-policy capabilities remain intact.</p>
+    <table class="simple-table">
+      <thead><tr><th>MDA Capability</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>App discovery &amp; shadow IT</td><td class="full">Unaffected</td><td>No change</td></tr>
+        <tr><td>Session / access policies (Conditional Access App Control)</td><td class="full">Unaffected</td><td>No change</td></tr>
+        <tr><td>Activity / threat policies</td><td class="full">Unaffected</td><td>No change</td></tr>
+        <tr><td>App connectors (Box, Dropbox, Google Workspace, Salesforce)</td><td class="full">Unaffected</td><td>Connectors persist — still required for Purview 3P DLP</td></tr>
+        <tr><td>Anomaly detection / UEBA</td><td class="full">Unaffected</td><td>No change</td></tr>
+        <tr><td>Governance actions for session policies</td><td class="full">Unaffected</td><td>Only file policy governance actions are removed</td></tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:16px; padding:12px 16px; background:var(--cp-accent-soft); border-radius:8px; font-size:0.9rem;">
+      <strong>CSS Guidance for Phase 2 cases:</strong>
+      <ul style="padding-left:16px; color:var(--cp-text); margin:8px 0 0; line-height:1.8;">
+        <li>Customers asking why their policies are gone → confirm they have passed the Jan 6, 2027 deadline. Migration was required; there is no restore path.</li>
+        <li>Customers asking for historical match data from MDA → this data is not migrated and is not recoverable. Forward-looking data only exists in Purview Activity Explorer if a Purview policy was active.</li>
+        <li>Customers asking about pending quarantine tasks → tasks no longer exist in MDA. If a Purview quarantine policy was in place, direct them to Purview → Data loss prevention → Policies → [Policy] → Admin quarantine.</li>
+        <li>Any enforcement or match issue post-Jan 6, 2027 → route to <strong>Purview CSS</strong>. MDA CSS does not own Purview-side investigations.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Timeline summary card -->
+  <div class="content-block" style="margin-top:12px;">
+    <h3>Quick Reference — Timeline at a Glance</h3>
+    <table class="simple-table">
+      <thead><tr><th>Date</th><th>Milestone</th><th>Customer Action Required</th></tr></thead>
+      <tbody>
+        <tr>
+          <td style="white-space:nowrap; font-weight:600;">Jul 6, 2026</td>
+          <td>Deprecation announcement goes out. Phase 1 begins. In-product notices appear in MDA.</td>
+          <td class="partial">Begin migration planning</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap; font-weight:600;">Jul 6 – Jan 6</td>
+          <td>6-month migration window. File policies still run in MDA. Purview policies can run in parallel (simulation mode).</td>
+          <td class="partial">Create &amp; validate Purview policies; disable MDA policies once Purview is confirmed</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap; font-weight:600;">Jan 6, 2027</td>
+          <td><strong>Phase 2 begins.</strong> All file policies, enforcement, matches, governance logs, tasks and alerts are removed from MDA.</td>
+          <td class="gap">Migration must be complete before this date</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap; font-weight:600;">Post Jan 6, 2027</td>
+          <td>File policy surfaces are permanently gone from MDA. Only Purview DLP governs file content.</td>
+          <td class="full">No action — Purview DLP is the system of record</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 <script>
-  const sections = ['faq','parity','licensing','messaging','objections','what-stays','escalation','glossary','sources','handshake'];
-  const navMap = { faq:'nav-faq', parity:'nav-parity', escalation:'nav-escalation', 'what-stays':'nav-what-stays', glossary:'nav-glossary', handshake:'nav-handshake' };
+  const sections = ['faq','parity','licensing','messaging','objections','what-stays','escalation','glossary','sources','handshake','policy-timeline'];
+  const navMap = { faq:'nav-faq', parity:'nav-parity', escalation:'nav-escalation', 'what-stays':'nav-what-stays', glossary:'nav-glossary', handshake:'nav-handshake', 'policy-timeline':'nav-policy-timeline' };
 
   function showHome() {
     document.getElementById('home-view').classList.remove('hidden');
